@@ -1,0 +1,40 @@
+{
+    "en": {
+        "login": "Login",
+        "dashboard": "Dashboard",
+        "settings": "Settings",
+        "home": "Home",
+        "english": "English",
+        "french": "Français",
+        "simplifiedChinese": "简体中文",
+        "loading": "Loading...",
+        "footer.aboutTitle": "About",
+        "footer.aboutText": "Feed Me Now is an app that recommends recipes based on ingredients I have in my fridge or pantry list.",
+        "footer.socialTitle": "Social"
+    },
+    "fr": {
+        "login": "Connexion",
+        "dashboard": "Tableau de bord",
+        "settings": "Paramètres",
+        "home": "Accueil",
+        "english": "English",
+        "french": "Français",
+        "simplifiedChinese": "简体中文",
+        "loading": "Chargement...",
+        "footer.aboutTitle": "À propos",
+        "footer.aboutText": "",
+        "footer.socialTitle": "Social"
+        },
+    "zh-cn": {
+        "login": "登录",
+        "dashboard": "仪表板",
+        "settings": "设置",
+        "home": "首页",
+        "english": "English",
+        "french": "Français",
+        "simplifiedChinese": "简体中文",
+        "loading": "加载中...",
+        "footer.aboutTitle": "关于",
+        "footer.aboutText": "",
+        "footer.socialTitle": "社交" }
+    }
