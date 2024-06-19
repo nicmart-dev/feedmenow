@@ -14,8 +14,6 @@ const PORT = process.env.PORT || 5000; // Define the port number, use environmen
 const cors = require('cors');
 
 /* Import routes */
-const calendarRoutes = require('./routes/calendarRoutes');
-const authRoutes = require('./routes/authRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 
 // Middleware
