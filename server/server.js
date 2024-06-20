@@ -1,20 +1,21 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 
 // load environment variables from a .env file into process.env
-const dotenv = require('dotenv')
-const envConfig = dotenv.config()
+const dotenv = require("dotenv");
+const path = require("path");
+const envConfig = dotenv.config();
 
 // Expand environment variables for nested variables
-const dotenvExpand = require('dotenv-expand')
-dotenvExpand.expand(envConfig)
+const dotenvExpand = require("dotenv-expand");
+dotenvExpand.expand(envConfig);
 
 const PORT = process.env.PORT || 5000; // Define the port number, use environment variable if available
 
-const cors = require('cors');
+const cors = require("cors");
 
 /* Import routes */
-const usersRoutes = require('./routes/usersRoutes');
+const usersRoutes = require(path.join(__dirname, "./routes/usersRoutes"));
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
@@ -22,14 +23,14 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(cors()); // allow * / all to access our api. All domains, ips, ports
 
 // Default route
-app.get('/', (req, res) => {
-    res.send('Welcome to LinguistNow API server!');
+app.get("/", (req, res) => {
+  res.send("Welcome to LinguistNow API server!");
 });
 
 // Use routes to handle user data
-app.use('/api/users', usersRoutes);
+app.use("/api/users", usersRoutes);
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

@@ -1,7 +1,8 @@
 const express = require('express');
+const path = require("path");
 const router = express.Router();
 
-const usersController = require('../controllers/usersController');
+const usersController = require(path.join(__dirname, '../controllers/usersController'));
 
 // Route for getting all users
 router.get('/', usersController.getAll);
