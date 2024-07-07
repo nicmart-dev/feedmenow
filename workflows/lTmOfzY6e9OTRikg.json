@@ -1,0 +1,40 @@
+{
+  "id": "lTmOfzY6e9OTRikg",
+  "name": "Feed Me Now recipe recommendations",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "recommend-recipes",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "79f9ed05-1b98-4b7d-98bf-a7f6183257eb",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -120,
+        420
+      ],
+      "webhookId": "b62bcef3-c635-46a0-9f97-0ba3a98b7b9e"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "triggerCount": 0,
+  "versionId": "27d729e6-88b2-42d5-b0c6-e02bb833db0c",
+  "owner": {
+    "type": "team",
+    "teamId": "cjG8EoFSt1a19sBb",
+    "teamName": "Feed Me Now"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "tags": [
+    {
+      "id": "ir36ZJyzYyCgKgW8",
+      "name": "notion"
+    },
+    {
+      "id": "mn7qIHPIXwp2h4Sy",
+      "name": "webhook"
+    }
+  ],
+  "mappings": [
+    {
+      "workflowId": "MFvVrJC3kty8CPd5",
+      "tagId": "ir36ZJyzYyCgKgW8"
+    },
+    {
+      "workflowId": "MFvVrJC3kty8CPd5",
+      "tagId": "mn7qIHPIXwp2h4Sy"
+    }
+  ]
+}

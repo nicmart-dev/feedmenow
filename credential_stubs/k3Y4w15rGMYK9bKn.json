@@ -1,0 +1,13 @@
+{
+  "id": "k3Y4w15rGMYK9bKn",
+  "name": "Header Auth account",
+  "type": "httpHeaderAuth",
+  "data": {
+    "name": "",
+    "value": "={{ $('Webhook').item.json[\"headers\"][\"authorization\"] }}"
+  },
+  "ownedBy": {
+    "type": "personal",
+    "personalEmail": "nicmart@gmail.com"
+  }
+}
