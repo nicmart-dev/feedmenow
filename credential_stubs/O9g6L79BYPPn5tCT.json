@@ -1,0 +1,13 @@
+{
+  "id": "O9g6L79BYPPn5tCT",
+  "name": "OpenAi account",
+  "type": "openAiApi",
+  "data": {
+    "apiKey": ""
+  },
+  "ownedBy": {
+    "type": "team",
+    "teamId": "cjG8EoFSt1a19sBb",
+    "teamName": "Feed Me Now"
+  }
+}

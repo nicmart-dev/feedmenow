@@ -18,20 +18,55 @@
         420
       ],
       "webhookId": "b62bcef3-c635-46a0-9f97-0ba3a98b7b9e"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "messages": {
+          "values": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "id": "78c7779f-b23b-4a56-b559-95f2312edb7a",
+      "name": "OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4,
+      "position": [
+        100,
+        420
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "O9g6L79BYPPn5tCT",
+          "name": "OpenAi account"
+        }
+      }
     }
   ],
   "connections": {
     "Webhook": {
       "main": [
-        []
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
   "settings": {
     "executionOrder": "v1"
   },
-  "triggerCount": 0,
-  "versionId": "27d729e6-88b2-42d5-b0c6-e02bb833db0c",
+  "triggerCount": 1,
+  "versionId": "5cde88cb-3b60-4ab9-b98d-c72306efbfae",
   "owner": {
     "type": "team",
     "teamId": "cjG8EoFSt1a19sBb",
