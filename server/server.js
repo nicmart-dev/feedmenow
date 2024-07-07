@@ -16,6 +16,7 @@ const cors = require("cors");
 
 /* Import routes */
 const usersRoutes = require(path.join(__dirname, "./routes/usersRoutes"));
+const recipesRoutes = require(path.join(__dirname, "./routes/recipesRoutes"));
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
@@ -24,11 +25,14 @@ app.use(cors()); // allow * / all to access our api. All domains, ips, ports
 
 // Default route
 app.get("/", (req, res) => {
-  res.send("Welcome to LinguistNow API server!");
+  res.send("Welcome to FeedMeNow! API server!");
 });
 
 // Use routes to handle user data
 app.use("/api/users", usersRoutes);
+
+// Route to manage Google calendar user data handling
+app.use('/api/recipes', recipesRoutes);
 
 // Start the server
 app.listen(PORT, () => {
