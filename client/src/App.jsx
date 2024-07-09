@@ -1,22 +1,22 @@
 import React, { useState } from 'react'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import LanguageProvider from './i18n/LanguageProvider' // Package used to manage translations
+import Home from './pages/Home/Home'
 import Footer from './components/Footer.jsx'
 
 const App = () => {
     /* TODO example state stored
     const [userDetails, setUserDetails] = useState(null)  */
 
-
     return (
         /* Wraps the application to provide the OAuth context */
-            <LanguageProvider>
-                <BrowserRouter>
-                    {/*TODO navigation bar <Navbar /> */}
-                    <Routes>
-                        {/* TODO: example private route: Ask user to log in when landing on site, then if role
+        <LanguageProvider>
+            <BrowserRouter>
+                {/*TODO navigation bar <Navbar /> */}
+                <Routes>
+                    {/* TODO: example private route: Ask user to log in when landing on site, then if role
                         is PM go to Dashboard, otherwise to Settings page */}
-                        {/* <Route
+                    {/* <Route
                             path="/"
                             element={
                                 userDetails ? (
@@ -30,12 +30,12 @@ const App = () => {
                                 )
                             }
                         /> */}
-                        
-                        {/* TODO: example normal route: <Route path="/privacy" element={<PrivacyPolicy />} /> */}
-                    </Routes>
-                    <Footer />
-                </BrowserRouter>
-            </LanguageProvider>
+                    <Route path="/" element={<Home />} />
+                    {/* TODO: example normal route: <Route path="/privacy" element={<PrivacyPolicy />} /> */}
+                </Routes>
+                <Footer />
+            </BrowserRouter>
+        </LanguageProvider>
     )
 }
 
