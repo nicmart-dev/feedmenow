@@ -13,7 +13,10 @@ const getAllRecipes = async (_req, res) => {
 
   const result = await model.generateContent(prompt);
   const response = await result.response;
-  const text = response.text();
+
+  let text = response.text().replace(/(?:```json)/gm, "");
+  text = "[" + text.replace(/(?:```)/gm, ",").slice(0, -2) + "]";
+
   res.status(200).send(text);
 };
 
