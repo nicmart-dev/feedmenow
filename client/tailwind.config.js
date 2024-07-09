@@ -6,7 +6,7 @@ module.exports = {
     content: ['./src/**/*.{html,js,jsx}'],
     theme: {
         fontFamily: {
-            sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+            sans: ['Darker Grotesk', ...defaultTheme.fontFamily.sans],
         },
         container: {
             center: true,
@@ -17,6 +17,7 @@ module.exports = {
         },
         extend: {
             colors: {
+                green: '#58703B',
                 border: 'hsl(var(--border))',
                 input: 'hsl(var(--input))',
                 ring: 'hsl(var(--ring))',

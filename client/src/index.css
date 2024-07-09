@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'Darker Grotesque', sans-serif;
+    src: url('./assets/fonts/DarkerGrotesque-VariableFont_wght.ttf')
+        format('ttf');
+    font-weight: 300 900;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-display: swap;
+}
+
 /*
 ! tailwindcss v3.4.4 | MIT License | https://tailwindcss.com
 */
@@ -45,7 +55,7 @@ html,
     tab-size: 4;
     /* 3 */
     font-family:
-        Inter var,
+        Darker Grotesk,
         ui-sans-serif,
         system-ui,
         sans-serif,
