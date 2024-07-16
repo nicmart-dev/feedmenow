@@ -986,6 +986,14 @@ body {
   max-width: 100%;
 }
 
+.max-w-5 {
+  max-width: 1.25rem;
+}
+
+.max-w-4 {
+  max-width: 1rem;
+}
+
 .caption-bottom {
   caption-side: bottom;
 }
