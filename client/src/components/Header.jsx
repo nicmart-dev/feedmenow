@@ -3,11 +3,11 @@ import LogoutIcon from '../assets/icons/logout.svg'
 
 export default function Header() {
     return (
-        <header className="flex flex-row justify-between py-6">
-            <h1 className="text-2xl">Feed Me Now</h1>
-            <div className="flex flex-row gap-4">
-                <img src={LanguageIcon} />
-                <img src={LogoutIcon} />
+        <header className="flex flex-row justify-between p-4 w-full">
+            <h1 className="text-2xl w-5/6">Feed Me Now</h1>
+            <div className="flex flex-row gap-4 w-1/6">
+                <img src={LanguageIcon} className="w-1/2" />
+                <img src={LogoutIcon} className="w-1/2" />
             </div>
         </header>
     )
