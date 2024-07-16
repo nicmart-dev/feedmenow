@@ -22,23 +22,7 @@ export default function RecipeDetails() {
                 {/* Put Heart Icon */}
             </div>
             <div>
-                <div className="sm:hidden">
-                    <label htmlFor="tabs" className="sr-only">
-                        Select a tab
-                    </label>
-                    {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
-                    <select
-                        id="tabs"
-                        name="tabs"
-                        defaultValue={tabs.find((tab) => tab.current).name}
-                        className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    >
-                        {tabs.map((tab) => (
-                            <option key={tab.name}>{tab.name}</option>
-                        ))}
-                    </select>
-                </div>
-                <div className="hidden sm:block">
+                <div>
                     <div className="border-b border-gray-200">
                         <nav
                             aria-label="Tabs"
