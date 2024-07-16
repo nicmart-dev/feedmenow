@@ -19,8 +19,8 @@ export default function Home() {
     ]
     return (
         <>
-            <div className="mx-auto max-w-2xl py-8 bg-beige-700 rounded-md p-2 mb-4">
-                <div className="text-left text-green-700 ">
+            <div className="mx-auto max-w-2xl py-8 bg-beige rounded-md p-2 mb-4">
+                <div className="text-left text-green">
                     <p className="mt-6 text-lg leading-8">Welcome</p>
                     <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
                         Hungry Chef
@@ -56,7 +56,7 @@ export default function Home() {
                 <div className="mt-6 flex items-center justify-end gap-x-6">
                     <button
                         type="submit"
-                        className="rounded-md bg-green-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"
+                        className="rounded-md bg-green px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"
                     >
                         Show me what I can cook
                     </button>
