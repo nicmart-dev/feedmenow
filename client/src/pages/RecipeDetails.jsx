@@ -31,15 +31,18 @@ export default function RecipeDetails() {
     const [currentTab, setCurrentTab] = useState(tabs[0])
     return (
         <>
-            <img src={SampleImage} />
-            <div className="flex flex-row">
-                <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+            <img src={SampleImage} className="w-full" />
+            <div className="flex flex-row m-4 justify-between">
+                <h1 className="text-4xl font-bold tracking-tight sm:text-6xl w-7/8">
                     Sample Recipe Name Lorem Ipsum
                 </h1>
-                {/* Put Heart Icon */}
+                <img
+                    src={HeartIcon}
+                    className="w-1/8 w-12 cursor-pointer hover:fill-green"
+                />
             </div>
 
-            <div className="border-b border-gray-200">
+            <div className="m-4">
                 <nav aria-label="Tabs" className="-mb-px flex space-x-8">
                     {tabs.map((tab) => (
                         <a
@@ -54,9 +57,9 @@ export default function RecipeDetails() {
                             }
                             className={classNames(
                                 tab === currentTab
-                                    ? 'border-indigo-500 text-indigo-600'
+                                    ? 'border-green text-green font-bold'
                                     : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
-                                'whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium'
+                                'whitespace-nowrap border-b-2 px-1 py-4 text-sm'
                             )}
                         >
                             {tab.name}
@@ -65,9 +68,18 @@ export default function RecipeDetails() {
                 </nav>
             </div>
 
-            <div>
+            <div className="flex flex-col gap-4 m-4">
                 {currentTab.content.map((item, index) => (
-                    <p key={index}>{item}</p>
+                    <p
+                        key={index}
+                        className={
+                            index === currentTab.content.length - 1
+                                ? 'py-4'
+                                : 'py-4 border-b-2 border-green'
+                        }
+                    >
+                        {item}
+                    </p>
                 ))}
             </div>
         </>
