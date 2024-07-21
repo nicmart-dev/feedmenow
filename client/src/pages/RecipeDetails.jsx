@@ -29,21 +29,23 @@ function classNames(...classes) {
 
 export default function RecipeDetails() {
     const [currentTab, setCurrentTab] = useState(tabs[0])
+    const [isHovered, setIsHovered] = useState(false)
+
     return (
         <>
             <img src={SampleImage} className="w-full" />
             <div className="flex flex-row m-4 justify-between">
-                <h1 className="text-4xl font-bold tracking-tight sm:text-6xl w-7/8">
+                <h1 className="text-4xl font-bold tracking-tight sm:text-6xl w-7/8 text-green">
                     Sample Recipe Name Lorem Ipsum
                 </h1>
-                <img
-                    src={HeartIcon}
-                    className="w-1/8 w-12 cursor-pointer hover:fill-green"
-                />
+                {/* <img src={HeartIcon} className="w-1/8 w-12 cursor-pointer" /> */}
             </div>
 
             <div className="m-4">
-                <nav aria-label="Tabs" className="-mb-px flex space-x-8">
+                <nav
+                    aria-label="Tabs"
+                    className="-mb-px flex space-x-8 justify-between"
+                >
                     {tabs.map((tab) => (
                         <a
                             key={tab.name}
@@ -58,7 +60,7 @@ export default function RecipeDetails() {
                             className={classNames(
                                 tab === currentTab
                                     ? 'border-green text-green font-bold'
-                                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 font-thin',
                                 'whitespace-nowrap border-b-2 px-1 py-4 text-sm'
                             )}
                         >
@@ -68,15 +70,11 @@ export default function RecipeDetails() {
                 </nav>
             </div>
 
-            <div className="flex flex-col gap-4 m-4">
+            <div className="flex flex-col gap-4 m-4 font-thin">
                 {currentTab.content.map((item, index) => (
                     <p
                         key={index}
-                        className={
-                            index === currentTab.content.length - 1
-                                ? 'py-4'
-                                : 'py-4 border-b-2 border-green'
-                        }
+                        className={`font-thin py-4 ${index !== currentTab.content.length - 1 ? 'border-b border-lightgreen' : ''}`}
                     >
                         {item}
                     </p>
