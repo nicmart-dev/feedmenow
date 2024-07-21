@@ -804,6 +804,10 @@ body {
   inset: 0px;
 }
 
+.order-3 {
+  order: 3;
+}
+
 .col-span-full {
   grid-column: 1 / -1;
 }
@@ -876,6 +880,10 @@ body {
 
 .grid {
   display: grid;
+}
+
+.hidden {
+  display: none;
 }
 
 .h-10 {
@@ -1000,8 +1008,16 @@ body {
   flex-direction: row;
 }
 
+.flex-col {
+  flex-direction: column;
+}
+
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+.items-end {
+  align-items: flex-end;
 }
 
 .items-center {
@@ -1241,6 +1257,10 @@ body {
   padding-top: 1rem;
 }
 
+.pb-0 {
+  padding-bottom: 0px;
+}
+
 .text-left {
   text-align: left;
 }
@@ -1276,6 +1296,11 @@ body {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .font-bold {
