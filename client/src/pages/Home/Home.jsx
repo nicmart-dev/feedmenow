@@ -1,3 +1,5 @@
+import { FormattedMessage, useIntl } from 'react-intl'
+
 export default function Home() {
     const recipes = [
         {
@@ -17,11 +19,16 @@ export default function Home() {
             name: 'Delicious Food Name',
         },
     ]
+
+    const intl = useIntl()
+
     return (
         <>
             <div className="m-4 max-w-2xl py-8 bg-beige rounded-md p-2">
                 <div className="text-left text-green">
-                    <p className="mt-6 text-lg leading-8">Welcome</p>
+                    <p className="mt-6 text-lg leading-8">
+                        <FormattedMessage id="home.hero" />
+                    </p>
                     <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
                         Hungry Chef
                     </h1>
@@ -37,7 +44,7 @@ export default function Home() {
                                     htmlFor="about"
                                     className="block text-sm font-medium leading-6 text-gray-900"
                                 >
-                                    My Ingredients
+                                    <FormattedMessage id="home.ingredientTitle" />
                                 </label>
                                 <div className="mt-2">
                                     <textarea
@@ -45,8 +52,9 @@ export default function Home() {
                                         name="about"
                                         rows="3"
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        placeholder="Don't worry about the formatting. AI will
-                                understand what you're saying."
+                                        placeholder={intl.formatMessage({
+                                            id: 'home.placeholder',
+                                        })}
                                     ></textarea>
                                 </div>
                             </div>
