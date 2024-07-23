@@ -22,6 +22,11 @@ export default function Home() {
 
     const intl = useIntl()
 
+    const handleSubmitForm = (e) => {
+        e.preventDefault()
+        console.log('Form submitted')
+    }
+
     return (
         <>
             <div className="m-4 max-w-2xl py-8 bg-beige rounded-md p-2">
@@ -35,7 +40,10 @@ export default function Home() {
                 </div>
             </div>
 
-            <form className="border rounded-md p-2 m-4">
+            <form
+                className="border rounded-md p-2 m-4"
+                onSubmit={handleSubmitForm}
+            >
                 <div className="space-y-12">
                     <div className="border-gray-900/10">
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
