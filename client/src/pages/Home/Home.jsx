@@ -30,7 +30,7 @@ export default function Home() {
                         <FormattedMessage id="home.hero" />
                     </p>
                     <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-                        Hungry Chef
+                        <FormattedMessage id="username" />
                     </h1>
                 </div>
             </div>
@@ -66,7 +66,7 @@ export default function Home() {
                         type="submit"
                         className="rounded-md bg-green px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"
                     >
-                        Show me what I can cook
+                        <FormattedMessage id="home.ctaBtn" />
                     </button>
                 </div>
             </form>

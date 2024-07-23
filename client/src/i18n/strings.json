@@ -1,5 +1,7 @@
 {
     "en": {
+        "appName": "Feed Me Now",
+        "username": "Hungry Chef",
         "login": "Login",
         "dashboard": "Dashboard",
         "settings": "Settings",
@@ -13,9 +15,12 @@
         "footer.settings": "Settings",
         "home.hero": "Welcome",
         "home.ingredientTitle": "My Ingredients",
-        "home.placeholder": "Don't worry about the formatting. AI will understand what you're saying."
+        "home.placeholder": "Don't worry about the formatting. AI will understand what you're saying.",
+        "home.ctaBtn": "Show me what I can cook"
     },
     "fr": {
+        "appName": "Nourris moi maintenant",
+        "username": "Chef affamé",
         "login": "Connexion",
         "dashboard": "Tableau de bord",
         "settings": "Paramètres",
@@ -29,9 +34,12 @@
         "footer.settings": "Paramètres",
         "home.hero": "Bienvenue",
         "home.ingredientTitle": "Mes ingrédients",
-        "home.placeholder": "Ne vous inquiétez pas du formatage. L'IA comprendra ce que vous dites."
+        "home.placeholder": "Ne vous inquiétez pas du formatage. L'IA comprendra ce que vous dites.",
+        "home.ctaBtn": "Montre-moi ce que je peux cuisiner"
     },
     "zh-cn": {
+        "appName": "现在喂我",
+        "username": "饥饿的厨师",
         "login": "登录",
         "dashboard": "仪表板",
         "settings": "设置",
@@ -45,6 +53,7 @@
         "footer.settings": "设置",
         "home.hero": "欢迎",
         "home.ingredientTitle": "我的配料",
-        "home.placeholder": "不用担心格式。AI 会理解你所说的话。"
+        "home.placeholder": "不用担心格式。AI 会理解你所说的话。",
+        "home.ctaBtn": "告诉我我能做什么菜"
     }
 }
