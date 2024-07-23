@@ -1,5 +1,5 @@
-import SampleImage from '../assets/images/sample-food.jpg'
-import HeartIcon from '../assets/icons/heart.svg'
+import timeIcon from '../assets/icons/time.svg'
+import worldIcon from '../assets/icons/world.svg'
 import { useState } from 'react'
 
 const tabs = [
@@ -33,6 +33,8 @@ export default function RecipeDetails() {
 
     return (
         <>
+            <div className="text-green font-bold"></div>
+
             <img src={SampleImage} className="w-full" />
             <div className="flex flex-row m-4 justify-between">
                 <h1 className="text-4xl font-bold tracking-tight sm:text-6xl w-7/8 text-green">
