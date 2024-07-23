@@ -57,9 +57,13 @@ const UserPreferences = () => {
                 <option value="Three">Three</option>
             </select>
             <br />
-            <label htmlFor="cookTime" className="text-green font-bold">
-                Recipe cook time
-            </label>
+
+            <div className="flex items-center">
+                <img src={timeIcon} alt="Icon" width={20} height={20} />
+                <label htmlFor="cookTime" className="text-green font-bold">
+                    Recipe cook time
+                </label>
+            </div>
             {/* Replace with your preferred time selection component */}
             <Select
                 value={cookTime}
@@ -68,9 +72,13 @@ const UserPreferences = () => {
             />
 
             <br />
-            <label htmlFor="cuisine" className="text-green font-bold">
-                What food do you like?
-            </label>
+            <div className="flex items-center">
+                <img src={worldIcon} alt="Icon" width={20} height={20} />
+                <label htmlFor="cuisine" className="text-green font-bold">
+                    What food do you like?
+                </label>
+            </div>
+
             <Select
                 isMulti
                 name="cuisine"
