@@ -19,13 +19,23 @@ const UserPreferences = () => {
     ]
 
     const dietOptions = [
-        'Vegan',
-        'Ketogenic',
-        'Vegetarian',
-        'Plant-based',
-        'Gluten-Free',
-        'Paleo',
-        'Low-carb',
+        { value: 'vegan', label: 'Vegan' },
+        { value: 'ketogenic', label: 'Ketogenic' },
+        { value: 'vegetarian', label: 'Vegetarian' },
+        { value: 'plant-based', label: 'Plant-based' },
+        { value: 'gluten-free', label: 'Gluten-Free' },
+        { value: 'paleo', label: 'Paleo' },
+        { value: 'low-carb', label: 'Low-carb' },
+    ]
+
+    const cookTimeOptions = [
+        { value: '5', label: '5 minutes' },
+        { value: '15', label: '15 minutes' },
+        { value: '30', label: '30 minutes' },
+        { value: '45', label: '45 minutes' },
+        { value: '60', label: '1 hour' },
+        { value: '120', label: '1-2 hours' },
+        { value: '120+', label: '2 hours +' },
     ]
 
     const handleNotEatingChange = (value) => {
@@ -46,18 +56,18 @@ const UserPreferences = () => {
                 <option value="Two">Two</option>
                 <option value="Three">Three</option>
             </select>
-
+            <br />
             <label htmlFor="cookTime" className="text-green font-bold">
                 Recipe cook time
             </label>
             {/* Replace with your preferred time selection component */}
-            <input
-                type="time"
-                id="cookTime"
+            <Select
                 value={cookTime}
-                onChange={(e) => setCookTime(e.target.value)}
+                onChange={setCookTime}
+                options={cookTimeOptions}
             />
 
+            <br />
             <label htmlFor="cuisine" className="text-green font-bold">
                 What food do you like?
             </label>
