@@ -16,7 +16,8 @@
         "home.hero": "Welcome",
         "home.ingredientTitle": "My Ingredients",
         "home.placeholder": "Don't worry about the formatting. AI will understand what you're saying.",
-        "home.ctaBtn": "Show me what I can cook"
+        "home.ctaBtn": "Show me what I can cook",
+        "recipes.name": "Delicious Food Name"
     },
     "fr": {
         "appName": "Nourris moi maintenant",
@@ -35,7 +36,8 @@
         "home.hero": "Bienvenue",
         "home.ingredientTitle": "Mes ingrédients",
         "home.placeholder": "Ne vous inquiétez pas du formatage. L'IA comprendra ce que vous dites.",
-        "home.ctaBtn": "Montre-moi ce que je peux cuisiner"
+        "home.ctaBtn": "Montre-moi ce que je peux cuisiner",
+        "recipes.name": "Nom de la nourriture délicieuse"
     },
     "zh-cn": {
         "appName": "现在喂我",
@@ -54,6 +56,7 @@
         "home.hero": "欢迎",
         "home.ingredientTitle": "我的配料",
         "home.placeholder": "不用担心格式。AI 会理解你所说的话。",
-        "home.ctaBtn": "告诉我我能做什么菜"
+        "home.ctaBtn": "告诉我我能做什么菜",
+        "recipes.name": "美味的食物名称"
     }
 }
