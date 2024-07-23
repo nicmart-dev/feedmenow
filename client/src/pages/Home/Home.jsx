@@ -1,4 +1,5 @@
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
 export default function Home() {
     const recipes = [
@@ -21,10 +22,12 @@ export default function Home() {
     ]
 
     const intl = useIntl()
+    const navigate = useNavigate()
 
     const handleSubmitForm = (e) => {
         e.preventDefault()
         console.log('Form submitted')
+        navigate('/recipes')
     }
 
     return (
