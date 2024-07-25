@@ -4,12 +4,13 @@ const axios = require('axios');
 // POST /api/recipes/suggest
 const suggestRecipes = async (req, res) => {
     const { ingredients } = req.body; // Receive ingredients list from the front-end
-
+    
     try {
         // URL of N8n webhook per https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/?utm_source=n8n_app&utm_medium=node_settings_modal-credential_link&utm_campaign=n8n-nodes-base.webhook
-        const webhookUrl = `${process.env.N8N_WEBHOOK_URL}/recommend-recipes`;
+        //const webhookUrl = `${process.env.N8N_WEBHOOK_URL}/recommend-recipes`;
+        const webhookUrl = process.env.N8N_WEBHOOK_URL_RECIP_TEST;
         const response = await axios.post(webhookUrl, { ingredients });
-
+        console.log("what");
         // Send the response back to the client
         res.status(200).json(response.data);
     } catch (error) {
