@@ -15,7 +15,6 @@ const UserPreferences = () => {
 
     /* Cuisine options stored from popular web service API */
     const [cuisineOptions, setCuisineOptions] = useState([])
-    const [intoleranceOptions, setIntoleranceOptions] = useState([])
 
     useEffect(() => {
         const fetchCuisines = async () => {
@@ -38,50 +37,41 @@ const UserPreferences = () => {
         fetchCuisines()
     }, [])
 
-    useEffect(() => {
-        const fetchIntolerances = async () => {
-            try {
-                const response = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/api/food/noteating`
-                )
-                const intolerances = response.data.map((intolerance) => ({
-                    value: intolerance,
-                    label: intolerance,
-                }))
-                setIntoleranceOptions(intolerances)
-            } catch (error) {
-                console.error(error)
-            }
-        }
-
-        fetchIntolerances()
-    }, [])
-
-    // const cuisineOptions = [
-    //     // Your cuisine options here
-    //     { value: 'italian', label: 'Italian' },
-    //     { value: 'mexican', label: 'Mexican' },
-    //     { value: 'chinese', label: 'Chinese' },
-    //     { value: 'japanese', label: 'Japanese' },
-    //     { value: 'indian', label: 'Indian' },
-    //     { value: 'thai', label: 'Thai' },
-    //     { value: 'korean', label: 'Korean' },
-    //     { value: 'french', label: 'French' },
-    //     { value: 'spanish', label: 'Spanish' },
-    //     { value: 'british', label: 'British' },
-    //     { value: 'german', label: 'German' },
-    //     { value: 'american', label: 'American' },
-    //     // ...
-    // ]
-
+    /* 
+Predefined list of diets supported by popular API Spoonacular
+https://spoonacular.com/food-api/docs#Diets
+*/
     const dietOptions = [
-        { value: 'vegan', label: 'Vegan' },
+        { value: 'gluten free', label: 'Gluten Free' },
         { value: 'ketogenic', label: 'Ketogenic' },
         { value: 'vegetarian', label: 'Vegetarian' },
-        { value: 'plant-based', label: 'Plant-based' },
-        { value: 'gluten-free', label: 'Gluten-Free' },
+        { value: 'lacto-vegetarian', label: 'Lacto-Vegetarian' },
+        { value: 'ovo-vegetarian', label: 'Ovo-Vegetarian' },
+        { value: 'vegan', label: 'Vegan' },
+        { value: 'pescetarian', label: 'Pescetarian' },
         { value: 'paleo', label: 'Paleo' },
-        { value: 'low-carb', label: 'Low-carb' },
+        { value: 'primal', label: 'Primal' },
+        { value: 'low fodmap', label: 'Low FODMAP' },
+        { value: 'whole30', label: 'Whole30' },
+    ]
+
+    /* 
+Predefined list of intolerances/allergens supported by popular API Spoonacular
+https://spoonacular.com/food-api/docs#Intolerances
+*/
+    const intoleranceOptions = [
+        { value: 'Dairy', label: 'Dairy' },
+        { value: 'Egg', label: 'Egg' },
+        { value: 'Gluten', label: 'Gluten' },
+        { value: 'Grain', label: 'Grain' },
+        { value: 'Peanut', label: 'Peanut' },
+        { value: 'Seafood', label: 'Seafood' },
+        { value: 'Sesame', label: 'Sesame' },
+        { value: 'Shellfish', label: 'Shellfish' },
+        { value: 'Soy', label: 'Soy' },
+        { value: 'Sulfite', label: 'Sulfite' },
+        { value: 'Tree Nut', label: 'Tree Nut' },
+        { value: 'Wheat', label: 'Wheat' },
     ]
 
     const cookTimeOptions = [

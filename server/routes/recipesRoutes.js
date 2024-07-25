@@ -9,7 +9,4 @@ router.post('/suggest', suggestRecipes);
 // GET /api/food/cuisines
 router.get('/cuisines', popularCuisines);
 
-// GET /api/food/noteating
-router.get('/noteating', notEating);
-
 module.exports = router;
