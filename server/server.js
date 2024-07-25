@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 app.use("/api/users", usersRoutes);
 
 // Route to manage Google calendar user data handling
-app.use("/api/recipes", geminiRecipesRoutes);
+app.use("/api/recipes", recipesRoutes);
 
 // Start the server
 app.listen(PORT, () => {
