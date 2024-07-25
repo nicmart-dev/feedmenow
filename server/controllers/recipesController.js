@@ -19,7 +19,32 @@ const suggestRecipes = async (req, res) => {
     }
 };
 
+/**
+ * Fetches a list of popular cuisines from the the Free Meal API TheMealDB.com API and sends it as a JSON response.
+ * API doc: 
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @return {Promise<void>} - A Promise that resolves when the cuisines are sent as a JSON response.
+ */
+const popularCuisines = async (req, res) => {
+    try {
+        // Fetch the list of popular cuisines from the API
+        const response = await axios.get('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+
+        // Clean the data by extracting only the cuisine names, and filter out "Unknown" value
+        const cuisines = response.data.meals.map(meal => meal.strArea).filter(cuisine => cuisine !== "Unknown");
+
+
+        // Send the list of cuisines as a JSON response
+        res.json(cuisines);
+    } catch (error) {
+        // If there was an error, log it and send an error response
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch cuisines' });
+    }
+};
+
 
 module.exports = {
-    suggestRecipes
+    suggestRecipes, popularCuisines
 };

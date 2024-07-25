@@ -1,7 +1,8 @@
 import timeIcon from '../assets/icons/time.svg'
 import worldIcon from '../assets/icons/world.svg'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 
@@ -12,12 +13,46 @@ const UserPreferences = () => {
     const [diet, setDiet] = useState([])
     const [notEating, setNotEating] = useState([])
 
-    const cuisineOptions = [
-        // Your cuisine options here
-        { value: 'italian', label: 'Italian' },
-        { value: 'mexican', label: 'Mexican' },
-        // ...
-    ]
+    /* Cuisine options stored from popular web service API */
+    const [cuisineOptions, setCuisineOptions] = useState([])
+
+    useEffect(() => {
+        const fetchCuisines = async () => {
+            try {
+                const response = await axios.get(
+                    `${process.env.REACT_APP_API_URL}/api/food/cuisines/`
+                )
+                const cuisines = Object.values(response.data).map(
+                    (cuisine) => ({
+                        value: cuisine,
+                        label: cuisine,
+                    })
+                )
+                setCuisineOptions(cuisines)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        fetchCuisines()
+    }, [])
+
+    // const cuisineOptions = [
+    //     // Your cuisine options here
+    //     { value: 'italian', label: 'Italian' },
+    //     { value: 'mexican', label: 'Mexican' },
+    //     { value: 'chinese', label: 'Chinese' },
+    //     { value: 'japanese', label: 'Japanese' },
+    //     { value: 'indian', label: 'Indian' },
+    //     { value: 'thai', label: 'Thai' },
+    //     { value: 'korean', label: 'Korean' },
+    //     { value: 'french', label: 'French' },
+    //     { value: 'spanish', label: 'Spanish' },
+    //     { value: 'british', label: 'British' },
+    //     { value: 'german', label: 'German' },
+    //     { value: 'american', label: 'American' },
+    //     // ...
+    // ]
 
     const dietOptions = [
         { value: 'vegan', label: 'Vegan' },

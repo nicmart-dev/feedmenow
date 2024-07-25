@@ -38,6 +38,9 @@ app.use("/api/users", usersRoutes);
 // Route to manage Google calendar user data handling
 app.use("/api/recipes", geminiRecipesRoutes);
 
+// Route to manage invoking n8n workflow to recommend recipes, and getting other recipe related data
+app.use("/api/food", recipesRoutes);
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
