@@ -3,6 +3,7 @@ import worldIcon from '../assets/icons/world.svg'
 
 import React, { useState } from 'react'
 import Select from 'react-select'
+import CreatableSelect from 'react-select/creatable'
 
 const UserPreferences = () => {
     const [hungryHippos, setHungryHippos] = useState('')
@@ -79,7 +80,7 @@ const UserPreferences = () => {
                 </label>
             </div>
 
-            <Select
+            <CreatableSelect
                 isMulti
                 name="cuisine"
                 options={cuisineOptions}
