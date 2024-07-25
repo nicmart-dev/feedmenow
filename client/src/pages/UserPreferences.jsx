@@ -137,12 +137,11 @@ const UserPreferences = () => {
             <label htmlFor="notEating" className="text-green font-bold">
                 and not eating.
             </label>
-            {/* Use a suitable multi-value input component */}
-            <input
-                type="text"
-                id="notEating"
+            <CreatableSelect
+                isMulti
+                name="notEating"
                 value={notEating}
-                onChange={(e) => handleNotEatingChange(e.target.value)}
+                onChange={setNotEating}
             />
         </div>
     )
