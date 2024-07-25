@@ -15,6 +15,7 @@ const UserPreferences = () => {
 
     /* Cuisine options stored from popular web service API */
     const [cuisineOptions, setCuisineOptions] = useState([])
+    const [intoleranceOptions, setIntoleranceOptions] = useState([])
 
     useEffect(() => {
         const fetchCuisines = async () => {
@@ -35,6 +36,25 @@ const UserPreferences = () => {
         }
 
         fetchCuisines()
+    }, [])
+
+    useEffect(() => {
+        const fetchIntolerances = async () => {
+            try {
+                const response = await axios.get(
+                    `${process.env.REACT_APP_API_URL}/api/food/noteating`
+                )
+                const intolerances = response.data.map((intolerance) => ({
+                    value: intolerance,
+                    label: intolerance,
+                }))
+                setIntoleranceOptions(intolerances)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        fetchIntolerances()
     }, [])
 
     // const cuisineOptions = [
@@ -140,6 +160,7 @@ const UserPreferences = () => {
             <CreatableSelect
                 isMulti
                 name="notEating"
+                options={intoleranceOptions}
                 value={notEating}
                 onChange={setNotEating}
             />

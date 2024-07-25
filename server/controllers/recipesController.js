@@ -45,6 +45,21 @@ const popularCuisines = async (req, res) => {
 };
 
 
+/* 
+Predefined list of intolerances supported by Spoonacular
+https://spoonacular.com/food-api/docs#Intolerances
+*/
+
+const notEating = (req, res) => {
+    const intolerances = [
+        'Dairy', 'Egg', 'Gluten', 'Grain', 'Peanut', 'Seafood',
+        'Sesame', 'Shellfish', 'Soy', 'Sulfite', 'Tree Nut', 'Wheat'
+    ];
+
+    res.json(intolerances);
+};
+
+
 module.exports = {
-    suggestRecipes, popularCuisines
+    suggestRecipes, popularCuisines, notEating
 };
