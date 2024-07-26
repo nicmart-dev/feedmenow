@@ -1,5 +1,7 @@
 {
     "en": {
+        "appName": "Feed Me Now",
+        "username": "Hungry Chef",
         "login": "Login",
         "dashboard": "Dashboard",
         "settings": "Settings",
@@ -8,11 +10,18 @@
         "french": "Français",
         "simplifiedChinese": "简体中文",
         "loading": "Loading...",
-        "footer.aboutTitle": "About",
-        "footer.aboutText": "Feed Me Now is an app that recommends recipes based on ingredients I have in my fridge or pantry list.",
-        "footer.socialTitle": "Social"
+        "footer.search": "Search",
+        "footer.myRecipes": "My Recipes",
+        "footer.settings": "Settings",
+        "home.hero": "Welcome",
+        "home.ingredientTitle": "My Ingredients",
+        "home.placeholder": "Don't worry about the formatting. AI will understand what you're saying.",
+        "home.ctaBtn": "Show me what I can cook",
+        "recipes.name": "Delicious Food Name"
     },
     "fr": {
+        "appName": "Nourris moi maintenant",
+        "username": "Chef affamé",
         "login": "Connexion",
         "dashboard": "Tableau de bord",
         "settings": "Paramètres",
@@ -21,11 +30,18 @@
         "french": "Français",
         "simplifiedChinese": "简体中文",
         "loading": "Chargement...",
-        "footer.aboutTitle": "À propos",
-        "footer.aboutText": "",
-        "footer.socialTitle": "Social"
-        },
+        "footer.search": "Recherche",
+        "footer.myRecipes": "Mes recettes",
+        "footer.settings": "Paramètres",
+        "home.hero": "Bienvenue",
+        "home.ingredientTitle": "Mes ingrédients",
+        "home.placeholder": "Ne vous inquiétez pas du formatage. L'IA comprendra ce que vous dites.",
+        "home.ctaBtn": "Montre-moi ce que je peux cuisiner",
+        "recipes.name": "Nom de la nourriture délicieuse"
+    },
     "zh-cn": {
+        "appName": "现在喂我",
+        "username": "饥饿的厨师",
         "login": "登录",
         "dashboard": "仪表板",
         "settings": "设置",
@@ -34,7 +50,13 @@
         "french": "Français",
         "simplifiedChinese": "简体中文",
         "loading": "加载中...",
-        "footer.aboutTitle": "关于",
-        "footer.aboutText": "",
-        "footer.socialTitle": "社交" }
+        "footer.search": "搜索",
+        "footer.myRecipes": "我的食谱",
+        "footer.settings": "设置",
+        "home.hero": "欢迎",
+        "home.ingredientTitle": "我的配料",
+        "home.placeholder": "不用担心格式。AI 会理解你所说的话。",
+        "home.ctaBtn": "告诉我我能做什么菜",
+        "recipes.name": "美味的食物名称"
     }
+}
