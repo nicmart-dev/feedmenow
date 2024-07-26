@@ -17,6 +17,10 @@ const cors = require("cors");
 /* Import routes */
 const usersRoutes = require(path.join(__dirname, "./routes/usersRoutes"));
 const recipesRoutes = require(path.join(__dirname, "./routes/recipesRoutes"));
+const geminiRecipesRoutes = require(path.join(
+  __dirname,
+  "./routes/geminiRecipesRoutes"
+));
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
@@ -32,7 +36,7 @@ app.get("/", (req, res) => {
 app.use("/api/users", usersRoutes);
 
 // Route to manage Google calendar user data handling
-app.use('/api/recipes', recipesRoutes);
+app.use("/api/recipes", geminiRecipesRoutes);
 
 // Start the server
 app.listen(PORT, () => {

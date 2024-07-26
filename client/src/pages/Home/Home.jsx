@@ -42,7 +42,6 @@ export default function Home() {
                     </h1>
                 </div>
             </div>
-
             <form
                 className="border rounded-md p-2 m-4"
                 onSubmit={handleSubmitForm}

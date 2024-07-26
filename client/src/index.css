@@ -794,6 +794,7 @@ body {
 
 .fixed {
   position: fixed;
+
 }
 
 .absolute {
@@ -844,6 +845,7 @@ body {
 
 .ml-2 {
   margin-left: 0.5rem;
+
 }
 
 .mt-10 {
@@ -952,6 +954,7 @@ body {
 
 .w-5\/6 {
   width: 83.333333%;
+
 }
 
 .w-9 {
@@ -1137,6 +1140,7 @@ body {
 .bg-beige {
   --tw-bg-opacity: 1;
   background-color: rgb(236 221 177 / var(--tw-bg-opacity));
+
 }
 
 .bg-destructive {
@@ -1330,11 +1334,6 @@ body {
 .text-green {
   --tw-text-opacity: 1;
   color: rgb(88 112 59 / var(--tw-text-opacity));
-}
-
-.text-lightgreen {
-  --tw-text-opacity: 1;
-  color: rgb(189 185 110 / var(--tw-text-opacity));
 }
 
 .text-muted-foreground {
@@ -1583,6 +1582,7 @@ body {
   .md\:p-6 {
     padding: 1.5rem;
   }
+
 }
 
 @media (min-width: 1024px) {
@@ -1600,6 +1600,7 @@ body {
 
   .lg\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+
   }
 }
 
