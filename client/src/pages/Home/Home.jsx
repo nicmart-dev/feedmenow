@@ -1,3 +1,6 @@
+import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
+
 export default function Home() {
     const recipes = [
         {
@@ -6,7 +9,7 @@ export default function Home() {
             imageSrc:
                 'https://images.unsplash.com/photo-1670398564097-0762e1b30b3a?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
             href: 'www.fakeurl.com',
-            name: 'Delicious Food Name',
+            name: <FormattedMessage id="recipes.name" />,
         },
         {
             id: 2,
@@ -14,21 +17,35 @@ export default function Home() {
             imageSrc:
                 'https://images.unsplash.com/photo-1670398564097-0762e1b30b3a?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
             href: 'www.fakeurl.com',
-            name: 'Delicious Food Name',
+            name: <FormattedMessage id="recipes.name" />,
         },
     ]
+
+    const intl = useIntl()
+    const navigate = useNavigate()
+
+    const handleSubmitForm = (e) => {
+        e.preventDefault()
+        console.log('Form submitted')
+        navigate('/recipes')
+    }
+
     return (
         <>
             <div className="m-4 max-w-2xl py-8 bg-beige rounded-md p-2">
                 <div className="text-left text-green">
-                    <p className="mt-6 text-lg leading-8">Welcome</p>
+                    <p className="mt-6 text-lg leading-8">
+                        <FormattedMessage id="home.hero" />
+                    </p>
                     <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-                        Hungry Chef
+                        <FormattedMessage id="username" />
                     </h1>
                 </div>
             </div>
-
-            <form className="border rounded-md p-2 m-4">
+            <form
+                className="border rounded-md p-2 m-4"
+                onSubmit={handleSubmitForm}
+            >
                 <div className="space-y-12">
                     <div className="border-gray-900/10">
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -37,7 +54,7 @@ export default function Home() {
                                     htmlFor="about"
                                     className="block text-sm font-medium leading-6 text-gray-900"
                                 >
-                                    My Ingredients
+                                    <FormattedMessage id="home.ingredientTitle" />
                                 </label>
                                 <div className="mt-2">
                                     <textarea
@@ -45,8 +62,9 @@ export default function Home() {
                                         name="about"
                                         rows="3"
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        placeholder="Don't worry about the formatting. AI will
-                                understand what you're saying."
+                                        placeholder={intl.formatMessage({
+                                            id: 'home.placeholder',
+                                        })}
                                     ></textarea>
                                 </div>
                             </div>
@@ -58,7 +76,7 @@ export default function Home() {
                         type="submit"
                         className="rounded-md bg-green px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"
                     >
-                        Show me what I can cook
+                        <FormattedMessage id="home.ctaBtn" />
                     </button>
                 </div>
             </form>
