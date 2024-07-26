@@ -33,14 +33,16 @@ export default function RecipeDetails() {
 
     return (
         <>
-            <img src={SampleImage} className="w-full" />
-            <div className="flex flex-row m-4 justify-between">
-                <h1 className="text-4xl font-bold tracking-tight sm:text-6xl w-7/8 text-green">
-                    Sample Recipe Name Lorem Ipsum
-                </h1>
-                {/* <img src={HeartIcon} className="w-1/8 w-12 cursor-pointer" /> */}
+            {' '}
+            <div className="flex flex-col lg:flex-row lg:items-center">
+                <img src={SampleImage} className="w-full lg:w-1/2" />
+                <div className="flex flex-row m-4 justify-between lg:w-1/2">
+                    <h1 className="text-4xl font-bold tracking-tight sm:text-6xl w-7/8 text-green">
+                        Sample Recipe Name Lorem Ipsum
+                    </h1>
+                    {/* <img src={HeartIcon} className="w-1/8 w-12 cursor-pointer" /> */}
+                </div>
             </div>
-
             <div className="m-4">
                 <nav
                     aria-label="Tabs"
@@ -69,8 +71,7 @@ export default function RecipeDetails() {
                     ))}
                 </nav>
             </div>
-
-            <div className="flex flex-col gap-4 m-4 font-thin">
+            <div className="flex flex-col gap-4 m-4 mb-32  font-thin">
                 {currentTab.content.map((item, index) => (
                     <p
                         key={index}

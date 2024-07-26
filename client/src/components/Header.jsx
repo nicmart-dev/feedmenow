@@ -9,7 +9,7 @@ export default function Header() {
     const [langOpen, setLangOpen] = useState(false) // track if language toggle is open or not
 
     return (
-        <header className="flex flex-col">
+        <header className="flex flex-col pb-4">
             <div className="flex flex-row justify-between p-4 pb-0 w-full">
                 <h1 className="text-2xl w-5/6">
                     <FormattedMessage id="appName" />
@@ -63,7 +63,6 @@ export default function Header() {
                         </li>
                     </ul>
                 </nav>
-
             </div>
         </header>
     )
