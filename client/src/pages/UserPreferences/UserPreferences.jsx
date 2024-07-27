@@ -91,12 +91,44 @@ https://spoonacular.com/food-api/docs#Intolerances
 
     // Used to style react-select UI controls
     const customStyles = {
-        control: (provided) => ({
+        control: (provided, state) => ({
             ...provided,
-            borderColor: 'green',
+            borderColor: state.isFocused ? 'green' : provided.borderColor,
+            boxShadow: state.isFocused ? '0 0 0 1px green' : provided.boxShadow,
             '&:hover': {
                 borderColor: 'green',
             },
+        }),
+        multiValue: (provided) => ({
+            ...provided,
+            backgroundColor: 'rgba(0, 128, 0, 0.1)', // Light green background
+        }),
+        multiValueLabel: (provided) => ({
+            ...provided,
+            color: 'green',
+        }),
+        multiValueRemove: (provided) => ({
+            ...provided,
+            color: 'green',
+            '&:hover': {
+                backgroundColor: 'green',
+                color: 'white',
+            },
+        }),
+        dropdownIndicator: (provided) => ({
+            ...provided,
+            color: 'green',
+        }),
+        clearIndicator: (provided) => ({
+            ...provided,
+            color: 'green',
+            '&:hover': {
+                color: 'darkgreen',
+            },
+        }),
+        placeholder: (provided) => ({
+            ...provided,
+            color: 'green',
         }),
     }
 
@@ -199,6 +231,7 @@ https://spoonacular.com/food-api/docs#Intolerances
                     </div>
                     <CreatableSelect
                         isMulti
+                        closeMenuOnSelect={false}
                         name="notEating"
                         options={intoleranceOptions}
                         value={notEating}
