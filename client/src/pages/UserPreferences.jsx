@@ -101,103 +101,113 @@ https://spoonacular.com/food-api/docs#Intolerances
     }
 
     return (
-        <div className="space-y-6">
-            {' '}
-            {/* Added space-y-6 for vertical spacing */}
-            <div>
-                <label
-                    htmlFor="hungryHippos"
-                    className="text-green font-bold mr-2"
-                >
-                    How many hungry hippos?
-                </label>
-                <select
-                    id="hungryHippos"
-                    value={hungryHippos}
-                    onChange={(e) => setHungryHippos(e.target.value)}
-                >
-                    <option value="One">One</option>
-                    <option value="Two">Two</option>
-                    <option value="Three">Three</option>
-                </select>
-            </div>
-            <div>
-                <div className="flex items-center mb-2">
-                    {' '}
-                    {/* Added mb-2 for margin bottom */}
-                    <img src={timeIcon} alt="Icon" width={20} height={20} />
+        <section className="m-4">
+            <div className="space-y-6">
+                {' '}
+                {/* Added space-y-6 for vertical spacing */}
+                <div>
                     <label
-                        htmlFor="cookTime"
-                        className="text-green font-bold ml-2"
+                        htmlFor="hungryHippos"
+                        className="text-green font-bold mr-2"
                     >
-                        Recipe cook time
+                        How many hungry hippos?
                     </label>
-                </div>
-                <Select
-                    value={cookTime}
-                    onChange={setCookTime}
-                    options={cookTimeOptions}
-                />
-            </div>
-            <div>
-                <div className="flex items-center mb-2">
-                    {' '}
-                    {/* Added mb-2 for margin bottom */}
-                    <img src={worldIcon} alt="Icon" width={20} height={20} />
-                    <label
-                        htmlFor="cuisine"
-                        className="text-green font-bold ml-2"
+                    <select
+                        id="hungryHippos"
+                        value={hungryHippos}
+                        onChange={(e) => setHungryHippos(e.target.value)}
                     >
-                        What food do you like?
-                    </label>
+                        <option value="One">One</option>
+                        <option value="Two">Two</option>
+                        <option value="Three">Three</option>
+                    </select>
                 </div>
-                <CreatableSelect
-                    isMulti
-                    name="cuisine"
-                    options={cuisineOptions}
-                    value={cuisine}
-                    onChange={setCuisine}
-                />
-            </div>
-            <div>
-                <div className="flex items-center mb-2">
-                    {' '}
-                    {/* Added mb-2 for margin bottom */}
-                    <FontAwesomeIcon icon={faCarrot} />
-                    <label htmlFor="diet" className="text-green font-bold ml-2">
-                        I'm on a diet...
-                    </label>
+                <div>
+                    <div className="flex items-center mb-2">
+                        {' '}
+                        {/* Added mb-2 for margin bottom */}
+                        <img src={timeIcon} alt="Icon" width={20} height={20} />
+                        <label
+                            htmlFor="cookTime"
+                            className="text-green font-bold ml-2"
+                        >
+                            Recipe cook time
+                        </label>
+                    </div>
+                    <Select
+                        value={cookTime}
+                        onChange={setCookTime}
+                        options={cookTimeOptions}
+                    />
                 </div>
-                <Select
-                    isMulti
-                    name="diet"
-                    options={dietOptions}
-                    value={diet}
-                    onChange={setDiet}
-                />
-            </div>
-            <div>
-                <div className="flex items-center mb-2">
-                    {' '}
-                    {/* Added mb-2 for margin bottom */}
-                    <FontAwesomeIcon icon={faBan} />
-                    <label
-                        htmlFor="notEating"
-                        className="text-green font-bold ml-2"
-                    >
-                        and not eating.
-                    </label>
+                <div>
+                    <div className="flex items-center mb-2">
+                        {' '}
+                        {/* Added mb-2 for margin bottom */}
+                        <img
+                            src={worldIcon}
+                            alt="Icon"
+                            width={20}
+                            height={20}
+                        />
+                        <label
+                            htmlFor="cuisine"
+                            className="text-green font-bold ml-2"
+                        >
+                            What food do you like?
+                        </label>
+                    </div>
+                    <CreatableSelect
+                        isMulti
+                        name="cuisine"
+                        options={cuisineOptions}
+                        value={cuisine}
+                        onChange={setCuisine}
+                    />
                 </div>
-                <CreatableSelect
-                    isMulti
-                    name="notEating"
-                    options={intoleranceOptions}
-                    value={notEating}
-                    onChange={setNotEating}
-                    styles={customStyles}
-                />
+                <div>
+                    <div className="flex items-center mb-2">
+                        {' '}
+                        {/* Added mb-2 for margin bottom */}
+                        <FontAwesomeIcon icon={faCarrot} />
+                        <label
+                            htmlFor="diet"
+                            className="text-green font-bold ml-2"
+                        >
+                            I'm on a diet...
+                        </label>
+                    </div>
+                    <Select
+                        isMulti
+                        name="diet"
+                        options={dietOptions}
+                        value={diet}
+                        onChange={setDiet}
+                    />
+                </div>
+                <div>
+                    <div className="flex items-center mb-2">
+                        {' '}
+                        {/* Added mb-2 for margin bottom */}
+                        <FontAwesomeIcon icon={faBan} />
+                        <label
+                            htmlFor="notEating"
+                            className="text-green font-bold ml-2"
+                        >
+                            and not eating.
+                        </label>
+                    </div>
+                    <CreatableSelect
+                        isMulti
+                        name="notEating"
+                        options={intoleranceOptions}
+                        value={notEating}
+                        onChange={setNotEating}
+                        styles={customStyles}
+                    />
+                </div>
             </div>
-        </div>
+        </section>
     )
 }
 
