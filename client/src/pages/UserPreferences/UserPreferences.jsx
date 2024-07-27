@@ -1,5 +1,5 @@
-import timeIcon from '../assets/icons/time.svg'
-import worldIcon from '../assets/icons/world.svg'
+import timeIcon from '../../assets/icons/time.svg'
+import worldIcon from '../../assets/icons/world.svg'
 
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'

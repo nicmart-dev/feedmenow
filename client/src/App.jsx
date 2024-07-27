@@ -5,7 +5,7 @@ import Home from './pages/Home/Home'
 import Footer from './components/Footer.jsx'
 import Header from './components/Header'
 import RecipeDetails from './pages/RecipeDetails'
-import UserPreferences from './pages/UserPreferences'
+import UserPreferences from './pages/UserPreferences/UserPreferences'
 
 const App = () => {
     /* TODO example state stored
