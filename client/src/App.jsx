@@ -5,6 +5,7 @@ import Home from './pages/Home/Home'
 import Footer from './components/Footer.jsx'
 import Header from './components/Header'
 import RecipeDetails from './pages/RecipeDetails'
+import Recipes from './pages/Recipes'
 
 const App = () => {
     /* TODO example state stored
@@ -34,6 +35,7 @@ const App = () => {
                         /> */}
                     <Route path="/" element={<Home />} />
                     <Route path="/recipes/:id" element={<RecipeDetails />} />
+                    <Route path="/recipes" element={<Recipes />} />
                     {/* TODO: example normal route: <Route path="/privacy" element={<PrivacyPolicy />} /> */}
                 </Routes>
                 <Footer />

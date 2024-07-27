@@ -1,3 +1,4 @@
+import { suggestRecipes } from '../../lib/suggest';
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
@@ -26,8 +27,8 @@ export default function Home() {
 
     const handleSubmitForm = (e) => {
         e.preventDefault()
-        console.log('Form submitted')
-        navigate('/recipes')
+        const recipeText = e.target.about.value
+        navigate('/recipes', { state: recipeText } );
     }
 
     return (
