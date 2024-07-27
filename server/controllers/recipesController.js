@@ -1,4 +1,5 @@
-const axios = require('axios');
+const axios = require("axios");
+const jwt = require("jsonwebtoken");
 
 /* Start n8n workflow using ingredients list provided*/
 // POST /api/recipes/suggest
