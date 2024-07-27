@@ -25,7 +25,7 @@ const UserPreferences = () => {
         const fetchCuisines = async () => {
             try {
                 const response = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/api/food/cuisines/`
+                    `${process.env.REACT_APP_API_URL}/api/recipes/cuisines/`
                 )
                 const cuisines = Object.values(response.data).map(
                     (cuisine) => ({

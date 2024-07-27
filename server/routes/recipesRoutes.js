@@ -1,12 +1,12 @@
 const express = require('express');
-const { suggestRecipes, popularCuisines, notEating } = require('../controllers/recipesController.js');
+const { suggestRecipes, popularCuisines } = require('../controllers/recipesController.js');
 
 const router = express.Router();
 
-// POST /api/food/suggest
+// POST /api/recipes/suggest
 router.post('/suggest', suggestRecipes);
 
-// GET /api/food/cuisines
+// GET /api/recipes/cuisines
 router.get('/cuisines', popularCuisines);
 
 module.exports = router;
