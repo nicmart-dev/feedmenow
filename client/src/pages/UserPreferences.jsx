@@ -88,8 +88,15 @@ https://spoonacular.com/food-api/docs#Intolerances
         { value: '120+', label: '2 hours +' },
     ]
 
-    const handleNotEatingChange = (value) => {
-        setNotEating(value)
+    // Used to style react-select UI controls
+    const customStyles = {
+        control: (provided) => ({
+            ...provided,
+            borderColor: 'green',
+            '&:hover': {
+                borderColor: 'green',
+            },
+        }),
     }
 
     return (
@@ -186,6 +193,7 @@ https://spoonacular.com/food-api/docs#Intolerances
                     options={intoleranceOptions}
                     value={notEating}
                     onChange={setNotEating}
+                    styles={customStyles}
                 />
             </div>
         </div>
