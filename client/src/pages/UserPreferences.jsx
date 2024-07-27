@@ -6,7 +6,8 @@ import axios from 'axios'
 import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 
-// Import icons from Font Awesome library
+/* Import icons from Font Awesome library
+Following instructions from https://docs.fontawesome.com/web/use-with/react/add-icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan, faCarrot } from '@fortawesome/free-solid-svg-icons'
 
