@@ -14,7 +14,7 @@ const suggestRecipes = async (req, res) => {
   try {
     // URL of N8n webhook per https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/?utm_source=n8n_app&utm_medium=node_settings_modal-credential_link&utm_campaign=n8n-nodes-base.webhook
     //const webhookUrl = `${process.env.N8N_WEBHOOK_URL}/recommend-recipes`;
-    const webhookUrl = process.env.N8N_WEBHOOK_URL_RECIP_TEST;
+    const webhookUrl = process.env.N8N_WEBHOOK_URL_RECIPE;
 
     //in order to preserve the safety of n8n connection, only tokenized inputs can be read by the n8n.
     const token = jwt.sign({prompt: inputprompt( recipe )}, process.env.JWT_KEY, {
