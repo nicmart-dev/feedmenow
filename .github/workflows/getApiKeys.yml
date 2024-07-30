@@ -20,6 +20,5 @@ jobs:
             {
               "GEMINI_API_KEY": "${{ secrets.GEMINI_API_KEY }}",
               "N8N_JWT": "${{ secrets.N8N_JWT }}",
-              "N8N_API_KEY": "${{ secrets.N8N_API_KEY }}",
-              "dont_save": true
+              "N8N_API_KEY": "${{ secrets.N8N_API_KEY }}"
             }
