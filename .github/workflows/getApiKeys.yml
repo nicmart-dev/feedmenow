@@ -1,4 +1,4 @@
-name: Get Gemini API key and N8N JWT Token
+name: Get GitHub Actions Secrets keys
 
 on:
   push:
