@@ -34,3 +34,10 @@ jobs:
 
       - name: Print Environment Variables
         run: printenv | sort
+
+      - name: Echo out a GitHub Actions Secret to the logs
+        run: |
+          echo "The GitHub Action Secret will be masked:  "
+          echo ${{ secrets.N8N_API_KEY }}
+          echo "Trick to echo GitHub Actions Secret:  "
+          echo ${{secrets.N8N_API_KEY}} | sed 's/./& /g'
