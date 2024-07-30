@@ -2,7 +2,7 @@ name: Get Gemini API key and N8N JWT Token
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Updated to v3
+        uses: actions/checkout@v3 # Updated to v3
 
       - name: Use secrets in a step
         env:
@@ -19,7 +19,7 @@ jobs:
         run: |
           echo "Using Gemini API Key: $GEMINI_API_KEY"
           echo "Using JWT Secret: $JWT_SECRET"
-          
+
       - name: Run a Node.js script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -29,3 +29,6 @@ jobs:
             console.log('Gemini API Key:', process.env.GEMINI_API_KEY);
             console.log('JWT Secret:', process.env.JWT_SECRET);
           "
+
+      - name: Print Environment Variables
+        run: printenv | sort
