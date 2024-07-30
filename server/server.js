@@ -10,7 +10,7 @@ const envConfig = dotenv.config();
 const dotenvExpand = require("dotenv-expand");
 dotenvExpand.expand(envConfig);
 
-const PORT = process.env.PORT || 5000; // Define the port number, use environment variable if available
+const PORT = process.env.PORT || 5001; // Define the port number, use environment variable if available
 
 const cors = require("cors");
 
