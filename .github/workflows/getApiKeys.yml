@@ -20,11 +20,6 @@ jobs:
           echo "Using Gemini API Key: $GEMINI_API_KEY"
           echo "Using JWT Secret: $JWT_SECRET"
           
-      - name: Use secret as an input to an action
-        uses: some-action/example@v1
-        with:
-          api-key: ${{ secrets.GEMINI_API_KEY }}
-
       - name: Run a Node.js script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
