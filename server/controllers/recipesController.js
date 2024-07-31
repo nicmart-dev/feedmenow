@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 /* Start n8n workflow using ingredients list provided*/
 // POST /api/recipes/suggest
 const suggestRecipes = async (req, res) => {
-
   const { recipe } = req.body; // Receive ingredients list from the front-end
 
   //to be placed inside n8n later
@@ -18,12 +17,19 @@ const suggestRecipes = async (req, res) => {
     const webhookUrl = process.env.N8N_WEBHOOK_URL_RECIPE;
 
     //in order to preserve the safety of n8n connection, only tokenized inputs can be read by the n8n.
-    const token = jwt.sign({prompt: inputprompt( recipe )}, process.env.JWT_KEY, {
+    const token = jwt.sign(
+      { prompt: inputprompt(recipe) },
+      process.env.JWT_KEY,
+      {
+        expiresIn: "5m",
+      }
+    );
 
-      expiresIn: "5m",
-    });
-
-    const response = await axios.post(webhookUrl, { token }, {headers: {apiKey: process.env.N8N_API_KEY}});
+    const response = await axios.post(
+      webhookUrl,
+      { token },
+      { headers: { apiKey: process.env.N8N_API_KEY } }
+    );
     // Send the response back to the client
     res.status(200).json(response.data);
   } catch (error) {
