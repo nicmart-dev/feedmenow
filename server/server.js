@@ -17,10 +17,6 @@ const cors = require("cors");
 /* Import routes */
 const usersRoutes = require(path.join(__dirname, "./routes/usersRoutes"));
 const recipesRoutes = require(path.join(__dirname, "./routes/recipesRoutes"));
-const geminiRecipesRoutes = require(path.join(
-  __dirname,
-  "./routes/geminiRecipesRoutes"
-));
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
