@@ -5,6 +5,7 @@ import Home from './pages/Home/Home'
 import Footer from './components/Footer.jsx'
 import Header from './components/Header'
 import RecipeDetails from './pages/RecipeDetails'
+import RecipeSuggestions from './pages/RecipeSuggestions'
 import UserPreferences from './pages/UserPreferences/UserPreferences'
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
                         /> */}
                     <Route path="/" element={<Home />} />
                     <Route path="/recipes/:id" element={<RecipeDetails />} />
+                    <Route path="/recipes" element={<RecipeSuggestions />} />
                     {/* TODO: example normal route: <Route path="/privacy" element={<PrivacyPolicy />} /> */}
                     <Route path="/settings" element={<UserPreferences />} />
                 </Routes>
