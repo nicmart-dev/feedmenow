@@ -1,12 +1,28 @@
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 import {useEffect, useState} from "react";
+import axios from "axios";
 
 export default function Home() {
     const [ingredients, setIngredients] = useState(null);
 
     useEffect(() => {
-        console.log(ingredients);
+        // const response = axios.post();
+        const getRecipes = async () => {
+            try {
+                const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/recipes/suggest`, {ingredients: ingredients});
+                localStorage.clear();
+                localStorage.setItem("recipes", JSON.stringify(response.data));
+                navigate("/recipes");
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        if(ingredients) {
+            getRecipes();
+        }
+
     }, [ingredients]);
 
     const recipes = [

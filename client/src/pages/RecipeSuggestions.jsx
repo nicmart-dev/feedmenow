@@ -1,6 +1,11 @@
 import { FormattedMessage, useIntl } from 'react-intl'
+import {useEffect, useState} from "react";
 
 export default function RecipeSuggestions() {
+
+    const [userRecipes, setUserRecipes] = useState([]);
+    let userRecipeId = 0;
+
     const recipes = [
         {
             id: 1,
@@ -26,6 +31,16 @@ export default function RecipeSuggestions() {
         },
     ]
 
+    useEffect(() => {
+            const localJSON = JSON.parse(localStorage.getItem('recipes'));
+            if(localJSON["Recipes"]) {
+                setUserRecipes(localJSON["Recipes"]);
+            } else {
+                setUserRecipes([localJSON]);
+            }
+        }, []);
+
+
     return (
         <>
             <div className="border rounded-md p-2 m-4 border-green">
@@ -38,7 +53,9 @@ export default function RecipeSuggestions() {
                 </p>
             </div>
             <div className="m-4 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                {recipes.map((recipe) => (
+
+                { localStorage.getItem('recipes') !== null ||
+                recipes.map((recipe) => (
                     <div
                         key={recipe.id}
                         className="group relative rounded-md border p-2 border-green"
@@ -68,6 +85,37 @@ export default function RecipeSuggestions() {
                         </div>
                     </div>
                 ))}
+
+                {
+                    userRecipes.length > 0 && userRecipes.map((recipe) => (
+                        <div
+                            key={++userRecipeId}
+                            className="group relative rounded-md border p-2 border-green"
+                        >
+                            <div className="mt-4 flex justify-between">
+                                <div>
+                                    <h3 className="text-xl text-gray-700 font-thin">
+                                        <span
+                                            aria-hidden="true"
+                                            className="absolute inset-0"
+                                        />
+                                        {recipe["Recipe Name"]}
+                                    </h3>
+                                    <p className="font-thin">Cooking Time: {recipe["cooking time"]} min</p>
+                                    <p className="font-thin">Cooking Guide: {recipe["cooking_guide"].map((guide) => (
+                                        <span className="p-2"><br></br>{guide}</span>
+                                    ))}</p>
+                                    <p className="font-thin">Cuisine: <span className="font-thin">{recipe.cuisine}</span></p>
+                                    <p className="font-thin">Ingredients: {recipe.ingredients.map((ingredient) => (
+                                        <span className="underline p-2 font-thin"><br></br>{ingredient}</span>
+                                    ))}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+
+
             </div>
         </>
     )
