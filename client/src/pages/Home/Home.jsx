@@ -1,7 +1,14 @@
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
+import {useEffect, useState} from "react";
 
 export default function Home() {
+    const [ingredients, setIngredients] = useState(null);
+
+    useEffect(() => {
+        console.log(ingredients);
+    }, [ingredients]);
+
     const recipes = [
         {
             id: 1,
@@ -26,8 +33,7 @@ export default function Home() {
 
     const handleSubmitForm = (e) => {
         e.preventDefault()
-        console.log('Form submitted')
-        navigate('/recipes')
+        setIngredients(e.target.about.value);
     }
 
     return (
