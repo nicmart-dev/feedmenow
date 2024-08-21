@@ -54,7 +54,7 @@ export default function Home() {
 
     return (
         <>
-            <div className="m-4 max-w-2xl py-8 bg-beige rounded-md p-2">
+            <div className="m-4 max-w-full py-8 bg-beige rounded-md p-2">
                 <div className="text-left text-green">
                     <p className="mt-6 text-lg leading-8">
                         <FormattedMessage id="home.hero" />
@@ -93,17 +93,15 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <div className="mt-6 flex items-center justify-end gap-x-6 m-4">
-                    <button
-                        type="submit"
-                        className="rounded-md bg-green px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"
-                    >
-                        <FormattedMessage id="home.ctaBtn" />
-                    </button>
-                </div>
+                <button
+                    type="submit"
+                    className="rounded-md bg-green px-3 py-2 my-4 text-sm font-semibold text-white shadow-sm hover:bg-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"
+                >
+                    <FormattedMessage id="home.ctaBtn" />
+                </button>
             </form>
 
-            <div className="m-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 border rounded-md p-2">
+            <div className="m-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 border rounded-md p-2 mb-32">
                 {recipes.map((recipe) => (
                     <div key={recipe.id} className="group relative">
                         <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
