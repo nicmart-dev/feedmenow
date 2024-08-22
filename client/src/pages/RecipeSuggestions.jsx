@@ -106,8 +106,9 @@ export default function RecipeSuggestions() {
                                         <span className="p-2"><br></br>{guide}</span>
                                     ))}</p>
                                     <p className="font-thin">Cuisine: <span className="font-thin">{recipe.cuisine}</span></p>
+
                                     <p className="font-thin">Ingredients: {recipe.ingredients.map((ingredient) => (
-                                        <span className="underline p-2 font-thin"><br></br>{ingredient}</span>
+                                        <span className="underline p-2 font-thin"><br></br>{JSON.stringify(ingredient)}</span>
                                     ))}</p>
                                 </div>
                             </div>
