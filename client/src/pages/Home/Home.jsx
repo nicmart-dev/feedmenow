@@ -13,6 +13,7 @@ export default function Home() {
                 const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/recipes/suggest`, {ingredients: ingredients});
                 localStorage.clear();
                 localStorage.setItem("recipes", JSON.stringify(response.data));
+                console.log("Data", response.data);
                 navigate("/recipes");
             } catch (error) {
                 console.error(error);

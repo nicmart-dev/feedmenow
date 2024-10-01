@@ -33,14 +33,13 @@ export default function RecipeSuggestions() {
 
     useEffect(() => {
             const localJSON = JSON.parse(localStorage.getItem('recipes'));
-            if(localJSON["Recipes"]) {
-                setUserRecipes(localJSON["Recipes"]);
-            } else {
-                setUserRecipes([localJSON]);
+
+            if(localJSON.length > 0) {
+                setUserRecipes(localJSON);
             }
         }, []);
 
-
+    console.log("H",userRecipes);
     return (
         <>
             <div className="border rounded-md p-2 m-4 border-green">
@@ -99,17 +98,15 @@ export default function RecipeSuggestions() {
                                             aria-hidden="true"
                                             className="absolute inset-0"
                                         />
-                                        {recipe["Recipe Name"]}
+                                        {recipe.dish}
                                     </h3>
-                                    <p className="font-thin">Cooking Time: {recipe["cooking time"]} min</p>
-                                    <p className="font-thin">Cooking Guide: {recipe["cooking_guide"].map((guide) => (
-                                        <span className="p-2"><br></br>{guide}</span>
-                                    ))}</p>
-                                    <p className="font-thin">Cuisine: <span className="font-thin">{recipe.cuisine}</span></p>
-
-                                    <p className="font-thin">Ingredients: {recipe.ingredients.map((ingredient) => (
-                                        <span className="underline p-2 font-thin"><br></br>{JSON.stringify(ingredient)}</span>
-                                    ))}</p>
+                                    <p className="font-thin">Cooking Time: {recipe.cooking_time}</p>
+                                    <p className="font-thin">Cooking Guide: {recipe.instructions}</p>
+                                    <p className="font-thin">Cuisine: <span
+                                        className="font-thin">{recipe.cousine}</span></p>
+                                    <p className="font-thin">Ingredients: {recipe.ingredients_measure}</p>
+                                    <p className="font-thin">Serving Size: {recipe.size}</p>
+                                    <p className="font-thin">Calories: {recipe.calories}</p>
                                 </div>
                             </div>
                         </div>
