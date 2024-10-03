@@ -17,7 +17,10 @@ const suggestRecipes = async (req, res) => {
 
     const response = await axios.post(webhookUrl, { token }, {headers: {apiKey: process.env.N8N_API_KEY}});
     // Send the response back to the client
-    res.status(200).json(response.data);
+
+
+
+      res.status(200).json(response.data);
   } catch (error) {
         // Send error response back to the client
         console.error('Error triggering n8n workflow:', error);

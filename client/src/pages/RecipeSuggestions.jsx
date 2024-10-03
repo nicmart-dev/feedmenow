@@ -6,40 +6,19 @@ export default function RecipeSuggestions() {
     const [userRecipes, setUserRecipes] = useState([]);
     let userRecipeId = 0;
 
-    const recipes = [
-        {
-            id: 1,
-            imageAlt: 'recipe image',
-            imageSrc:
-                'https://images.unsplash.com/photo-1670398564097-0762e1b30b3a?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            href: 'www.fakeurl.com',
-            name: <FormattedMessage id="recipes.name" />,
-            time: '30 min',
-            ingredient: '5 ingredients',
-            cuisine: 'French',
-        },
-        {
-            id: 2,
-            imageAlt: 'recipe image',
-            imageSrc:
-                'https://images.unsplash.com/photo-1670398564097-0762e1b30b3a?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            href: 'www.fakeurl.com',
-            name: <FormattedMessage id="recipes.name" />,
-            time: '30 min',
-            ingredient: '5 ingredients',
-            cuisine: 'French',
-        },
-    ]
-
     useEffect(() => {
+        try {
             const localJSON = JSON.parse(localStorage.getItem('recipes'));
 
             if(localJSON.length > 0) {
                 setUserRecipes(localJSON);
             }
+        } catch (err) {
+            console.error(err);
+        }
+
         }, []);
 
-    console.log("H",userRecipes);
     return (
         <>
             <div className="border rounded-md p-2 m-4 border-green">
@@ -52,62 +31,37 @@ export default function RecipeSuggestions() {
                 </p>
             </div>
             <div className="m-4 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-
-                { localStorage.getItem('recipes') !== null ||
-                recipes.map((recipe) => (
-                    <div
-                        key={recipe.id}
-                        className="group relative rounded-md border p-2 border-green"
-                    >
-                        <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden lg:aspect-none group-hover:opacity-75 lg:h-80">
-                            <img
-                                alt={recipe.imageAlt}
-                                src={recipe.imageSrc}
-                                className="h-full w-full object-cover object-center lg:h-full lg:w-full rounded-sm"
-                            />
-                        </div>
-                        <div className="mt-4 flex justify-between">
-                            <div>
-                                <h3 className="text-xl text-gray-700 font-thin">
-                                    <a href={recipe.href}>
-                                        <span
-                                            aria-hidden="true"
-                                            className="absolute inset-0"
-                                        />
-                                        {recipe.name}
-                                    </a>
-                                </h3>
-                                <p className="font-thin">{recipe.time}</p>
-                                <p className="font-thin">{recipe.ingredient}</p>
-                                <p className="font-thin">{recipe.cuisine}</p>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-
                 {
-                    userRecipes.length > 0 && userRecipes.map((recipe) => (
+                    userRecipes && userRecipes.map((recipe) => (
                         <div
                             key={++userRecipeId}
                             className="group relative rounded-md border p-2 border-green"
                         >
-                            <div className="mt-4 flex justify-between">
-                                <div>
-                                    <h3 className="text-xl text-gray-700 font-thin">
+                            <div className="flex flex-col justify-between [&>*]:mb-3">
+                                    <h3 className="text-2xl text-gray-700 mb-10 font-bold text-green">
                                         <span
                                             aria-hidden="true"
                                             className="absolute inset-0"
                                         />
                                         {recipe.dish}
                                     </h3>
-                                    <p className="font-thin">Cooking Time: {recipe.cooking_time}</p>
-                                    <p className="font-thin">Cooking Guide: {recipe.instructions}</p>
-                                    <p className="font-thin">Cuisine: <span
-                                        className="font-thin">{recipe.cousine}</span></p>
-                                    <p className="font-thin">Ingredients: {recipe.ingredients_measure}</p>
-                                    <p className="font-thin">Serving Size: {recipe.size}</p>
-                                    <p className="font-thin">Calories: {recipe.calories}</p>
-                                </div>
+                                    <p className="font-normal">Cooking Time: <span className="text-green">{recipe.cooking_time}</span></p>
+                                    <p className="font-normal">Cooking Guide: <span className="text-green">{
+                                        recipe.instructions.map((instruction, i) => (
+                                            <p className="font-semibold" key={i}>{i+1}. {instruction}</p>
+                                        ))
+                                    }</span>
+                                    </p>
+                                    <p className="font-normal">Cuisine: <span className="font-semibold text-green">{recipe.cousine}</span></p>
+                                    <p className="font-normal">Ingredients: <span className="font-semibold text-green">{recipe.ingredients_measure.map((ingredient, i) =>
+                                        <p>{String.fromCharCode(i+97)}. {ingredient}</p>
+                                    )}</span>
+                                    </p>
+                                    <p className="font-normal">Serving Size: <span className="font-semibold text-green">{recipe.size}</span>
+                                    </p>
+                                    <p className="font-normal">Calories: <span className="font-semibold text-green">{recipe.calories}</span>
+                                    </p>
+
                             </div>
                         </div>
                     ))
