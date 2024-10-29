@@ -17,6 +17,7 @@
         "home.ingredientTitle": "My Ingredients",
         "home.placeholder": "Don't worry about the formatting. AI will understand what you're saying.",
         "home.ctaBtn": "Show me what I can cook",
+        "home.recipesTitle": "Your Recipes",
         "recipes.name": "Delicious Food Name"
     },
     "fr": {
@@ -37,6 +38,7 @@
         "home.ingredientTitle": "Mes ingrédients",
         "home.placeholder": "Ne vous inquiétez pas du formatage. L'IA comprendra ce que vous dites.",
         "home.ctaBtn": "Montre-moi ce que je peux cuisiner",
+        "home.recipesTitle": "Vos Recettes",
         "recipes.name": "Nom de la nourriture délicieuse"
     },
     "zh-cn": {
@@ -57,6 +59,7 @@
         "home.ingredientTitle": "我的配料",
         "home.placeholder": "不用担心格式。AI 会理解你所说的话。",
         "home.ctaBtn": "告诉我我能做什么菜",
+        "home.recipesTitle": "你的食谱",
         "recipes.name": "美味的食物名称"
     }
 }

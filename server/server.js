@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 // Use routes to handle user data
 app.use("/api/users", usersRoutes);
 
-// Route to manage Google calendar user data handling
+// Route to manage invoking n8n workflow to recommend recipes, and getting other recipe related data
 app.use("/api/recipes", recipesRoutes);
 
 // Start the server
