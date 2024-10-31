@@ -1,0 +1,13 @@
+{
+  "id": "gFFoKR4Zaq1GP8ag",
+  "name": "Google Gemini(PaLM) Api account",
+  "type": "googlePalmApi",
+  "data": {
+    "apiKey": ""
+  },
+  "ownedBy": {
+    "type": "team",
+    "teamId": "IFEu7M9xIKdXhXyB",
+    "teamName": "Feed Me Now"
+  }
+}

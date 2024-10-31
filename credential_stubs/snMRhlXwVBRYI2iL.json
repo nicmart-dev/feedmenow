@@ -1,0 +1,14 @@
+{
+  "id": "snMRhlXwVBRYI2iL",
+  "name": "OpenAi Ryan's account ",
+  "type": "openAiApi",
+  "data": {
+    "apiKey": "",
+    "organizationId": ""
+  },
+  "ownedBy": {
+    "type": "team",
+    "teamId": "BYoK5XnEIZGC8h5j",
+    "teamName": "Ryan marketing platform"
+  }
+}

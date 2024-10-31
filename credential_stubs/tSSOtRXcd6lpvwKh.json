@@ -1,0 +1,15 @@
+{
+  "id": "tSSOtRXcd6lpvwKh",
+  "name": "LinkedIn Community Management account (Organization)",
+  "type": "linkedInCommunityManagementOAuth2Api",
+  "data": {
+    "clientId": "",
+    "clientSecret": "",
+    "csrfSecret": ""
+  },
+  "ownedBy": {
+    "type": "team",
+    "teamId": "BYoK5XnEIZGC8h5j",
+    "teamName": "Ryan marketing platform"
+  }
+}

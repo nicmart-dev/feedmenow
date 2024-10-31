@@ -1,0 +1,15 @@
+{
+  "id": "pEEKDWZ68617YRiT",
+  "name": "LinkedIn Ryan personal account",
+  "type": "linkedInOAuth2Api",
+  "data": {
+    "clientId": "",
+    "clientSecret": "",
+    "organizationSupport": false
+  },
+  "ownedBy": {
+    "type": "team",
+    "teamId": "BYoK5XnEIZGC8h5j",
+    "teamName": "Ryan marketing platform"
+  }
+}

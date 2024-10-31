@@ -1,0 +1,12 @@
+{
+  "id": "zfnw3Ue3iexZdwql",
+  "name": "Nicolas API key",
+  "type": "openAiApi",
+  "data": {
+    "apiKey": ""
+  },
+  "ownedBy": {
+    "type": "personal",
+    "personalEmail": "nicmart@gmail.com"
+  }
+}

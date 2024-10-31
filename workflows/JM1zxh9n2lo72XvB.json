@@ -1,0 +1,713 @@
+{
+  "id": "JM1zxh9n2lo72XvB",
+  "name": "Feed Me Now recipe recommendations",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "decode",
+        "token": "={{ $json.body.token }}",
+        "options": {}
+      },
+      "id": "94cf356c-c72a-4295-85c0-59879405ba52",
+      "name": "JWT",
+      "type": "n8n-nodes-base.jwt",
+      "typeVersion": 1,
+      "position": [
+        -2860,
+        620
+      ],
+      "credentials": {
+        "jwtAuth": {
+          "id": "R9pRcGg1shzUVVgz",
+          "name": "JWT Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "console.log($input.all());\nreturn $input.all();"
+      },
+      "id": "0a617c14-9344-4a02-a838-459ecb54c4f2",
+      "name": "Final List",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1080,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "7fd398d8-7f57-42cd-a6a0-adb7ab89eefd",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1380,
+        600
+      ],
+      "executeOnce": false,
+      "alwaysOutputData": false,
+      "notesInFlow": true,
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "id": "f8b37cc5-24e7-4ea0-bfbe-8f84ddf7189f",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -880,
+        260
+      ],
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst rawtext = $input.all()[0].json.candidates[0].content.parts[0];\nrawtext.ingredients = rawtext.text.replace(/(\\n)/gm, \"\");\ndelete rawtext.text;\n\nreturn rawtext;"
+      },
+      "id": "743948dc-7408-4e43-9a14-47f4ac19ad72",
+      "name": "Format List",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2460,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"contents\":[{\"parts\":[{\"text\":\"Put these items in a neat list separated by comma: [{{ $json.payload.prompt.replace(/\\n/g, ' '); }}]\"}]}]} ",
+        "options": {}
+      },
+      "id": "f698d4d6-0651-4bc7-b184-fcbba6c0d580",
+      "name": "Input to List (Pro)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2640,
+        620
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "gFFoKR4Zaq1GP8ag",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"contents\":[{\"parts\":[{\"text\":\"Return JSON list of strings of a few dishes that can be made with these ingredients: [ {{ $json.ingredients }}]. Make sure that the dishes are relatively different and avoid making similar dishes. Use ```json format.\"}]}]}",
+        "options": {}
+      },
+      "id": "f8b3efc7-c5cf-4a86-b0df-1c748fc4e63b",
+      "name": "Generate Recipe Names",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2260,
+        340
+      ],
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "gFFoKR4Zaq1GP8ag",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "1addeeb7-e226-4a8b-8f0f-099e4d94267e",
+      "name": "Merge Recipes and Ingredient Lists",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -2040,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"contents\":[{\"parts\":[{\"text\":\"Take the dish {{ $json.dish }} made with the ingredients: [{{ $json.ingredients_measure }}], and return only the json array with the format [cooking time, serving size, cousine, approximate calories]. Include the units. The default values are [5 minutes, 1 serving, International, 100 cal], but try to still fill in the values, especially approximate calories. Return in ```json format ONLY.\"}]}]} ",
+        "options": {}
+      },
+      "id": "f60c33dd-f628-4e2c-9a8f-88d564e0904d",
+      "name": "Generate Cousine, Serving Size, Cooking Time",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -460,
+        620
+      ],
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "gFFoKR4Zaq1GP8ag",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"contents\":[{\"parts\":[{\"text\":\"Return array of cooking instructions where each value is a string, for recipe: {{ $json.dish }} with the ingredients: [{{ $json.ingredients }}]. Return in ```json format ONLY.\"}]}]} ",
+        "options": {}
+      },
+      "id": "cfc2100e-1a00-48d3-8b71-519cbd9b95d2",
+      "name": "Generate Cooking Instructions",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -460,
+        420
+      ],
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "gFFoKR4Zaq1GP8ag",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rawtext = $input.all()[0].json.candidates[0].content.parts[0];\n\nconst ing = $input.all()[1].json.ingredients;\n\n//only take up to 3 recipes\nrawtext[\"dish\"] = JSON.parse(rawtext[\"text\"].match(/```json([\\s\\S]*?)```/)[1]).slice(0,3);\n\n// rawtext[\"recipes\"] = JSON.parse(rawtext[\"text\"].match(/```json([\\s\\S]*?)```/)[1]);\n\ndelete rawtext.text;\n\nrawtext[\"ingredients\"] = ing;\n\nreturn rawtext;"
+      },
+      "id": "f8683427-686e-49f0-9f8e-9cbfd7edc665",
+      "name": "Select First few Recipes",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1840,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "dish",
+        "include": "selectedOtherFields",
+        "fieldsToInclude": "ingredients",
+        "options": {}
+      },
+      "id": "11e52593-e457-4b6c-ba74-6a365779f90c",
+      "name": "Pair Recipes and Ingredient List",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1640,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst instructions = $json.candidates[0].content.parts[0];\n\ninstructions[\"ingredients_measure\"] = instructions[\"text\"].match(/```json([\\s\\S]*?)```/)[1].trim();\n\ndelete instructions[\"text\"];\n\ninstructions[\"ingredients_measure\"] = JSON.parse(instructions[\"ingredients_measure\"]);\n\nreturn instructions;\n"
+      },
+      "id": "3a5cb033-bd30-4148-9d9c-49023f72cf81",
+      "name": "Format Ingredients",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -900,
+        620
+      ],
+      "retryOnFail": false,
+      "executeOnce": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"contents\":[{\"parts\":[{\"text\":\"If this list [{{ $json.ingredients }}] does not have item measurements, return the lists of ingredients with the size for 1 serving, for the dish: {{ $json.dish }}. Otherwise create create a list of ingredients equal or less than the given ingredients. Do not replace number for items with amount listed. Return a json array of strings for each ingredient in format ```json.\"}]}]} ",
+        "options": {}
+      },
+      "id": "5380303b-8341-4d4c-b490-a186556d4885",
+      "name": "Generate Measure Ingredients",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1080,
+        620
+      ],
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "gFFoKR4Zaq1GP8ag",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst instructions = $json.candidates[0].content.parts[0];\n\ninstructions[\"instructions\"] = instructions[\"text\"].match(/```json([\\s\\S]*?)```/)[1].trim();\n\ndelete instructions[\"text\"];\n\ninstructions[\"instructions\"] = JSON.parse(instructions[\"instructions\"]);\n\nreturn instructions;\n"
+      },
+      "id": "7eb8f3b0-7582-46e5-8f6d-8273b12901b4",
+      "name": "Format Cooking Instructions",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -260,
+        420
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst info = $json.candidates[0].content.parts[0];\n\nlet collection = info[\"text\"].match(/```json([\\s\\S]*?)```/)[1].trim();\ncollection = collection.replace(/\\[|\\]|\\n|\\\"|\\'/g, \"\");\ndelete info[\"text\"];\n\nconsole.log(\"hello?\")\n\n\nlet Items = collection.split(',');\nItems = Items.map(item => item.trim());\n\nconsole.log(\"Items\", Items);\n\ninfo[\"cooking_time\"] = Items[0];\ninfo[\"size\"] = Items[1];\ninfo[\"cousine\"] = Items[2];\ninfo[\"calories\"] = Items[3];\n\nreturn info;\n"
+      },
+      "id": "5f5d494b-078a-411e-a9c3-5fc53bec0ae6",
+      "name": "Format Cousine, Size, Time",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -260,
+        620
+      ],
+      "retryOnFail": false,
+      "notesInFlow": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "58c89deb-c114-4c88-a5a6-064826c741f7",
+      "name": "Merge Recipe, Ingredients and Proper measured Ingredients",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -720,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "fa903359-2e01-4927-89eb-9b80044abe06",
+      "name": "Merge Extra Info with Instructions",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        0,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "recommend-recipes",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "a6ed58da-70c9-454e-b898-bf55c4be5079",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -3080,
+        620
+      ],
+      "webhookId": "dacee8f3-a300-4b6f-8ab2-ef25f13a926f",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2wUUm1IiNP1PhXbj",
+          "name": "n8n API key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Updated Workflow\n**The workflow was split into multiple generative AI prompts.**"
+      },
+      "id": "b34c7636-ec36-43cf-8482-47e97ab646bd",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2340,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## NOTE\n*You can change the word \"flash\" to \"pro\" in the gemini api url for request to use the pro model, however it's very slow and prone to crashes*"
+      },
+      "id": "0764a20c-3e87-435e-8c35-eb7c36b89e9f",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2580,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "c6951dda-18ea-41ce-a3ab-1264c1c0477d",
+      "name": "Merge All",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        180,
+        680
+      ]
+    }
+  ],
+  "connections": {
+    "JWT": {
+      "main": [
+        [
+          {
+            "node": "Input to List (Pro)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final List": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Final List",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Generate Measure Ingredients",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge Recipe, Ingredients and Proper measured Ingredients",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format List": {
+      "main": [
+        [
+          {
+            "node": "Generate Recipe Names",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge Recipes and Ingredient Lists",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Input to List (Pro)": {
+      "main": [
+        [
+          {
+            "node": "Format List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Recipe Names": {
+      "main": [
+        [
+          {
+            "node": "Merge Recipes and Ingredient Lists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Recipes and Ingredient Lists": {
+      "main": [
+        [
+          {
+            "node": "Select First few Recipes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Cousine, Serving Size, Cooking Time": {
+      "main": [
+        [
+          {
+            "node": "Format Cousine, Size, Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Cooking Instructions": {
+      "main": [
+        [
+          {
+            "node": "Format Cooking Instructions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select First few Recipes": {
+      "main": [
+        [
+          {
+            "node": "Pair Recipes and Ingredient List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pair Recipes and Ingredient List": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Ingredients": {
+      "main": [
+        [
+          {
+            "node": "Merge Recipe, Ingredients and Proper measured Ingredients",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Generate Measure Ingredients": {
+      "main": [
+        [
+          {
+            "node": "Format Ingredients",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Cooking Instructions": {
+      "main": [
+        [
+          {
+            "node": "Merge Extra Info with Instructions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Cousine, Size, Time": {
+      "main": [
+        [
+          {
+            "node": "Merge Extra Info with Instructions",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Recipe, Ingredients and Proper measured Ingredients": {
+      "main": [
+        [
+          {
+            "node": "Generate Cooking Instructions",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Generate Cousine, Serving Size, Cooking Time",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge All",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Extra Info with Instructions": {
+      "main": [
+        [
+          {
+            "node": "Merge All",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "JWT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge All": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "triggerCount": 1,
+  "versionId": "92c00697-c6dd-4a55-abe5-091bae68c307",
+  "owner": {
+    "type": "team",
+    "teamId": "IFEu7M9xIKdXhXyB",
+    "teamName": "Feed Me Now"
+  }
+}

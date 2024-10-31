@@ -1,0 +1,14 @@
+{
+  "id": "R9pRcGg1shzUVVgz",
+  "name": "JWT Auth account",
+  "type": "jwtAuth",
+  "data": {
+    "secret": "",
+    "algorithm": ""
+  },
+  "ownedBy": {
+    "type": "team",
+    "teamId": "IFEu7M9xIKdXhXyB",
+    "teamName": "Feed Me Now"
+  }
+}

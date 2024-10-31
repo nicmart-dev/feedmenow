@@ -1,0 +1,14 @@
+{
+  "id": "2wUUm1IiNP1PhXbj",
+  "name": "n8n API key",
+  "type": "httpHeaderAuth",
+  "data": {
+    "name": "",
+    "value": ""
+  },
+  "ownedBy": {
+    "type": "team",
+    "teamId": "IFEu7M9xIKdXhXyB",
+    "teamName": "Feed Me Now"
+  }
+}

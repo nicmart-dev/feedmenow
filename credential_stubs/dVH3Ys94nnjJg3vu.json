@@ -1,0 +1,13 @@
+{
+  "id": "dVH3Ys94nnjJg3vu",
+  "name": "Cloudinary credentials",
+  "type": "httpCustomAuth",
+  "data": {
+    "json": ""
+  },
+  "ownedBy": {
+    "type": "team",
+    "teamId": "BYoK5XnEIZGC8h5j",
+    "teamName": "Ryan marketing platform"
+  }
+}

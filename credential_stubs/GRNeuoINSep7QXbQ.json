@@ -1,0 +1,14 @@
+{
+  "id": "GRNeuoINSep7QXbQ",
+  "name": "Zenserp API Key",
+  "type": "httpQueryAuth",
+  "data": {
+    "name": "",
+    "value": ""
+  },
+  "ownedBy": {
+    "type": "team",
+    "teamId": "IFEu7M9xIKdXhXyB",
+    "teamName": "Feed Me Now"
+  }
+}
