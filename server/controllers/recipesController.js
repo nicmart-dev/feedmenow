@@ -1,26 +1,31 @@
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
+const { nanoid } = require("nanoid");
 
 /* Start n8n workflow using ingredients list provided*/
 // POST /api/recipes/suggest
 const suggestRecipes = async (req, res) => {
-    const { ingredients } = req.body; // Receive ingredients list from the front-end
-
+    const { ingredients, settings } = req.body; // Receive ingredients list from the front-end
   try {
+    console.log("prompt:", ingredients);
     // URL of N8n webhook per https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/?utm_source=n8n_app&utm_medium=node_settings_modal-credential_link&utm_campaign=n8n-nodes-base.webhook
     const webhookUrl = `${process.env.N8N_WEBHOOK_URL}/recommend-recipes`;
 
     //in order to preserve the safety of n8n connection, only tokenized inputs can be read by the n8n.
-    const token = jwt.sign({prompt: ingredients}, process.env.JWT_KEY, {
+    const token = jwt.sign({prompt: ingredients, settings: settings}, process.env.JWT_KEY, {
       expiresIn: "5m",
     });
-
     const response = await axios.post(webhookUrl, { token }, {headers: {apiKey: process.env.N8N_API_KEY}});
     // Send the response back to the client
+    
 
-
-
-      res.status(200).json(response.data);
+    response.data[0].dishes.map((item) => {
+      console.log('hello?');
+      item["id"] = nanoid(16);
+      console.log(item["id"]);
+    });
+    
+    res.status(200).json(response.data);
   } catch (error) {
         // Send error response back to the client
         console.error('Error triggering n8n workflow:', error);

@@ -25,11 +25,11 @@ app.use(cors()); // allow * / all to access our api. All domains, ips, ports
 
 // Default route
 app.get("/", (req, res) => {
-  res.send("Welcome to FeedMeNow! API server!");
+  res.send("Welcome to FeedMeNow! API server 2!");
 });
 
 // Use routes to handle user data
-app.use("/api/users", usersRoutes);
+//app.use("/api/users", usersRoutes);
 
 // Route to manage invoking n8n workflow to recommend recipes, and getting other recipe related data
 app.use("/api/recipes", recipesRoutes);
