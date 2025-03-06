@@ -13,21 +13,21 @@ Can replace by other Tailwind UI components
 const Footer = () => (
         <div className="h-[96px] mt-20">
         <footer className="flex flex-row w-full bg-green p-6 justify-between fixed bottom-0 h-[96px]">
-            <Link to="/" className="flex flex-col items-center w-1/3">
-                <img src={SearchIcon} alt="Search Icon" />
-                <p className="text-lightgreen">
+            <Link to="/" className="flex flex-col items-center justify-center w-1/3">
+                <img src={SearchIcon} alt="Search Icon" className="w-9 md:w-7" />
+                <p className="text-lightgreen hidden md:block">
                     <FormattedMessage id="footer.search" />
                 </p>
             </Link>
-            <Link to="/recipes" className="flex flex-col items-center w-1/3">
-                <img src={RecipesIcon} alt="Recipes Icon" />
-                <p className="text-lightgreen">
+            <Link to="/recipes" className="flex flex-col items-center justify-center w-1/3">
+                <img src={RecipesIcon} alt="Recipes Icon" className="w-9 md:w-7" />
+                <p className="text-lightgreen hidden md:block">
                     <FormattedMessage id="footer.myRecipes" />
                 </p>
             </Link>
-            <Link to="/settings" className="flex flex-col items-center w-1/3">
-                <img src={SettingsIcon} alt="Settings Icon" />
-                <p className="text-lightgreen">
+            <Link to="/settings" className="flex flex-col items-center justify-center w-1/3">
+                <img src={SettingsIcon} alt="Settings Icon" className="w-9 md:w-7" />
+                <p className="text-lightgreen hidden md:block">
                     <FormattedMessage id="footer.settings" />
                 </p>
             </Link>

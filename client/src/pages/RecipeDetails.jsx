@@ -1,6 +1,7 @@
 import SampleImage from '../assets/images/sample-food.jpg'
 import HeartIcon from '../assets/icons/heart.svg'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 const tabs = [
     {
@@ -28,8 +29,26 @@ function classNames(...classes) {
 }
 
 export default function RecipeDetails() {
-    const [currentTab, setCurrentTab] = useState(tabs[0])
-    const [isHovered, setIsHovered] = useState(false)
+    const [currentTab, setCurrentTab] = useState(tabs[0]);
+    const [isHovered, setIsHovered] = useState(false);
+    const [recipe, setRecipe] = useState(null);
+
+    const params = useParams();
+
+    useEffect(() => {
+        const localRecipes = JSON.parse(localStorage.getItem("recipes"));
+        const findit = localRecipes.flatMap(objset => objset.dishes).find(dish => dish.id === params.id);
+        if(findit) {
+            setRecipe(findit);
+
+            delete tabs[0].content;
+            delete tabs[1].content;
+            delete tabs[2].content;
+            tabs[0].content = [findit.size, findit.calories, findit.cooking_time, findit.cuisine];
+            tabs[1].content = [...findit.ingredients_measure];
+            tabs[2].content = [...findit.instructions];
+        }
+    }, []);
 
     return (
         <>
@@ -38,7 +57,7 @@ export default function RecipeDetails() {
                 <img src={SampleImage} className="w-full lg:w-1/2" />
                 <div className="flex flex-row m-4 justify-between lg:w-1/2">
                     <h1 className="text-4xl font-bold tracking-tight sm:text-6xl w-7/8 text-green">
-                        Sample Recipe Name Lorem Ipsum
+                        {recipe && recipe.name || "Sample Recipe Name"}
                     </h1>
                     {/* <img src={HeartIcon} className="w-1/8 w-12 cursor-pointer" /> */}
                 </div>
@@ -46,7 +65,7 @@ export default function RecipeDetails() {
             <div className="m-4">
                 <nav
                     aria-label="Tabs"
-                    className="-mb-px flex space-x-8 justify-between"
+                    className="-mb-px flex space-x-8 justify-between lg:justify-start"
                 >
                     {tabs.map((tab) => (
                         <a
