@@ -37,25 +37,27 @@ export default function RecipeSuggestions() {
             </div>
             <div className="m-4">
                 {userRecipes &&
-                    userRecipes.map((item, i) => (
+                    userRecipes.reverse().map((item, i) => (
                         <section key={i}>
-                            <h2 className="text-2xl text-gray-700 font-bold text-green relative rounded-md border p-2 border-green">
-                                Prompt: {item.prompt}
+                            <h2 className="text-xl text-gray-700 text-green relative p-2">
+                                {item.prompt}
                             </h2>
 
-                            <div className="my-4 grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-10 lg:grid-cols-4 xl:gap-x-8">
+                            <div className="my-4 px-2 grid grid-cols-2 gap-x-2 md:grid-cols-3 gap-y-10 lg:grid-cols-4 xl:gap-x-8 w-full md:w-fit">
                                 {item.dishes.map((recipe) => (
+                                    <a href={`/recipes/${recipe.id}`}>
                                     <div
                                         key={userRecipeId++}
-                                        className="group relative rounded-xl border p-2 border-green w-[clamp(171px,22vw,350px)] h-[clamp(300px,30vw,500px)] m-auto"
+                                        className="group relative rounded-xl border p-2 border-green w-[clamp(190px,23vw,350px)] h-[clamp(300px,28vw,450px)] 
+                                        m-auto bg-white hover:shadow-xl hover:scale-110 hover:bg-red-50 duration-300 transition-all"
                                     >
                                         <div className="[&>*:not(.list-heading)]:mb-3">
                                             <div className="flex flex-row justify-between gap-4">
-                                                <h3 className="text-2xl text-gray-700 mb-2 font-medium text-green w-3/5">
+                                                <h3 className="text-2xl text-gray-700 mb-2 font-medium text-green w-full">
                                                     {recipe.name.slice(0, 30)}
                                                     {recipe.name[30] && '...'}
                                                 </h3>
-                                                <a
+                                                {/* <a
                                                     href={`/recipes/${recipe.id}`}
                                                     className="flex-shrink-0 w-[48px] h-[48px] border border-green rounded-sm"
                                                 >
@@ -63,7 +65,7 @@ export default function RecipeSuggestions() {
                                                         src={linkIcon}
                                                         className="w-[40px] h-[40px] m-[3px] align-bottom"
                                                     />
-                                                </a>
+                                                </a> */}
                                             </div>
                                             <div className="grid grid-cols-[auto_1fr] gap-2 font-normal">
                                                 <img
@@ -94,6 +96,7 @@ export default function RecipeSuggestions() {
 
                                         </div>
                                     </div>
+                                    </a>
                                 ))}
                             </div>
                         </section>

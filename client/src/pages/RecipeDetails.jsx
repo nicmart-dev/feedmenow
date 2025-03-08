@@ -65,7 +65,7 @@ export default function RecipeDetails() {
             <div className="m-4">
                 <nav
                     aria-label="Tabs"
-                    className="-mb-px flex space-x-8 justify-between lg:justify-start"
+                    className="-mb-px flex space-x-8 justify-between md:justify-start"
                 >
                     {tabs.map((tab) => (
                         <a
