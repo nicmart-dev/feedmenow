@@ -7,7 +7,6 @@ const { nanoid } = require("nanoid");
 const suggestRecipes = async (req, res) => {
     const { ingredients, settings } = req.body; // Receive ingredients list from the front-end
   try {
-    console.log("prompt:", ingredients);
     // URL of N8n webhook per https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/?utm_source=n8n_app&utm_medium=node_settings_modal-credential_link&utm_campaign=n8n-nodes-base.webhook
     const webhookUrl = `${process.env.N8N_WEBHOOK_URL}/recommend-recipes`;
 
@@ -20,9 +19,7 @@ const suggestRecipes = async (req, res) => {
     
 
     response.data[0].dishes.map((item) => {
-      console.log('hello?');
       item["id"] = nanoid(16);
-      console.log(item["id"]);
     });
     
     res.status(200).json(response.data);

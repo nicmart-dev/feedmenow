@@ -31,12 +31,9 @@ export default function Home({setIsRecipeRequest}) {
                     setIsRecipeRequest(true);
                     const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/recipes/suggest`, 
                         {ingredients: ingredients, settings: modSettings});
-                    
 
                     const existingRecipes = JSON.parse(localStorage.getItem('recipes'));
-
-                    localStorage.removeItem("recipes");
-                    existingRecipes.push(...response.data);
+                    existingRecipes.unshift(...response.data);
                     localStorage.setItem("recipes", JSON.stringify(existingRecipes));
                     setDisplayRecipes(existingRecipes.sort(() => 0.5 - Math.random()).splice(0, 4));
 

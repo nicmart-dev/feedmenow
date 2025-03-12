@@ -6,11 +6,18 @@ import clockIcon from "../assets/icons/clock.svg";
 import ingredientsIcon from "../assets/icons/clipboard.svg";
 import globeIcon from "../assets/icons/globe.svg";
 import caloriesIcon from "../assets/icons/energy.png";
+import threedotsIcon from "../assets/icons/three-dots.svg";
 
 export default function RecipeSuggestions() {
 
     const [userRecipes, setUserRecipes] = useState([]);
-    let userRecipeId = 0;
+    const [showPromptMenu, setShowPromptMenu] = useState(-1);
+
+    const mouseClickFunction = (promptitem) => {
+        if(document.querySelector(`#nav-${promptitem}`)) document.querySelector(`#nav-${promptitem}`).classList.add("hidden");
+        setShowPromptMenu(-1);
+    };
+    document.addEventListener("click", ()=> {mouseClickFunction(showPromptMenu)});
 
     useEffect(() => {
         try {
@@ -22,7 +29,17 @@ export default function RecipeSuggestions() {
             console.error(err);
         }
 
+        return(() => {
+            document.removeEventListener("mouseclick", mouseClickFunction);
+        });
+
     }, []);
+
+    const backgroundImg = {
+        backgroundImage: `url(${threedotsIcon})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+    }
 
     return (
         <>
@@ -37,35 +54,50 @@ export default function RecipeSuggestions() {
             </div>
             <div className="m-4">
                 {userRecipes &&
-                    userRecipes.reverse().map((item, i) => (
+                    userRecipes.map((item, i) => (
                         <section key={i}>
-                            <h2 className="text-xl text-gray-700 text-green relative p-2">
-                                {item.prompt}
-                            </h2>
+                            <div className="relative">
+                                <h2 className="text-xl text-gray-700 text-green relative inline-flex items-center">
+                                    <button className="bg-white rounded-sm hover:drop-shadow-lg mr-2 h-[24px] w-[18px]" style={backgroundImg}
+                                        onClick={(event) => {
+                                            event.stopPropagation();
+                                            if(showPromptMenu !== i) {
+                                                if(document.querySelector(`#nav-${showPromptMenu}`)) document.querySelector(`#nav-${showPromptMenu}`).classList.add("hidden");
+                                                document.querySelector(`#nav-${i}`).classList.remove("hidden");
+                                                setShowPromptMenu(i);
+                                            }
+                                        }}
+                                    /> {item.prompt}
+                                </h2>
+                                <nav id={`nav-${i}`} className={`hidden absolute z-10 rounded-md border p-2 border-green bg-pink-50 text-2xl/6  text-emerald-600`}>
+                                    <ul>
+                                        <li><button onClick={
+                                            () => {
+                                                const tempUserRecipes = userRecipes;
+                                                tempUserRecipes.splice(i, 1);
+                                                localStorage.setItem("recipes", JSON.stringify(tempUserRecipes));
+                                                setUserRecipes(tempUserRecipes);
+                                            }
+                                        }>Delete</button></li>
+                                    </ul>
+                                </nav>
+                            </div>
 
-                            <div className="my-4 px-2 grid grid-cols-2 gap-x-2 md:grid-cols-3 gap-y-10 lg:grid-cols-4 xl:gap-x-8 w-full md:w-fit">
-                                {item.dishes.map((recipe) => (
+                            <div className="mt-4 mb-8 px-2 grid grid-cols-1 gap-x-2 gap-y-10 md:grid-cols-4 xl:gap-x-8 w-full md:w-fit">
+                                {item.dishes.map((recipe, j) => (
+                                    <>
                                     <a href={`/recipes/${recipe.id}`}>
                                     <div
-                                        key={userRecipeId++}
-                                        className="group relative rounded-xl border p-2 border-green w-[clamp(190px,23vw,350px)] h-[clamp(300px,28vw,450px)] 
-                                        m-auto bg-white hover:shadow-xl hover:scale-110 hover:bg-red-50 duration-300 transition-all"
+                                        key={j}
+                                        className="group relative rounded-xl border p-2 border-green max-w-[290px] md:max-w-full md:w-[clamp(190px,22vw,350px)] h-[clamp(320px,28vw,450px)]
+                                        m-auto bg-white hover:shadow-xl hover:scale-110 hover:z-10 hover:bg-red-50 duration-300 transition-all"
                                     >
                                         <div className="[&>*:not(.list-heading)]:mb-3">
                                             <div className="flex flex-row justify-between gap-4">
-                                                <h3 className="text-2xl text-gray-700 mb-2 font-medium text-green w-full">
+                                                <h3 className="text-2xl text-gray-700 mb-2 font-medium text-green w-full break-words">
                                                     {recipe.name.slice(0, 30)}
                                                     {recipe.name[30] && '...'}
                                                 </h3>
-                                                {/* <a
-                                                    href={`/recipes/${recipe.id}`}
-                                                    className="flex-shrink-0 w-[48px] h-[48px] border border-green rounded-sm"
-                                                >
-                                                    <img
-                                                        src={linkIcon}
-                                                        className="w-[40px] h-[40px] m-[3px] align-bottom"
-                                                    />
-                                                </a> */}
                                             </div>
                                             <div className="grid grid-cols-[auto_1fr] gap-2 font-normal">
                                                 <img
@@ -94,9 +126,18 @@ export default function RecipeSuggestions() {
                                                 <p>{recipe.calories}</p>
                                             </div>
 
+
                                         </div>
                                     </div>
                                     </a>
+                                    {/*<button type="button" onClick={() => {*/}
+                                    {/*    item.dishes = item.dishes.filter(i => i.id !== recipe.id);*/}
+                                    {/*    const updatedUserRecipes = JSON.parse(JSON.stringify(userRecipes));*/}
+                                    {/*    delete updatedUserRecipes[i];*/}
+                                    {/*    updatedUserRecipes[i] = item;*/}
+                                    {/*    setUserRecipes(updatedUserRecipes.reverse());*/}
+                                    {/*}}>Click Me!</button>*/}
+                                    </>
                                 ))}
                             </div>
                         </section>

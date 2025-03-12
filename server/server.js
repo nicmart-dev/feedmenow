@@ -21,7 +21,9 @@ const recipesRoutes = require(path.join(__dirname, "./routes/recipesRoutes"));
 // Middleware
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
-app.use(cors()); // allow * / all to access our api. All domains, ips, ports
+app.use(cors({
+  origin: process.env.CLIENT_URL
+})); // allow * / all to access our api. All domains, ips, ports
 
 // Default route
 app.get("/", (req, res) => {
