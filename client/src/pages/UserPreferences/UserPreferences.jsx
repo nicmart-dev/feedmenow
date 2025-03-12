@@ -20,7 +20,7 @@ const UserPreferences = () => {
         { value: '45', label: '45 minutes' },
         { value: '60', label: '1 hour' },
         { value: '120', label: '1-2 hours' },
-        { value: '120+', label: '2 hours +' },
+        { value: '121', label: '2 hours+' },
     ];
 
         /* 

@@ -1,7 +1,6 @@
 import { FormattedMessage, useIntl } from 'react-intl'
 import {useEffect, useState} from "react";
 
-import linkIcon from "../assets/icons/recipe.svg";
 import clockIcon from "../assets/icons/clock.svg";
 import ingredientsIcon from "../assets/icons/clipboard.svg";
 import globeIcon from "../assets/icons/globe.svg";
@@ -78,7 +77,7 @@ export default function RecipeSuggestions() {
                                                 localStorage.setItem("recipes", JSON.stringify(tempUserRecipes));
                                                 setUserRecipes(tempUserRecipes);
                                             }
-                                        }>Delete</button></li>
+                                        }><FormattedMessage id="suggest.delete" /></button></li>
                                     </ul>
                                 </nav>
                             </div>

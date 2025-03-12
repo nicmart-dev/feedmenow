@@ -130,36 +130,36 @@ export default function Home({setIsRecipeRequest}) {
                 </button>
             </form>
 
-            <article className="border rounded-md p-2 m-4">
-                <div className="space-y-12">
-                    <div className="border-gray-900/10">
-                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                            <div className="col-span-full">
-                                <h2
-                                    htmlFor="about"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                >
-                                    <FormattedMessage id="home.recipesTitle"/>
-                                </h2>
-                                <div className="m-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 border rounded-md p-2 mb-32">
-                                    {displayRecipes && displayRecipes.length > 0 && displayRecipes.map((recipe, i) => (
-                                        <div key={i} className="group relative">
-                                            <div className="flex justify-center flex-col">
-                                                <h3 className="text-sm text-gray-700">
-                                                    {recipe.name}
-                                                </h3>
-                                                <h4 className="text-sm text-gray-700">
-                                                    {recipe.cuisine}
-                                                </h4>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
+            {/*<article className="border rounded-md p-2 m-4">*/}
+            {/*    <div className="space-y-12">*/}
+            {/*        <div className="border-gray-900/10">*/}
+            {/*            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">*/}
+            {/*                <div className="col-span-full">*/}
+            {/*                    <h2*/}
+            {/*                        htmlFor="about"*/}
+            {/*                        className="block text-sm font-medium leading-6 text-gray-900"*/}
+            {/*                    >*/}
+            {/*                        <FormattedMessage id="home.recipesTitle"/>*/}
+            {/*                    </h2>*/}
+            {/*                    <div className="m-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 border rounded-md p-2 mb-32">*/}
+            {/*                        {displayRecipes && displayRecipes.length > 0 && displayRecipes.map((recipe, i) => (*/}
+            {/*                            <div key={i} className="group relative">*/}
+            {/*                                <div className="flex justify-center flex-col">*/}
+            {/*                                    <h3 className="text-sm text-gray-700">*/}
+            {/*                                        {recipe.name}*/}
+            {/*                                    </h3>*/}
+            {/*                                    <h4 className="text-sm text-gray-700">*/}
+            {/*                                        {recipe.cuisine}*/}
+            {/*                                    </h4>*/}
+            {/*                                </div>*/}
+            {/*                            </div>*/}
+            {/*                        ))}*/}
+            {/*                    </div>*/}
+            {/*                </div>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</article>*/}
 
             {/*<div*/}
             {/*    className="m-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 border rounded-md p-2 mb-32">*/}
