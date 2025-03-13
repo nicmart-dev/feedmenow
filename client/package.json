@@ -61,7 +61,7 @@
         "assert": "^2.1.0",
         "autoprefixer": "^10.4.19",
         "https-browserify": "^1.0.0",
-        "postcss": "^8.4.38",
+        "postcss": "^8.4.39",
         "prettier": "^3.3.1",
         "prettier-plugin-tailwindcss": "^0.6.2",
         "stream-browserify": "^3.0.0",
