@@ -56,8 +56,8 @@ export default function RecipeSuggestions() {
                     userRecipes.map((item, i) => (
                         <section key={i}>
                             <div className="relative">
-                                <h2 className="text-xl text-gray-700 text-green relative inline-flex items-center">
-                                    <button className="bg-white rounded-sm hover:drop-shadow-lg mr-2 h-[24px] w-[18px]" style={backgroundImg}
+                                <h2 className="text-2xl/8 text-gray-700 text-green break-all relative inline-flex items-start">
+                                    <button className="bg-white rounded-sm hover:drop-shadow-lg mt-1 mr-2 h-[24px] w-[18px]" style={backgroundImg}
                                         onClick={(event) => {
                                             event.stopPropagation();
                                             if(showPromptMenu !== i) {
@@ -129,13 +129,6 @@ export default function RecipeSuggestions() {
                                         </div>
                                     </div>
                                     </a>
-                                    {/*<button type="button" onClick={() => {*/}
-                                    {/*    item.dishes = item.dishes.filter(i => i.id !== recipe.id);*/}
-                                    {/*    const updatedUserRecipes = JSON.parse(JSON.stringify(userRecipes));*/}
-                                    {/*    delete updatedUserRecipes[i];*/}
-                                    {/*    updatedUserRecipes[i] = item;*/}
-                                    {/*    setUserRecipes(updatedUserRecipes.reverse());*/}
-                                    {/*}}>Click Me!</button>*/}
                                     </>
                                 ))}
                             </div>

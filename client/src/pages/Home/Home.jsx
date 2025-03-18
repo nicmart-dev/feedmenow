@@ -11,6 +11,7 @@ export default function Home({setIsRecipeRequest}) {
 
     const [canSubmit, setCanSubmit] = useState(false);
 
+    // Take instance of settings object and flatten the arrays of objects to just be arrays of labels, to send to server.
     const modSettings = useMemo(() => {
         settings.cuisine = settings.cuisine.flatMap((name) => name.label);
         settings.diet = settings.diet.flatMap((name) => name.label);
@@ -129,66 +130,6 @@ export default function Home({setIsRecipeRequest}) {
                     <FormattedMessage id="home.ctaBtn"/>
                 </button>
             </form>
-
-            {/*<article className="border rounded-md p-2 m-4">*/}
-            {/*    <div className="space-y-12">*/}
-            {/*        <div className="border-gray-900/10">*/}
-            {/*            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">*/}
-            {/*                <div className="col-span-full">*/}
-            {/*                    <h2*/}
-            {/*                        htmlFor="about"*/}
-            {/*                        className="block text-sm font-medium leading-6 text-gray-900"*/}
-            {/*                    >*/}
-            {/*                        <FormattedMessage id="home.recipesTitle"/>*/}
-            {/*                    </h2>*/}
-            {/*                    <div className="m-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 border rounded-md p-2 mb-32">*/}
-            {/*                        {displayRecipes && displayRecipes.length > 0 && displayRecipes.map((recipe, i) => (*/}
-            {/*                            <div key={i} className="group relative">*/}
-            {/*                                <div className="flex justify-center flex-col">*/}
-            {/*                                    <h3 className="text-sm text-gray-700">*/}
-            {/*                                        {recipe.name}*/}
-            {/*                                    </h3>*/}
-            {/*                                    <h4 className="text-sm text-gray-700">*/}
-            {/*                                        {recipe.cuisine}*/}
-            {/*                                    </h4>*/}
-            {/*                                </div>*/}
-            {/*                            </div>*/}
-            {/*                        ))}*/}
-            {/*                    </div>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</article>*/}
-
-            {/*<div*/}
-            {/*    className="m-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 border rounded-md p-2 mb-32">*/}
-            {/*    {recipes.map((recipe) => (*/}
-            {/*        <div key={recipe.id} className="group relative">*/}
-            {/*            <div*/}
-            {/*                className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">*/}
-            {/*                <img*/}
-            {/*                    alt={recipe.imageAlt}*/}
-            {/*                    src={recipe.imageSrc}*/}
-            {/*                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"*/}
-            {/*                />*/}
-            {/*            </div>*/}
-            {/*            <div className="mt-4 flex justify-between">*/}
-            {/*                <div>*/}
-            {/*                    <h3 className="text-sm text-gray-700">*/}
-            {/*                        <a href={recipe.href}>*/}
-            {/*                            <span*/}
-            {/*                                aria-hidden="true"*/}
-            {/*                                className="absolute inset-0"*/}
-            {/*                            />*/}
-            {/*                            {recipe.name}*/}
-            {/*                        </a>*/}
-            {/*                    </h3>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    ))}*/}
-            {/*</div>*/}
         </>
     )
 }

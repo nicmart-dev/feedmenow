@@ -14,14 +14,15 @@ const suggestRecipes = async (req, res) => {
     const token = jwt.sign({prompt: ingredients, settings: settings}, process.env.JWT_KEY, {
       expiresIn: "5m",
     });
-    const response = await axios.post(webhookUrl, { token }, {headers: {apiKey: process.env.N8N_API_KEY}});
     // Send the response back to the client
-    
+    const response = await axios.post(webhookUrl, { token }, {headers: {apiKey: process.env.N8N_API_KEY}});
 
+    response.data[0].prompt = ingredients;
+    //adds a randomly generated id to the item, which is also used for page id of the recipe in the client.
     response.data[0].dishes.map((item) => {
       item["id"] = nanoid(16);
     });
-    
+
     res.status(200).json(response.data);
   } catch (error) {
         // Send error response back to the client

@@ -8,19 +8,19 @@ const tabs = [
         name: 'Overview',
         href: '#',
         current: true,
-        content: ['4 servings', '280 calories', '30 minutes', 'French'],
+        content: [],
     },
     {
         name: 'Ingredients',
         href: '#',
         current: false,
-        content: ['garlic', 'olive oil', 'salt', 'butter'],
+        content: [],
     },
     {
         name: 'Directions',
         href: '#',
         current: false,
-        content: ['do this', 'do that', 'do this next'],
+        content: [],
     },
 ]
 
@@ -38,28 +38,26 @@ export default function RecipeDetails() {
     useEffect(() => {
         const localRecipes = JSON.parse(localStorage.getItem("recipes"));
         const findit = localRecipes.flatMap(objset => objset.dishes).find(dish => dish.id === params.id);
+        console.log(tabs);
         if(findit) {
-            setRecipe(findit);
-
-            delete tabs[0].content;
-            delete tabs[1].content;
-            delete tabs[2].content;
             tabs[0].content = [findit.size, findit.calories, findit.cooking_time, findit.cuisine];
             tabs[1].content = [...findit.ingredients_measure];
             tabs[2].content = [...findit.instructions];
+
+            setRecipe(findit);
         }
     }, []);
 
     return (
         <>
-            {' '}
+        {recipe && (<>
             <div className="flex flex-col lg:flex-row lg:items-center">
-                <img src={SampleImage} className="w-full lg:w-1/2" />
+                <img src={SampleImage} className="w-full lg:w-1/2"/>
                 <div className="flex flex-row m-4 justify-between lg:w-1/2">
                     <h1 className="text-4xl font-bold tracking-tight sm:text-6xl w-7/8 text-green">
-                        {recipe && recipe.name || "Sample Recipe Name"}
+                        {recipe.name}
                     </h1>
-                    {/* <img src={HeartIcon} className="w-1/8 w-12 cursor-pointer" /> */}
+
                 </div>
             </div>
             <div className="m-4">
@@ -90,7 +88,7 @@ export default function RecipeDetails() {
                     ))}
                 </nav>
             </div>
-            <div className="flex flex-col gap-4 m-4 mb-32  font-thin">
+            <div className="flex flex-col m-4 mb-32  font-thin">
                 {currentTab.content.map((item, index) => (
                     <p
                         key={index}
@@ -100,6 +98,7 @@ export default function RecipeDetails() {
                     </p>
                 ))}
             </div>
-        </>
+        </>)}</>
+
     )
 }

@@ -23,7 +23,7 @@ const UserPreferences = () => {
         { value: '121', label: '2 hours+' },
     ];
 
-        /* 
+    /*
 Predefined list of diets supported by popular API Spoonacular
 https://spoonacular.com/food-api/docs#Diets
 */
@@ -189,8 +189,6 @@ const intoleranceOptions = [
                 </div>
                 <div>
                     <div className="flex items-center mb-2">
-                        {' '}
-                        {/* Added mb-2 for margin bottom */}
                         <img src={timeIcon} alt="Icon" width={20} height={20} />
                         <label
                             htmlFor="cookTime"
@@ -208,8 +206,6 @@ const intoleranceOptions = [
                 </div>
                 <div>
                     <div className="flex items-center mb-2">
-                        {' '}
-                        {/* Added mb-2 for margin bottom */}
                         <img
                             src={worldIcon}
                             alt="Icon"
@@ -233,8 +229,6 @@ const intoleranceOptions = [
                 </div>
                 <div>
                     <div className="flex items-center mb-2">
-                        {' '}
-                        {/* Added mb-2 for margin bottom */}
                         <FontAwesomeIcon icon={faCarrot} />
                         <label
                             htmlFor="diet"
@@ -253,8 +247,6 @@ const intoleranceOptions = [
                 </div>
                 <div>
                     <div className="flex items-center mb-2">
-                        {' '}
-                        {/* Added mb-2 for margin bottom */}
                         <FontAwesomeIcon icon={faBan} />
                         <label
                             htmlFor="notEating"
