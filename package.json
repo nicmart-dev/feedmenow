@@ -1,7 +1,10 @@
 {
-  "name": "feedmenow",
-  "version": "0.1.0",
+  "name": "feedmenow-monorepo",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "components/*"
+  ],
   "scripts": {
     "start": "npm-run-all --parallel server client",
     "client": "cd client && npm start",
@@ -20,6 +23,8 @@
   },
   "homepage": "https://github.com/nicmart-dev/feedmenow",
   "devDependencies": {
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "bit": "^latest",
+    "pnpm": "^latest"
   }
 }
