@@ -2,6 +2,8 @@ import SampleImage from '../assets/images/sample-food.jpg'
 import HeartIcon from '../assets/icons/heart.svg'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import {FormattedMessage, useIntl} from "react-intl";
+import {IntlMessageFormat} from "intl-messageformat";
 
 const tabs = [
     {
@@ -35,13 +37,26 @@ export default function RecipeDetails() {
 
     const params = useParams();
 
+    const intl = useIntl();
+
+    const sizeUnits = intl.formatMessage({ id: "recipe.servingSizeUnits" });
+    const sizeUnitsPlural = intl.formatMessage({ id: "recipe.caloriesUnits" });
+
+    const units = new IntlMessageFormat(
+        `{numServing, plural,
+      =1 {${sizeUnits}}
+      other {${sizeUnitsPlural}}
+    }`,
+        'en-US'
+    ).format({numServing: tabs[0].content[1]});
+
     useEffect(() => {
         const localRecipes = JSON.parse(localStorage.getItem("recipes"));
         const findit = localRecipes.flatMap(objset => objset.dishes).find(dish => dish.id === params.id);
 
         if(findit) {
             tabs[0].content = [
-                findit.size,
+                `${findit.size}`,
                 findit.calories,
                 findit.cooking_time,
                 findit.cuisine
@@ -70,7 +85,7 @@ export default function RecipeDetails() {
                     aria-label="Tabs"
                     className="-mb-px flex space-x-8 justify-between md:justify-start"
                 >
-                    {tabs.map((tab) => (
+                    {tabs.map((tab, index) => (
                         <a
                             key={tab.name}
                             href={tab.href}
@@ -99,7 +114,9 @@ export default function RecipeDetails() {
                         key={index}
                         className={`font-thin py-4 ${index !== currentTab.content.length - 1 ? 'border-b border-lightgreen' : ''}`}
                     >
+                        {/*    If currentTab is 0, add units at the back*/}
                         {item}
+
                     </p>
                 ))}
             </div>
