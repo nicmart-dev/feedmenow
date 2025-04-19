@@ -8,9 +8,9 @@ import caloriesIcon from "../assets/icons/energy.png";
 import threedotsIcon from "../assets/icons/three-dots.svg";
 
 export default function RecipeSuggestions() {
-
     const [userRecipes, setUserRecipes] = useState([]);
     const [showPromptMenu, setShowPromptMenu] = useState(-1);
+    const intl = useIntl();
 
     const mouseClickFunction = (promptitem) => {
         if(document.querySelector(`#nav-${promptitem}`)) document.querySelector(`#nav-${promptitem}`).classList.add("hidden");
@@ -104,19 +104,25 @@ export default function RecipeSuggestions() {
                                                     width={30}
                                                     alt="clock"
                                                 />
-                                                <p>{recipe.cooking_time} <FormattedMessage id="recipe.cookingUnits" /> </p>
+                                                <p>
+                                                    {recipe.cooking_time} <FormattedMessage id={recipe.cooking_time === 1 ? "recipe.servingSize": "recipe.servingSize.plural"} />
+                                                </p>
                                                 <img
                                                     src={ingredientsIcon}
                                                     width={30}
                                                     alt="clock"
                                                 />
-                                                <p>{recipe.ingredients_measure.length} <FormattedMessage id="recipe.ingredients" /></p>
+                                                <p>
+                                                    {recipe.ingredients_measure.length} <FormattedMessage id={recipe.ingredients_measure.length === 1 ? "recipe.ingredients" : "recipe.ingredients.plural"} />
+                                                </p>
                                                 <img
                                                     src={globeIcon}
                                                     width={30}
                                                     alt="clock"
                                                 />
-                                                <p>{recipe.cuisine}</p>
+                                                <p>
+                                                    {recipe.cuisine} <FormattedMessage id="recipe.cuisine" />
+                                                </p>
                                                 <img
                                                     src={caloriesIcon}
                                                     width={30}
