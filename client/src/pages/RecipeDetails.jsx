@@ -1,7 +1,7 @@
-import SampleImage from '../assets/images/sample-food.jpg'
-import HeartIcon from '../assets/icons/heart.svg'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import SampleImage from '../assets/images/sample-food.jpg';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import {FormattedMessage, useIntl} from 'react-intl';
 
 const tabs = [
     {
@@ -29,16 +29,32 @@ function classNames(...classes) {
 }
 
 export default function RecipeDetails() {
-    const [currentTab, setCurrentTab] = useState(tabs[0]);
+    const [currentTab, setCurrentTab] = useState({tab: tabs[0], index: 0});
     const [isHovered, setIsHovered] = useState(false);
     const [recipe, setRecipe] = useState(null);
 
     const params = useParams();
+    const intl = useIntl();
+
+    const OverviewLabels = [
+        intl.formatMessage(
+        { id: "recipe.servingSize.plural" },
+        ),
+        intl.formatMessage(
+            { id: "recipe.caloriesUnits" },
+        ),
+        intl.formatMessage(
+            { id: "recipe.cookingTime"  },
+        ),
+        intl.formatMessage(
+            { id: "recipe.cuisine" },
+        ),
+    ]
 
     useEffect(() => {
         const localRecipes = JSON.parse(localStorage.getItem("recipes"));
         const findit = localRecipes.flatMap(objset => objset.dishes).find(dish => dish.id === params.id);
-        console.log(tabs);
+
         if(findit) {
             tabs[0].content = [findit.size, findit.calories, findit.cooking_time, findit.cuisine];
             tabs[1].content = [...findit.ingredients_measure];
@@ -65,19 +81,19 @@ export default function RecipeDetails() {
                     aria-label="Tabs"
                     className="-mb-px flex space-x-8 justify-between md:justify-start"
                 >
-                    {tabs.map((tab) => (
+                    {tabs.map((tab, index) => (
                         <a
                             key={tab.name}
                             href={tab.href}
                             onClick={(e) => {
                                 e.preventDefault()
-                                setCurrentTab(tab)
+                                setCurrentTab({tab: tab, index: index})
                             }}
                             aria-current={
-                                tab === currentTab ? 'page' : undefined
+                                tab === currentTab.tab ? 'page' : undefined
                             }
                             className={classNames(
-                                tab === currentTab
+                                tab === currentTab.tab
                                     ? 'border-green text-green font-bold'
                                     : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 font-thin',
                                 'whitespace-nowrap border-b-2 px-1 py-4 text-sm'
@@ -89,12 +105,17 @@ export default function RecipeDetails() {
                 </nav>
             </div>
             <div className="flex flex-col m-4 mb-32  font-thin">
-                {currentTab.content.map((item, index) => (
+                {currentTab.tab.content.map((item, index) => (
                     <p
                         key={index}
-                        className={`font-thin py-4 ${index !== currentTab.content.length - 1 ? 'border-b border-lightgreen' : ''}`}
+                        className={`font-thin py-4 ${index !== currentTab.tab.content.length - 1 ? 'border-b border-lightgreen' : ''}`}
                     >
-                        {item}
+                        {currentTab.index === 0 &&
+                            <span>{OverviewLabels[index]
+                                .split(' ')
+                                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                                .join(' ')}: </span>
+                        }{item} {index === 2 && <FormattedMessage id={item === 1 ? "recipe.cookingUnits" : "recipe.cookingUnits.plural"} />}
                     </p>
                 ))}
             </div>

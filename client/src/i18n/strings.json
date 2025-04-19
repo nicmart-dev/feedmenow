@@ -20,9 +20,15 @@
         "home.recipesTitle": "Your Recipes",
         "recipes.name": "Delicious Food Name",
         "recipe.cookingTime": "Cooking Time",
-        "recipe.cookingUnits": "minute(s)",
-        "recipe.ingredients" : "ingredient(s)",
-        "recipe.caloriesUnits": "cal",
+        "recipe.cookingUnits": "minute",
+        "recipe.cookingUnits.plural": "minutes",
+        "recipe.ingredients": "ingredient",
+        "recipe.ingredients.plural": "ingredients",
+        "recipe.servingSize" : "person",
+        "recipe.servingSize.plural" : "people",
+        "recipe.cuisine": "cuisine",
+        "recipe.caloriesUnits": "calories",
+        "recipe.caloriesUnits.short": "cal",
         "suggest.delete": "Delete"
     },
     "fr": {
@@ -46,9 +52,15 @@
         "home.recipesTitle": "Vos Recettes",
         "recipes.name": "Nom de la nourriture délicieuse",
         "recipe.cookingTime": "Temps de cuisson",
-        "recipe.cookingUnits": "minute(s)",
-        "recipe.ingredients" : "ingrédient(s)",
-        "recipe.caloriesUnits": "cal",
+        "recipe.cookingUnits": "minute",
+        "recipe.cookingUnits.plural": "minutes",
+        "recipe.ingredients": "ingrédient",
+        "recipe.ingredients.plural": "ingrédients",
+        "recipe.servingSize" : "personne",
+        "recipe.servingSize.plural" : "personnes",
+        "recipe.cuisine": "cuisine",
+        "recipe.caloriesUnits": "calories",
+        "recipe.caloriesUnits.short": "cal",
         "suggest.delete": "Supprimer"
     },
     "zh-cn": {
@@ -73,8 +85,14 @@
         "recipes.name": "美味的食物名称",
         "recipe.cookingTime": "烹饪时间",
         "recipe.cookingUnits": "分钟",
-        "recipe.ingredients": "食材",
+        "recipe.cookingUnits.plural": "分钟",
+        "recipe.ingredients": "成分",
+        "recipe.ingredients.plural": "原料",
+        "recipe.servingSize" : "人",
+        "recipe.servingSize.plural" : "人们",
+        "recipe.cuisine": "美食",
         "recipe.caloriesUnits": "卡",
+        "recipe.caloriesUnits.short": "卡",
         "suggest.delete": "删除"
     }
 }
