@@ -1,0 +1,6 @@
+.DS_Store
+*.env*
+/Dockerfile
+node_modules/
+/*key.json
+.idea/

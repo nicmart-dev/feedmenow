@@ -104,13 +104,13 @@ export default function RecipeSuggestions() {
                                                     width={30}
                                                     alt="clock"
                                                 />
-                                                <p>{recipe.cooking_time}</p>
+                                                <p>{recipe.cooking_time} <FormattedMessage id="recipe.cookingUnits" /> </p>
                                                 <img
                                                     src={ingredientsIcon}
                                                     width={30}
                                                     alt="clock"
                                                 />
-                                                <p>{recipe.ingredients_measure.length} ingredients</p>
+                                                <p>{recipe.ingredients_measure.length} <FormattedMessage id="recipe.ingredients" /></p>
                                                 <img
                                                     src={globeIcon}
                                                     width={30}
@@ -122,7 +122,7 @@ export default function RecipeSuggestions() {
                                                     width={30}
                                                     alt="clock"
                                                 />
-                                                <p>{recipe.calories}</p>
+                                                <p>{recipe.calories} <FormattedMessage id="recipe.caloriesUnits" /></p>
                                             </div>
 
 

@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-
 /* Configure Airtable DB using token, created using https://airtable.com/create/tokens
 and connecting to associated base ID https://support.airtable.com/docs/finding-airtable-ids
 */

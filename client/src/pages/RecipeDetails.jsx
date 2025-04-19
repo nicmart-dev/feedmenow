@@ -38,9 +38,14 @@ export default function RecipeDetails() {
     useEffect(() => {
         const localRecipes = JSON.parse(localStorage.getItem("recipes"));
         const findit = localRecipes.flatMap(objset => objset.dishes).find(dish => dish.id === params.id);
-        console.log(tabs);
+
         if(findit) {
-            tabs[0].content = [findit.size, findit.calories, findit.cooking_time, findit.cuisine];
+            tabs[0].content = [
+                findit.size,
+                findit.calories,
+                findit.cooking_time,
+                findit.cuisine
+            ];
             tabs[1].content = [...findit.ingredients_measure];
             tabs[2].content = [...findit.instructions];
 

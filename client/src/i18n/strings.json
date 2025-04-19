@@ -23,6 +23,7 @@
         "recipe.cookingUnits": "minute(s)",
         "recipe.ingredients" : "ingredient(s)",
         "recipe.caloriesUnits": "cal",
+        "recipe.servingSizeUnits": "people",
         "suggest.delete": "Delete"
     },
     "fr": {
@@ -49,6 +50,7 @@
         "recipe.cookingUnits": "minute(s)",
         "recipe.ingredients" : "ingrédient(s)",
         "recipe.caloriesUnits": "cal",
+        "recipe.servingSizeUnits": "personnes",
         "suggest.delete": "Supprimer"
     },
     "zh-cn": {
@@ -75,6 +77,7 @@
         "recipe.cookingUnits": "分钟",
         "recipe.ingredients": "食材",
         "recipe.caloriesUnits": "卡",
+        "recipe.servingSizeUnits": "人",
         "suggest.delete": "删除"
     }
 }

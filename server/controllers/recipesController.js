@@ -1,33 +1,56 @@
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const { nanoid } = require("nanoid");
+const { sendFirestoreDataFeedMeNow } = require("./sendFirestoreData");
 
 /* Start n8n workflow using ingredients list provided*/
 // POST /api/recipes/suggest
 const suggestRecipes = async (req, res) => {
     const { ingredients, settings } = req.body; // Receive ingredients list from the front-end
   try {
-    // URL of N8n webhook per https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/?utm_source=n8n_app&utm_medium=node_settings_modal-credential_link&utm_campaign=n8n-nodes-base.webhook
-    const webhookUrl = `${process.env.N8N_WEBHOOK_URL}/recommend-recipes`;
+    await Promise.all([
+      (async () => {
+            // URL of N8n webhook per https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/?utm_source=n8n_app&utm_medium=node_settings_modal-credential_link&utm_campaign=n8n-nodes-base.webhook
+        const webhookUrl = `${process.env.N8N_WEBHOOK_URL}/recommend-recipes`;
 
-    //in order to preserve the safety of n8n connection, only tokenized inputs can be read by the n8n.
-    const token = jwt.sign({prompt: ingredients, settings: settings}, process.env.JWT_KEY, {
-      expiresIn: "5m",
-    });
-    // Send the response back to the client
-    const response = await axios.post(webhookUrl, { token }, {headers: {apiKey: process.env.N8N_API_KEY}});
+        //in order to preserve the safety of n8n connection, only tokenized inputs can be read by the n8n.
+        const token = jwt.sign({prompt: ingredients, settings: settings}, process.env.JWT_KEY, {
+          expiresIn: "5m",
+        });
+        const response = await axios.post(webhookUrl, { token }, {headers: {apiKey: process.env.N8N_API_KEY}});
+        // Send the response back to the client
+        response.data[0].prompt = ingredients
+        response.data[0].dishes.map((item) => {
+          item["id"] = nanoid(16);
+        });
+    
+        res.status(200).json(response.data);
+      })(),
+      (async () => {
+        //console.log(req.ip);
+        const geolocation = await axios.get(`http://ipwho.is/${req.ip}`);
+        //console.log(geolocation); //urgent test
+        const simplifySettings = settings;
+        
+        simplifySettings['cookTime'] = settings['cookTime']['value'];
 
-    response.data[0].prompt = ingredients;
-    //adds a randomly generated id to the item, which is also used for page id of the recipe in the client.
-    response.data[0].dishes.map((item) => {
-      item["id"] = nanoid(16);
-    });
+        const data = {
+          geolocation: {
+            country: geolocation.data.country,
+            city: geolocation.data.city,
+            postal: geolocation.data.postal
+          },
+          prompt: ingredients,
+          settings: simplifySettings
+        };
 
-    res.status(200).json(response.data);
+        sendFirestoreDataFeedMeNow(data);
+      })(),
+    ]);
   } catch (error) {
-        // Send error response back to the client
-        console.error('Error triggering n8n workflow:', error);
-        res.status(500).json({ error: 'Error triggering n8n workflow' });
+    // Send error response back to the client
+    //console.error(error);
+    res.status(500).json({ error: 'Something went wrong' });
   }
 };
 
