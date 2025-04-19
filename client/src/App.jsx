@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import LanguageProvider from './i18n/LanguageProvider' // Package used to manage translations
 import Home from './pages/Home/Home'
 import Footer from './components/Footer.jsx'
@@ -7,14 +6,22 @@ import Header from './components/Header'
 import RecipeDetails from './pages/RecipeDetails'
 import RecipeSuggestions from './pages/RecipeSuggestions'
 import UserPreferences from './pages/UserPreferences/UserPreferences'
+import { setDefaultSettings, setDefaultRecipes } from './lib/defaults'
+import { useState } from 'react'
+import LoadingModal from './pages/Home/LoadingModal'
 
 const App = () => {
-    /* TODO example state stored
-    const [userDetails, setUserDetails] = useState(null)  */
+    const [isRecipesRequest, setIsRecipeRequest] = useState(false);
+
+    setDefaultSettings();
+    setDefaultRecipes();
 
     return (
         /* Wraps the application to provide the OAuth context */
         <LanguageProvider>
+            
+            {isRecipesRequest && <LoadingModal />}
+
             <BrowserRouter>
                 <Header />
                 <Routes>
@@ -34,7 +41,7 @@ const App = () => {
                                 )
                             }
                         /> */}
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Home setIsRecipeRequest={setIsRecipeRequest}/>} />
                     <Route path="/recipes/:id" element={<RecipeDetails />} />
                     <Route path="/recipes" element={<RecipeSuggestions />} />
                     {/* TODO: example normal route: <Route path="/privacy" element={<PrivacyPolicy />} /> */}

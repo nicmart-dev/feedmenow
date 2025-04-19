@@ -18,7 +18,18 @@
         "home.placeholder": "Don't worry about the formatting. AI will understand what you're saying.",
         "home.ctaBtn": "Show me what I can cook",
         "home.recipesTitle": "Your Recipes",
-        "recipes.name": "Delicious Food Name"
+        "recipes.name": "Delicious Food Name",
+        "recipe.cookingTime": "Cooking Time",
+        "recipe.cookingUnits": "minute",
+        "recipe.cookingUnits.plural": "minutes",
+        "recipe.ingredients": "ingredient",
+        "recipe.ingredients.plural": "ingredients",
+        "recipe.servingSize" : "person",
+        "recipe.servingSize.plural" : "people",
+        "recipe.cuisine": "cuisine",
+        "recipe.caloriesUnits": "calories",
+        "recipe.caloriesUnits.short": "cal",
+        "suggest.delete": "Delete"
     },
     "fr": {
         "appName": "Nourris moi maintenant",
@@ -39,7 +50,18 @@
         "home.placeholder": "Ne vous inquiétez pas du formatage. L'IA comprendra ce que vous dites.",
         "home.ctaBtn": "Montre-moi ce que je peux cuisiner",
         "home.recipesTitle": "Vos Recettes",
-        "recipes.name": "Nom de la nourriture délicieuse"
+        "recipes.name": "Nom de la nourriture délicieuse",
+        "recipe.cookingTime": "Temps de cuisson",
+        "recipe.cookingUnits": "minute",
+        "recipe.cookingUnits.plural": "minutes",
+        "recipe.ingredients": "ingrédient",
+        "recipe.ingredients.plural": "ingrédients",
+        "recipe.servingSize" : "personne",
+        "recipe.servingSize.plural" : "personnes",
+        "recipe.cuisine": "cuisine",
+        "recipe.caloriesUnits": "calories",
+        "recipe.caloriesUnits.short": "cal",
+        "suggest.delete": "Supprimer"
     },
     "zh-cn": {
         "appName": "现在喂我",
@@ -60,6 +82,17 @@
         "home.placeholder": "不用担心格式。AI 会理解你所说的话。",
         "home.ctaBtn": "告诉我我能做什么菜",
         "home.recipesTitle": "你的食谱",
-        "recipes.name": "美味的食物名称"
+        "recipes.name": "美味的食物名称",
+        "recipe.cookingTime": "烹饪时间",
+        "recipe.cookingUnits": "分钟",
+        "recipe.cookingUnits.plural": "分钟",
+        "recipe.ingredients": "成分",
+        "recipe.ingredients.plural": "原料",
+        "recipe.servingSize" : "人",
+        "recipe.servingSize.plural" : "人们",
+        "recipe.cuisine": "美食",
+        "recipe.caloriesUnits": "卡",
+        "recipe.caloriesUnits.short": "卡",
+        "suggest.delete": "删除"
     }
 }

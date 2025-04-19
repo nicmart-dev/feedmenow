@@ -12,82 +12,112 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan, faCarrot } from '@fortawesome/free-solid-svg-icons'
 
 const UserPreferences = () => {
-    const [hungryHippos, setHungryHippos] = useState('')
-    const [cookTime, setCookTime] = useState('')
-    const [cuisine, setCuisine] = useState([])
-    const [diet, setDiet] = useState([])
-    const [notEating, setNotEating] = useState([])
-
-    /* Cuisine options stored from popular web service API */
-    const [cuisineOptions, setCuisineOptions] = useState([])
-
-    useEffect(() => {
-        const fetchCuisines = async () => {
-            try {
-                const response = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/api/recipes/cuisines/`
-                )
-                const cuisines = Object.values(response.data).map(
-                    (cuisine) => ({
-                        value: cuisine,
-                        label: cuisine,
-                    })
-                )
-                setCuisineOptions(cuisines)
-            } catch (error) {
-                console.error(error)
-            }
-        }
-
-        fetchCuisines()
-    }, [])
-
-    /* 
-Predefined list of diets supported by popular API Spoonacular
-https://spoonacular.com/food-api/docs#Diets
-*/
-    const dietOptions = [
-        { value: 'gluten free', label: 'Gluten Free' },
-        { value: 'ketogenic', label: 'Ketogenic' },
-        { value: 'vegetarian', label: 'Vegetarian' },
-        { value: 'lacto-vegetarian', label: 'Lacto-Vegetarian' },
-        { value: 'ovo-vegetarian', label: 'Ovo-Vegetarian' },
-        { value: 'vegan', label: 'Vegan' },
-        { value: 'pescetarian', label: 'Pescetarian' },
-        { value: 'paleo', label: 'Paleo' },
-        { value: 'primal', label: 'Primal' },
-        { value: 'low fodmap', label: 'Low FODMAP' },
-        { value: 'whole30', label: 'Whole30' },
-    ]
-
-    /* 
-Predefined list of intolerances/allergens supported by popular API Spoonacular
-https://spoonacular.com/food-api/docs#Intolerances
-*/
-    const intoleranceOptions = [
-        { value: 'Dairy', label: 'Dairy' },
-        { value: 'Egg', label: 'Egg' },
-        { value: 'Gluten', label: 'Gluten' },
-        { value: 'Grain', label: 'Grain' },
-        { value: 'Peanut', label: 'Peanut' },
-        { value: 'Seafood', label: 'Seafood' },
-        { value: 'Sesame', label: 'Sesame' },
-        { value: 'Shellfish', label: 'Shellfish' },
-        { value: 'Soy', label: 'Soy' },
-        { value: 'Sulfite', label: 'Sulfite' },
-        { value: 'Tree Nut', label: 'Tree Nut' },
-        { value: 'Wheat', label: 'Wheat' },
-    ]
-
     const cookTimeOptions = [
+        { value: '0', label: 'Any time' },
         { value: '5', label: '5 minutes' },
         { value: '15', label: '15 minutes' },
         { value: '30', label: '30 minutes' },
         { value: '45', label: '45 minutes' },
         { value: '60', label: '1 hour' },
         { value: '120', label: '1-2 hours' },
-        { value: '120+', label: '2 hours +' },
-    ]
+        { value: '121', label: '2 hours+' },
+    ];
+
+    /*
+Predefined list of diets supported by popular API Spoonacular
+https://spoonacular.com/food-api/docs#Diets
+*/
+const dietOptions = [
+    { value: 'gluten free', label: 'Gluten Free' },
+    { value: 'ketogenic', label: 'Ketogenic' },
+    { value: 'vegetarian', label: 'Vegetarian' },
+    { value: 'lacto-vegetarian', label: 'Lacto-Vegetarian' },
+    { value: 'ovo-vegetarian', label: 'Ovo-Vegetarian' },
+    { value: 'vegan', label: 'Vegan' },
+    { value: 'pescetarian', label: 'Pescetarian' },
+    { value: 'paleo', label: 'Paleo' },
+    { value: 'primal', label: 'Primal' },
+    { value: 'low fodmap', label: 'Low FODMAP' },
+    { value: 'whole30', label: 'Whole30' },
+];
+
+    /* 
+Predefined list of intolerances/allergens supported by popular API Spoonacular
+https://spoonacular.com/food-api/docs#Intolerances
+*/
+const intoleranceOptions = [
+    { value: 'Dairy', label: 'Dairy' },
+    { value: 'Egg', label: 'Egg' },
+    { value: 'Gluten', label: 'Gluten' },
+    { value: 'Grain', label: 'Grain' },
+    { value: 'Peanut', label: 'Peanut' },
+    { value: 'Seafood', label: 'Seafood' },
+    { value: 'Sesame', label: 'Sesame' },
+    { value: 'Shellfish', label: 'Shellfish' },
+    { value: 'Soy', label: 'Soy' },
+    { value: 'Sulfite', label: 'Sulfite' },
+    { value: 'Tree Nut', label: 'Tree Nut' },
+    { value: 'Wheat', label: 'Wheat' },
+];
+
+    const [hungryHippos, setHungryHippos] = useState("1");
+    const [cookTime, setCookTime] = useState(cookTimeOptions[0]);
+    const [cuisine, setCuisine] = useState([]);
+    const [diet, setDiet] = useState([]);
+    const [notEating, setNotEating] = useState([]);
+
+    /* Cuisine options stored from popular web service API */
+    const [cuisineOptions, setCuisineOptions] = useState([]);
+
+    useEffect(() => {
+        const getSettings = async () => {
+            try {
+                const localStorageSettings = JSON.parse(localStorage.getItem("userSettings"));
+                setHungryHippos(localStorageSettings.people);
+                setCookTime(localStorageSettings.cookTime);
+                setCuisine(localStorageSettings.cuisine);
+                setDiet(localStorageSettings.diet);
+                setNotEating(localStorageSettings.notEating);
+            } catch(error) {
+                console.error(error);
+            }
+        }
+
+        const fetchCuisines = async () => {
+            try {
+                const response = await axios.get(
+                    `${process.env.REACT_APP_API_URL}/api/recipes/cuisines/`
+                );
+                const cuisines = Object.values(response.data).map(
+                    (cuisine) => ({
+                        value: cuisine,
+                        label: cuisine,
+                    })
+                );
+                setCuisineOptions(cuisines);
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        getSettings();
+        fetchCuisines();
+    }, []);
+
+    useEffect(() => {
+        const userSettings = {
+            people: hungryHippos,
+            cookTime: cookTime,
+            cuisine: cuisine,
+            diet: diet,
+            notEating: notEating,
+        };
+
+        
+        localStorage.setItem("userSettings", JSON.stringify(userSettings));
+                
+    }, [hungryHippos, cookTime, cuisine, diet, notEating, cuisineOptions]);
+    
 
     // Used to style react-select UI controls
     const customStyles = {
@@ -144,20 +174,21 @@ https://spoonacular.com/food-api/docs#Intolerances
                     >
                         How many hungry hippos?
                     </label>
+                    
                     <select
                         id="hungryHippos"
                         value={hungryHippos}
-                        onChange={(e) => setHungryHippos(e.target.value)}
+                        onChange={
+                            (e) => {setHungryHippos(e.target.value)}
+                        }
                     >
-                        <option value="One">One</option>
-                        <option value="Two">Two</option>
-                        <option value="Three">Three</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
                     </select>
                 </div>
                 <div>
                     <div className="flex items-center mb-2">
-                        {' '}
-                        {/* Added mb-2 for margin bottom */}
                         <img src={timeIcon} alt="Icon" width={20} height={20} />
                         <label
                             htmlFor="cookTime"
@@ -170,12 +201,11 @@ https://spoonacular.com/food-api/docs#Intolerances
                         value={cookTime}
                         onChange={setCookTime}
                         options={cookTimeOptions}
+
                     />
                 </div>
                 <div>
                     <div className="flex items-center mb-2">
-                        {' '}
-                        {/* Added mb-2 for margin bottom */}
                         <img
                             src={worldIcon}
                             alt="Icon"
@@ -199,8 +229,6 @@ https://spoonacular.com/food-api/docs#Intolerances
                 </div>
                 <div>
                     <div className="flex items-center mb-2">
-                        {' '}
-                        {/* Added mb-2 for margin bottom */}
                         <FontAwesomeIcon icon={faCarrot} />
                         <label
                             htmlFor="diet"
@@ -219,8 +247,6 @@ https://spoonacular.com/food-api/docs#Intolerances
                 </div>
                 <div>
                     <div className="flex items-center mb-2">
-                        {' '}
-                        {/* Added mb-2 for margin bottom */}
                         <FontAwesomeIcon icon={faBan} />
                         <label
                             htmlFor="notEating"
@@ -244,4 +270,4 @@ https://spoonacular.com/food-api/docs#Intolerances
     )
 }
 
-export default UserPreferences
+export default UserPreferences;
