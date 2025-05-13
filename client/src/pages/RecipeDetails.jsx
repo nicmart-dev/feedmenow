@@ -22,7 +22,14 @@ const tabs = [
         current: false,
         content: [],
     },
-]
+];
+
+const overviewFormatIdLabels = [
+    "recipe.servingSize.label",
+    "recipe.caloriesUnits.label",
+    "recipe.cookingTime.label",
+    "recipe.cuisine.label",
+];
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -36,27 +43,17 @@ export default function RecipeDetails() {
     const params = useParams();
     const intl = useIntl();
 
-    const OverviewLabels = [
-        intl.formatMessage(
-        { id: "recipe.servingSize.plural" },
-        ),
-        intl.formatMessage(
-            { id: "recipe.caloriesUnits" },
-        ),
-        intl.formatMessage(
-            { id: "recipe.cookingTime"  },
-        ),
-        intl.formatMessage(
-            { id: "recipe.cuisine" },
-        ),
-    ]
-
     useEffect(() => {
         const localRecipes = JSON.parse(localStorage.getItem("recipes"));
         const findit = localRecipes.flatMap(objset => objset.dishes).find(dish => dish.id === params.id);
 
         if(findit) {
-            tabs[0].content = [findit.size, findit.calories, findit.cooking_time, findit.cuisine];
+            tabs[0].content = [
+                findit.size,
+                findit.calories,
+                findit.cooking_time,
+                findit.cuisine
+            ];
             tabs[1].content = [...findit.ingredients_measure];
             tabs[2].content = [...findit.instructions];
 
@@ -110,12 +107,14 @@ export default function RecipeDetails() {
                         key={index}
                         className={`font-thin py-4 ${index !== currentTab.tab.content.length - 1 ? 'border-b border-lightgreen' : ''}`}
                     >
-                        {currentTab.index === 0 &&
-                            <span>{OverviewLabels[index]
-                                .split(' ')
-                                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                                .join(' ')}: </span>
-                        }{item} {index === 2 && <FormattedMessage id={item === 1 ? "recipe.cookingUnits" : "recipe.cookingUnits.plural"} />}
+                        {currentTab.index === 0 ?
+                            (
+                                <span>
+                                    {intl.formatMessage({id: overviewFormatIdLabels[index]}, {input: item})}
+                                </span>
+                            ) : (
+                                <span>{item}</span>
+                        )}
                     </p>
                 ))}
             </div>

@@ -1,5 +1,5 @@
 import { FormattedMessage, useIntl } from 'react-intl'
-import {useEffect, useState} from "react";
+import { useEffect, useMemo, useState } from 'react'
 
 import clockIcon from "../assets/icons/clock.svg";
 import ingredientsIcon from "../assets/icons/clipboard.svg";
@@ -10,6 +10,7 @@ import threedotsIcon from "../assets/icons/three-dots.svg";
 export default function RecipeSuggestions() {
     const [userRecipes, setUserRecipes] = useState([]);
     const [showPromptMenu, setShowPromptMenu] = useState(-1);
+    const totalDishes = useMemo(() => {return userRecipes.reduce((dishes, entry) => dishes + entry.dishes.length, 0)});
     const intl = useIntl();
 
     const mouseClickFunction = (promptitem) => {
@@ -40,17 +41,23 @@ export default function RecipeSuggestions() {
         backgroundPosition: "center",
     }
 
+    console.log(userRecipes);
+
 
     return (
         <>
             <div className="border rounded-md p-2 m-4 border-green">
-                <p className="text-lg leading-8 font-thin">You can make</p>
-                <h1 className="text-4xl font-bold tracking-tight sm:text-6xl text-green">
-                    Many Known Recipes
-                </h1>
-                <p className="text-lg leading-8 font-thin">
-                    with your ingredients
-                </p>
+                <FormattedMessage
+                    id='recipe.suggestions.intro'
+                    defaultMessage="Recipes"
+                    values={{
+                        count: totalDishes > 10 ? 'large' : totalDishes,
+                        i: (chunks) => <p className="text-lg leading-8 font-thin">{chunks}</p>,
+                        j: (chunks) => <h1 className="text-3xl font-bold tracking-tight sm:text-5xl text-green">{chunks}</h1>,
+                        k: (chunks) => <p className="text-lg leading-8 font-thin">{chunks}</p>
+                    }}
+                />
+
             </div>
             <div className="m-4">
                 {userRecipes &&
@@ -106,7 +113,7 @@ export default function RecipeSuggestions() {
                                                     alt="clock"
                                                 />
                                                 <p>
-                                                    {recipe.cooking_time} <FormattedMessage id={recipe.cooking_time === 1 ? "recipe.servingSize": "recipe.servingSize.plural"} />
+                                                    <FormattedMessage id="recipe.cookingTime" values={{count: recipe.cooking_time}} />
                                                 </p>
                                                 <img
                                                     src={ingredientsIcon}
@@ -114,7 +121,7 @@ export default function RecipeSuggestions() {
                                                     alt="clock"
                                                 />
                                                 <p>
-                                                    {recipe.ingredients_measure.length} <FormattedMessage id={recipe.ingredients_measure.length === 1 ? "recipe.ingredients" : "recipe.ingredients.plural"} />
+                                                    <FormattedMessage id="recipe.ingredients" values={{count: recipe.ingredients_measure.length}} />
                                                 </p>
                                                 <img
                                                     src={globeIcon}
@@ -122,7 +129,12 @@ export default function RecipeSuggestions() {
                                                     alt="clock"
                                                 />
                                                 <p>
-                                                    {recipe.cuisine} <FormattedMessage id="recipe.cuisine" />
+                                                    <FormattedMessage
+                                                        id="recipe.cuisine"
+                                                        values={{
+                                                            name: recipe.cuisine
+                                                        }}
+                                                    />
                                                 </p>
                                                 <img
                                                     src={caloriesIcon}
