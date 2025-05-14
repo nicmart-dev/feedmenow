@@ -6,6 +6,7 @@ import ingredientsIcon from "../assets/icons/clipboard.svg";
 import globeIcon from "../assets/icons/globe.svg";
 import caloriesIcon from "../assets/icons/energy.png";
 import threedotsIcon from "../assets/icons/three-dots.svg";
+import { Link } from 'react-router-dom'
 
 export default function RecipeSuggestions() {
     const [userRecipes, setUserRecipes] = useState([]);
@@ -93,7 +94,8 @@ export default function RecipeSuggestions() {
                             <div className="mt-4 mb-8 px-2 grid grid-cols-1 gap-x-2 gap-y-10 md:grid-cols-4 xl:gap-x-8 w-full md:w-fit">
                                 {item.dishes.map((recipe, j) => (
                                     <>
-                                    <a href={`/recipes/${recipe.id}`}>
+
+                                        <Link to={`/recipes/${recipe.id}`}>
                                     <div
                                         key={j}
                                         className="group relative rounded-xl border p-2 border-green max-w-[290px] md:max-w-full md:w-[clamp(190px,22vw,350px)] h-[clamp(320px,28vw,450px)]
@@ -147,7 +149,7 @@ export default function RecipeSuggestions() {
 
                                         </div>
                                     </div>
-                                    </a>
+                                        </Link>
                                     </>
                                 ))}
                             </div>

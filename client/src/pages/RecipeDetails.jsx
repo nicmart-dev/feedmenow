@@ -1,7 +1,7 @@
 import SampleImage from '../assets/images/sample-food.jpg';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {FormattedMessage, useIntl} from 'react-intl';
+import { useIntl} from 'react-intl';
 
 const tabs = [
     {
