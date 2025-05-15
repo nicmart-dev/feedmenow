@@ -33,6 +33,7 @@
         "recipe.tabs.overview": "Overview",
         "recipe.tabs.ingredients": "Ingredients",
         "recipe.tabs.directions": "Directions",
+        "settings.question.size": "How many hungry hippos?",
         "suggest.delete": "Delete"
     },
     "fr": {
@@ -69,6 +70,7 @@
         "recipe.tabs.overview": "Aperçu",
         "recipe.tabs.ingredients": "Ingrédients",
         "recipe.tabs.directions": "Instructions",
+        "settings.question.size": "Combien crèvent la dalle?",
         "suggest.delete": "Supprimer"
     },
     "zh-cn": {
@@ -105,6 +107,7 @@
         "recipe.tabs.overview": "概述",
         "recipe.tabs.ingredients": "原料",
         "recipe.tabs.directions": "指示",
+        "settings.question.size": "有多少人?",
         "suggest.delete": "删除"
     }
 }
