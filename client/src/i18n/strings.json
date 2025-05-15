@@ -33,7 +33,11 @@
         "recipe.tabs.overview": "Overview",
         "recipe.tabs.ingredients": "Ingredients",
         "recipe.tabs.directions": "Directions",
-        "settings.question.size": "How many hungry hippos?",
+        "settings.question.people": "How many hungry hippos?",
+        "settings.question.cookTime": "Recipe cook time",
+        "settings.question.cuisine": "What food do you like?",
+        "settings.question.dietOptions": "I'm on a diet...",
+        "settings.question.notEating": "and not eating.",
         "suggest.delete": "Delete"
     },
     "fr": {
@@ -70,7 +74,11 @@
         "recipe.tabs.overview": "Aperçu",
         "recipe.tabs.ingredients": "Ingrédients",
         "recipe.tabs.directions": "Instructions",
-        "settings.question.size": "Combien crèvent la dalle?",
+        "settings.question.people": "Combien crèvent la dalle?",
+        "settings.question.cookTime": "Temps de cuisson de la recette",
+        "settings.question.cuisine": "Quelle nourriture aimes-tu?",
+        "settings.question.dietOptions": "Je suis au régime...",
+        "settings.question.notEating": "et je ne mange pas.",
         "suggest.delete": "Supprimer"
     },
     "zh-cn": {
@@ -107,7 +115,11 @@
         "recipe.tabs.overview": "概述",
         "recipe.tabs.ingredients": "原料",
         "recipe.tabs.directions": "指示",
-        "settings.question.size": "有多少人?",
+        "settings.question.people": "有多少人?",
+        "settings.question.cookTime": "烹饪时间",
+        "settings.question.cuisine": "你喜欢什么食物?",
+        "settings.question.dietOptions": "我正在节食,",
+        "settings.question.notEating": "但我不吃东西.",
         "suggest.delete": "删除"
     }
 }
