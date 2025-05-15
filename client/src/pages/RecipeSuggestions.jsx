@@ -94,7 +94,6 @@ export default function RecipeSuggestions() {
                             <div className="mt-4 mb-8 px-2 grid grid-cols-1 gap-x-2 gap-y-10 md:grid-cols-4 xl:gap-x-8 w-full md:w-fit">
                                 {item.dishes.map((recipe, j) => (
                                     <>
-
                                         <Link to={`/recipes/${recipe.id}`}>
                                     <div
                                         key={j}

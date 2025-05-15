@@ -30,6 +30,9 @@
         "recipe.cuisine.label": "Cuisine: {input}",
         "recipe.caloriesUnits": "calories",
         "recipe.caloriesUnits.label": "Calories: {input} cal",
+        "recipe.tabs.overview": "Overview",
+        "recipe.tabs.ingredients": "Ingredients",
+        "recipe.tabs.directions": "Directions",
         "suggest.delete": "Delete"
     },
     "fr": {
@@ -63,6 +66,9 @@
         "recipe.cuisine.label": "Cuisine: {input}",
         "recipe.caloriesUnits": "calories",
         "recipe.caloriesUnits.label": "Calories: {input} cal",
+        "recipe.tabs.overview": "Aperçu",
+        "recipe.tabs.ingredients": "Ingrédients",
+        "recipe.tabs.directions": "Instructions",
         "suggest.delete": "Supprimer"
     },
     "zh-cn": {
@@ -96,6 +102,9 @@
         "recipe.cuisine.label" : "美食: {input}",
         "recipe.caloriesUnits": "卡",
         "recipe.caloriesUnits.label": "卡: {input}",
+        "recipe.tabs.overview": "概述",
+        "recipe.tabs.ingredients": "原料",
+        "recipe.tabs.directions": "指示",
         "suggest.delete": "删除"
     }
 }

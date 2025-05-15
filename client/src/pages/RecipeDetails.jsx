@@ -1,22 +1,25 @@
 import SampleImage from '../assets/images/sample-food.jpg';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useIntl} from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl'
 
 const tabs = [
     {
+        labelId: 'recipe.tabs.overview',
         name: 'Overview',
         href: '#',
         current: true,
         content: [],
     },
     {
+        labelId: 'recipe.tabs.ingredients',
         name: 'Ingredients',
         href: '#',
         current: false,
         content: [],
     },
     {
+        labelId: 'recipe.tabs.directions',
         name: 'Directions',
         href: '#',
         current: false,
@@ -80,7 +83,7 @@ export default function RecipeDetails() {
                 >
                     {tabs.map((tab, index) => (
                         <a
-                            key={tab.name}
+                            key={tab.labelId}
                             href={tab.href}
                             onClick={(e) => {
                                 e.preventDefault()
@@ -96,7 +99,7 @@ export default function RecipeDetails() {
                                 'whitespace-nowrap border-b-2 px-1 py-4 text-sm'
                             )}
                         >
-                            {tab.name}
+                            <FormattedMessage id={tab.labelId} />
                         </a>
                     ))}
                 </nav>
