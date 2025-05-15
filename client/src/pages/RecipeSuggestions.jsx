@@ -1,15 +1,17 @@
 import { FormattedMessage, useIntl } from 'react-intl'
-import {useEffect, useState} from "react";
+import { useEffect, useMemo, useState } from 'react'
 
 import clockIcon from "../assets/icons/clock.svg";
 import ingredientsIcon from "../assets/icons/clipboard.svg";
 import globeIcon from "../assets/icons/globe.svg";
 import caloriesIcon from "../assets/icons/energy.png";
 import threedotsIcon from "../assets/icons/three-dots.svg";
+import { Link } from 'react-router-dom'
 
 export default function RecipeSuggestions() {
     const [userRecipes, setUserRecipes] = useState([]);
     const [showPromptMenu, setShowPromptMenu] = useState(-1);
+    const totalDishes = useMemo(() => {return userRecipes.reduce((dishes, entry) => dishes + entry.dishes.length, 0)});
     const intl = useIntl();
 
     const mouseClickFunction = (promptitem) => {
@@ -40,16 +42,21 @@ export default function RecipeSuggestions() {
         backgroundPosition: "center",
     }
 
+
     return (
         <>
             <div className="border rounded-md p-2 m-4 border-green">
-                <p className="text-lg leading-8 font-thin">You can make</p>
-                <h1 className="text-4xl font-bold tracking-tight sm:text-6xl text-green">
-                    Many Known Recipes
-                </h1>
-                <p className="text-lg leading-8 font-thin">
-                    with your ingredients
-                </p>
+                <FormattedMessage
+                    id='recipe.suggestions.intro'
+                    defaultMessage="Recipes"
+                    values={{
+                        count: totalDishes > 10 ? 'large' : totalDishes,
+                        i: (chunks) => <p className="text-lg leading-8 font-thin">{chunks}</p>,
+                        j: (chunks) => <h1 className="text-3xl font-bold tracking-tight sm:text-5xl text-green">{chunks}</h1>,
+                        k: (chunks) => <p className="text-lg leading-8 font-thin">{chunks}</p>
+                    }}
+                />
+
             </div>
             <div className="m-4">
                 {userRecipes &&
@@ -85,7 +92,7 @@ export default function RecipeSuggestions() {
                             <div className="mt-4 mb-8 px-2 grid grid-cols-1 gap-x-2 gap-y-10 md:grid-cols-4 xl:gap-x-8 w-full md:w-fit">
                                 {item.dishes.map((recipe, j) => (
                                     <>
-                                    <a href={`/recipes/${recipe.id}`}>
+                                        <Link to={`/recipes/${recipe.id}`}>
                                     <div
                                         key={j}
                                         className="group relative rounded-xl border p-2 border-green max-w-[290px] md:max-w-full md:w-[clamp(190px,22vw,350px)] h-[clamp(320px,28vw,450px)]
@@ -105,7 +112,7 @@ export default function RecipeSuggestions() {
                                                     alt="clock"
                                                 />
                                                 <p>
-                                                    {recipe.cooking_time} <FormattedMessage id={recipe.cooking_time === 1 ? "recipe.servingSize": "recipe.servingSize.plural"} />
+                                                    <FormattedMessage id="recipe.cookingTime" values={{count: recipe.cooking_time}} />
                                                 </p>
                                                 <img
                                                     src={ingredientsIcon}
@@ -113,7 +120,7 @@ export default function RecipeSuggestions() {
                                                     alt="clock"
                                                 />
                                                 <p>
-                                                    {recipe.ingredients_measure.length} <FormattedMessage id={recipe.ingredients_measure.length === 1 ? "recipe.ingredients" : "recipe.ingredients.plural"} />
+                                                    <FormattedMessage id="recipe.ingredients" values={{count: recipe.ingredients_measure.length}} />
                                                 </p>
                                                 <img
                                                     src={globeIcon}
@@ -121,7 +128,12 @@ export default function RecipeSuggestions() {
                                                     alt="clock"
                                                 />
                                                 <p>
-                                                    {recipe.cuisine} <FormattedMessage id="recipe.cuisine" />
+                                                    <FormattedMessage
+                                                        id="recipe.cuisine"
+                                                        values={{
+                                                            name: recipe.cuisine
+                                                        }}
+                                                    />
                                                 </p>
                                                 <img
                                                     src={caloriesIcon}
@@ -134,7 +146,7 @@ export default function RecipeSuggestions() {
 
                                         </div>
                                     </div>
-                                    </a>
+                                        </Link>
                                     </>
                                 ))}
                             </div>

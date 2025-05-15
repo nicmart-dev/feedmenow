@@ -19,7 +19,7 @@
     "dotenv-expand": "^11.0.6",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "escape-html": "^1.0.3",
+    "escape-html": "^1.0.3"
     "firebase-admin": "^13.2.0",
     "nanoid": "^5.1.2"
   },

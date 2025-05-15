@@ -10,6 +10,7 @@ import CreatableSelect from 'react-select/creatable'
 Following instructions from https://docs.fontawesome.com/web/use-with/react/add-icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan, faCarrot } from '@fortawesome/free-solid-svg-icons'
+import { FormattedMessage } from 'react-intl'
 
 const UserPreferences = () => {
     const cookTimeOptions = [
@@ -172,7 +173,7 @@ const intoleranceOptions = [
                         htmlFor="hungryHippos"
                         className="text-green font-bold mr-2"
                     >
-                        How many hungry hippos?
+                        <FormattedMessage id="settings.question.people" defaultMessage="How many hungry hippos?"/>
                     </label>
                     
                     <select
@@ -182,9 +183,9 @@ const intoleranceOptions = [
                             (e) => {setHungryHippos(e.target.value)}
                         }
                     >
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
                     </select>
                 </div>
                 <div>
@@ -194,7 +195,7 @@ const intoleranceOptions = [
                             htmlFor="cookTime"
                             className="text-green font-bold ml-2"
                         >
-                            Recipe cook time
+                            <FormattedMessage id="settings.question.cookTime" defaultMessage="Recipe cook time"/>
                         </label>
                     </div>
                     <Select
@@ -216,7 +217,7 @@ const intoleranceOptions = [
                             htmlFor="cuisine"
                             className="text-green font-bold ml-2"
                         >
-                            What food do you like?
+                            <FormattedMessage id="settings.question.cuisine" defaultMessage="What food do you like?" />
                         </label>
                     </div>
                     <CreatableSelect
@@ -234,7 +235,7 @@ const intoleranceOptions = [
                             htmlFor="diet"
                             className="text-green font-bold ml-2"
                         >
-                            I'm on a diet...
+                            <FormattedMessage id="settings.question.dietOptions" defaultMessage="I'm on a diet..."/>
                         </label>
                     </div>
                     <Select
@@ -252,7 +253,7 @@ const intoleranceOptions = [
                             htmlFor="notEating"
                             className="text-green font-bold ml-2"
                         >
-                            and not eating.
+                            <FormattedMessage id="settings.question.notEating" defaultMessage="and not eating." />
                         </label>
                     </div>
                     <CreatableSelect

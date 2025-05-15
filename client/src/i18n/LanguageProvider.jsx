@@ -23,6 +23,7 @@ const LanguageProvider = ({ children }) => {
   );
 
   const switchLanguage = (lang) => {
+      console.log("Switch Language function");
     setLocale(lang);
   };
 
