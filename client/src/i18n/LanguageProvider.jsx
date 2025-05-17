@@ -28,7 +28,7 @@ const LanguageProvider = ({ children }) => {
   };
 
   return (
-    <LanguageContext.Provider value={{ switchLanguage }}>
+    <LanguageContext.Provider value={{ switchLanguage, locale }}>
       <RawIntlProvider value={intl}>{children}</RawIntlProvider>
     </LanguageContext.Provider>
   );

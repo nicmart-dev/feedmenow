@@ -17,7 +17,7 @@ const cors = require("cors");
 /* Import routes */
 const usersRoutes = require(path.join(__dirname, "./routes/usersRoutes"));
 const recipesRoutes = require(path.join(__dirname, "./routes/recipesRoutes"));
-const {loadData} = require("./controllers/airtableController");
+const {loadData} = require("./controllers/databaseController");
 
 const setupServer = async () => {
   // Middleware
@@ -26,6 +26,10 @@ const setupServer = async () => {
   app.use(cors({
     origin: true
   })); // allow any client to connect
+
+  //load the data from the airtable base
+  //exported variables should always be defined if read
+  await loadData();
 
   // Default route
   app.get("/", (req, res) => {
@@ -37,9 +41,6 @@ const setupServer = async () => {
 
   // Route to manage invoking n8n workflow to recommend recipes, and getting other recipe related data
   app.use("/api/recipes", recipesRoutes);
-
-  //load the data from the airtable base
-  await loadData();
 
   // Start the server
   app.listen(PORT, () => {

@@ -5,8 +5,8 @@ import { LanguageContext } from '../i18n/LanguageProvider'
 import React, { useContext, useState } from 'react'
 
 export default function Header() {
-    const { switchLanguage } = useContext(LanguageContext) // Access switchLanguage function from context
-    const [langOpen, setLangOpen] = useState(false) // track if language toggle is open or not
+    const { switchLanguage } = useContext(LanguageContext); // Access switchLanguage function from context
+    const [langOpen, setLangOpen] = useState(false); // track if language toggle is open or not
 
     return (
         <header className="flex flex-col pb-4">
