@@ -46,7 +46,6 @@ const popularCuisines = async (req, res) => {
         // Clean the data by extracting only the cuisine names, and filter out "Unknown" value
         const cuisines = response.data.meals.map(meal => meal.strArea).filter(cuisine => cuisine !== "Unknown");
 
-
         // Send the list of cuisines as a JSON response
         res.json(cuisines);
     } catch (error) {
@@ -55,6 +54,14 @@ const popularCuisines = async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch cuisines' });
     }
 };
+
+const userSettings = async (req, res) => {
+    try {
+
+    } catch (error) {
+
+    }
+}
 
 module.exports = {
     suggestRecipes,

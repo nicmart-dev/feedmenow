@@ -17,26 +17,34 @@ const cors = require("cors");
 /* Import routes */
 const usersRoutes = require(path.join(__dirname, "./routes/usersRoutes"));
 const recipesRoutes = require(path.join(__dirname, "./routes/recipesRoutes"));
+const {loadData} = require("./controllers/airtableController");
 
-// Middleware
-app.use(express.json()); // Parse JSON bodies
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
-app.use(cors({
-  origin: true
-})); // allow any client to connect
+const setupServer = async () => {
+  // Middleware
+  app.use(express.json()); // Parse JSON bodies
+  app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+  app.use(cors({
+    origin: true
+  })); // allow any client to connect
 
-// Default route
-app.get("/", (req, res) => {
-  res.send("Welcome to FeedMeNow! API server 2!");
-});
+  // Default route
+  app.get("/", (req, res) => {
+    res.send("Welcome to FeedMeNow API server!");
+  });
 
-// Use routes to handle user data
-//app.use("/api/users", usersRoutes);
+  // Use routes to handle user data
+  //app.use("/api/users", usersRoutes);
 
-// Route to manage invoking n8n workflow to recommend recipes, and getting other recipe related data
-app.use("/api/recipes", recipesRoutes);
+  // Route to manage invoking n8n workflow to recommend recipes, and getting other recipe related data
+  app.use("/api/recipes", recipesRoutes);
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+  //load the data from the airtable base
+  await loadData();
+
+  // Start the server
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+setupServer();
