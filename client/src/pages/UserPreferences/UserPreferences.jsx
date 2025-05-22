@@ -98,6 +98,9 @@ const UserPreferences = () => {
             setCookTimeOptions(userPreferences.cookingTime.map(item => ({value: item.value, label: item[locale]})));
             setDietOptions(userPreferences.diet.map(item => ({value: item.value, label: item[locale]})));
             setIntoleranceOptions(userPreferences.intolerance.map(item => ({value: item.value, label: item[locale]})));
+
+            console.log(cookTime);
+            setCookTime({value: cookTime.value, label: cookTime.label});
         }
 
     }, [locale]);
@@ -111,7 +114,6 @@ const UserPreferences = () => {
                 diet: diet,
                 notEating: notEating,
             };
-            console.log("Hello", cookTime);
 
             localStorage.setItem("userSettings", JSON.stringify(userSettings));
         }
