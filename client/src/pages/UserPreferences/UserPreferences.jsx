@@ -29,7 +29,7 @@ const UserPreferences = () => {
     const [intoleranceOptions, setIntoleranceOptions] = useState( [] );
 
     const [hungryHippos, setHungryHippos] = useState("1");
-    const [cookTime, setCookTime] = useState(cookTimeOptions[0]);
+    const [cookTime, setCookTime] = useState({ value: "0", label: "Any Time" });
     const [cuisine, setCuisine] = useState([]);
     const [diet, setDiet] = useState([]);
     const [notEating, setNotEating] = useState([]);
@@ -38,17 +38,17 @@ const UserPreferences = () => {
     const [cuisineOptions, setCuisineOptions] = useState([]);
     const [userPreferences, setUserPreferences] = useState(null);
 
-    const { locale } = useContext(LanguageContext);
+    const { locale } = useContext(LanguageContext); //reads locale value
 
     useEffect(() => {
-        const getLocalSettings = async () => {
+        const setLocalSettings = async () => {
             try {
-                const localStorageSettings = JSON.parse(localStorage.getItem("userSettings"));
-                setHungryHippos(localStorageSettings.people);
-                setCookTime(localStorageSettings.cookTime);
-                setCuisine(localStorageSettings.cuisine);
-                setDiet(localStorageSettings.diet);
-                setNotEating(localStorageSettings.notEating);
+                const us = JSON.parse(localStorage.getItem("userSettings"));
+                setHungryHippos(us.people);
+                setCookTime(us.cookTime);
+                setCuisine(us.cuisine);
+                setDiet(us.diet);
+                setNotEating(us.notEating);
             } catch(error) {
                 console.error(error);
             }
@@ -77,25 +77,20 @@ const UserPreferences = () => {
                 const response = await axios.get(
                     `${process.env.REACT_APP_API_URL}/api/recipes/userpreferences/`
                 );
-
-                setCookTimeOptions(response.data.cookingTime.map(item => ({value: item.value, label: item[locale]})));
-                setDietOptions(response.data.diet.map(item => ({value: item.value, label: item[locale]})));
-                setIntoleranceOptions(response.data.intolerance.map(item => ({value: item.value, label: item[locale]})));
-
+                
                 setUserPreferences(response.data);
             } catch (error) {
                 console.error(error);
             }
         }
 
-        getLocalSettings();
+        setLocalSettings();
         fetchCuisines();
         fetchUserPreferences();
     }, []);
 
     useEffect(() => {
         if(userPreferences) {
-            //change locale of selectable options
             setCookTimeOptions(userPreferences.cookingTime.map(item => ({value: item.value, label: item[locale]})));
             setDietOptions(userPreferences.diet.map(item => ({value: item.value, label: item[locale]})));
             setIntoleranceOptions(userPreferences.intolerance.map(item => ({value: item.value, label: item[locale]})));
@@ -117,21 +112,20 @@ const UserPreferences = () => {
                 }
             }));
         }
-
-    }, [locale]);
+    }, [locale, userPreferences]);
 
     useEffect(() => {
-        const userSettings = JSON.parse(localStorage.getItem("userSettings"));
+        const us = JSON.parse(localStorage.getItem("userSettings"));
 
-        userSettings.people = hungryHippos;
-        userSettings.cookTime = cookTime;
-        userSettings.cuisine = cuisine;
-        userSettings.diet = diet;
-        userSettings.notEating = notEating;
+        us.people = hungryHippos;
+        us.cookTime = cookTime;
+        us.cuisine = cuisine;
+        us.diet = diet;
+        us.notEating = notEating;
 
-        localStorage.setItem("userSettings", JSON.stringify(userSettings));
+        localStorage.setItem("userSettings", JSON.stringify(us));
+
     }, [hungryHippos, cookTime, cuisine, diet, notEating, cuisineOptions, userPreferences]);
-    
 
     // Used to style react-select UI controls
     const customStyles = {

@@ -15,15 +15,15 @@ export default function Header() {
                     <FormattedMessage id="appName" />
                 </h1>
                 {/*This feature is temporary disabled until generated content will be translated*/}
-                <div className="flex flex-row gap-4 w-1/6 justify-end">
-                    <img
-                        src={LanguageIcon}
-                        className="w-1/2 max-w-5"
-                        onClick={() => setLangOpen(!langOpen)}
-                    />
+                {/*<div className="flex flex-row gap-4 w-1/6 justify-end">*/}
+                {/*    <img*/}
+                {/*        src={LanguageIcon}*/}
+                {/*        className="w-1/2 max-w-5"*/}
+                {/*        onClick={() => setLangOpen(!langOpen)}*/}
+                {/*    />*/}
 
-                    {/* <img src={LogoutIcon} className="w-1/2 max-w-4" /> */}
-                </div>
+                {/*    /!* <img src={LogoutIcon} className="w-1/2 max-w-4" /> *!/*/}
+                {/*</div>*/}
             </div>
             {/* Language selection menu displayed only when clicking on language toggle button */}
             <div
