@@ -102,9 +102,6 @@ const UserPreferences = () => {
 
             //change locale of selected options
             setCookTime({value: cookTime.value, label: userPreferences.cookingTime.find(item => (item.value === cookTime.value))[locale]});
-            // setCuisine(cuisine.map((item) => (
-            //     {value: item.value, label: userPreferences.cuisine.find(item => (item.value === cookTime.value))[locale]}
-            // )));
 
             setDiet(diet.map(selectedDiet => (
                 {value: selectedDiet.value, label: userPreferences.diet.find(item => (item.value === selectedDiet.value))[locale]}
@@ -118,8 +115,7 @@ const UserPreferences = () => {
                 } else {
                     return {value: selectedNotEating.value, label: selectedNotEating.label};
                 }
-            }
-            ));
+            }));
         }
 
     }, [locale]);
