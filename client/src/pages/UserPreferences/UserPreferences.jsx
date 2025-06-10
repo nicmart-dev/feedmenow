@@ -1,8 +1,8 @@
 import timeIcon from '../../assets/icons/time.svg'
 import worldIcon from '../../assets/icons/world.svg'
 
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect, useContext } from 'react'
+import axios, { options } from 'axios'
 import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 
@@ -11,74 +11,44 @@ Following instructions from https://docs.fontawesome.com/web/use-with/react/add-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan, faCarrot } from '@fortawesome/free-solid-svg-icons'
 import { FormattedMessage } from 'react-intl'
+import { LanguageContext } from '../../i18n/LanguageProvider'
 
 const UserPreferences = () => {
-    const cookTimeOptions = [
-        { value: '0', label: 'Any time' },
-        { value: '5', label: '5 minutes' },
-        { value: '15', label: '15 minutes' },
-        { value: '30', label: '30 minutes' },
-        { value: '45', label: '45 minutes' },
-        { value: '60', label: '1 hour' },
-        { value: '120', label: '1-2 hours' },
-        { value: '121', label: '2 hours+' },
-    ];
+    const [cookTimeOptions, setCookTimeOptions] = useState( []);
 
     /*
-Predefined list of diets supported by popular API Spoonacular
-https://spoonacular.com/food-api/docs#Diets
-*/
-const dietOptions = [
-    { value: 'gluten free', label: 'Gluten Free' },
-    { value: 'ketogenic', label: 'Ketogenic' },
-    { value: 'vegetarian', label: 'Vegetarian' },
-    { value: 'lacto-vegetarian', label: 'Lacto-Vegetarian' },
-    { value: 'ovo-vegetarian', label: 'Ovo-Vegetarian' },
-    { value: 'vegan', label: 'Vegan' },
-    { value: 'pescetarian', label: 'Pescetarian' },
-    { value: 'paleo', label: 'Paleo' },
-    { value: 'primal', label: 'Primal' },
-    { value: 'low fodmap', label: 'Low FODMAP' },
-    { value: 'whole30', label: 'Whole30' },
-];
+    Predefined list of diets supported by popular API Spoonacular
+    https://spoonacular.com/food-api/docs#Diets
+    */
+    const [dietOptions, setDietOptions] = useState( [] );
 
     /* 
-Predefined list of intolerances/allergens supported by popular API Spoonacular
-https://spoonacular.com/food-api/docs#Intolerances
-*/
-const intoleranceOptions = [
-    { value: 'Dairy', label: 'Dairy' },
-    { value: 'Egg', label: 'Egg' },
-    { value: 'Gluten', label: 'Gluten' },
-    { value: 'Grain', label: 'Grain' },
-    { value: 'Peanut', label: 'Peanut' },
-    { value: 'Seafood', label: 'Seafood' },
-    { value: 'Sesame', label: 'Sesame' },
-    { value: 'Shellfish', label: 'Shellfish' },
-    { value: 'Soy', label: 'Soy' },
-    { value: 'Sulfite', label: 'Sulfite' },
-    { value: 'Tree Nut', label: 'Tree Nut' },
-    { value: 'Wheat', label: 'Wheat' },
-];
+    Predefined list of intolerances/allergens supported by popular API Spoonacular
+    https://spoonacular.com/food-api/docs#Intolerances
+    */
+    const [intoleranceOptions, setIntoleranceOptions] = useState( [] );
 
     const [hungryHippos, setHungryHippos] = useState("1");
-    const [cookTime, setCookTime] = useState(cookTimeOptions[0]);
+    const [cookTime, setCookTime] = useState({ value: "0", label: "Any Time" });
     const [cuisine, setCuisine] = useState([]);
     const [diet, setDiet] = useState([]);
     const [notEating, setNotEating] = useState([]);
 
     /* Cuisine options stored from popular web service API */
     const [cuisineOptions, setCuisineOptions] = useState([]);
+    const [userPreferences, setUserPreferences] = useState(null);
+
+    const { locale } = useContext(LanguageContext); //reads locale value
 
     useEffect(() => {
-        const getSettings = async () => {
+        const setLocalSettings = async () => {
             try {
-                const localStorageSettings = JSON.parse(localStorage.getItem("userSettings"));
-                setHungryHippos(localStorageSettings.people);
-                setCookTime(localStorageSettings.cookTime);
-                setCuisine(localStorageSettings.cuisine);
-                setDiet(localStorageSettings.diet);
-                setNotEating(localStorageSettings.notEating);
+                const us = JSON.parse(localStorage.getItem("userSettings"));
+                setHungryHippos(us.people);
+                setCookTime(us.cookTime);
+                setCuisine(us.cuisine);
+                setDiet(us.diet);
+                setNotEating(us.notEating);
             } catch(error) {
                 console.error(error);
             }
@@ -95,30 +65,67 @@ const intoleranceOptions = [
                         label: cuisine,
                     })
                 );
+
                 setCuisineOptions(cuisines);
             } catch (error) {
                 console.error(error)
             }
         }
 
-        getSettings();
+        const fetchUserPreferences = async () => {
+            try {
+                const response = await axios.get(
+                    `${process.env.REACT_APP_API_URL}/api/recipes/userpreferences/`
+                );
+                
+                setUserPreferences(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        setLocalSettings();
         fetchCuisines();
+        fetchUserPreferences();
     }, []);
 
     useEffect(() => {
-        const userSettings = {
-            people: hungryHippos,
-            cookTime: cookTime,
-            cuisine: cuisine,
-            diet: diet,
-            notEating: notEating,
-        };
+        if(userPreferences) {
+            setCookTimeOptions(userPreferences.cookingTime.map(item => ({value: item.value, label: item[locale]})));
+            setDietOptions(userPreferences.diet.map(item => ({value: item.value, label: item[locale]})));
+            setIntoleranceOptions(userPreferences.intolerance.map(item => ({value: item.value, label: item[locale]})));
 
-        
-        localStorage.setItem("userSettings", JSON.stringify(userSettings));
-                
-    }, [hungryHippos, cookTime, cuisine, diet, notEating, cuisineOptions]);
-    
+            //change locale of selected options
+            setCookTime({value: cookTime.value, label: userPreferences.cookingTime.find(item => (item.value === cookTime.value))[locale]});
+
+            setDiet(diet.map(selectedDiet => (
+                {value: selectedDiet.value, label: userPreferences.diet.find(item => (item.value === selectedDiet.value))[locale]}
+            )));
+
+            setNotEating(notEating.map(selectedNotEating => {
+                const label = userPreferences.intolerance.find(item => (item.value === selectedNotEating.value));
+
+                if(label) {
+                    return {value: selectedNotEating.value, label: label[locale]};
+                } else {
+                    return {value: selectedNotEating.value, label: selectedNotEating.label};
+                }
+            }));
+        }
+    }, [locale, userPreferences]);
+
+    useEffect(() => {
+        const us = JSON.parse(localStorage.getItem("userSettings"));
+
+        us.people = hungryHippos;
+        us.cookTime = cookTime;
+        us.cuisine = cuisine;
+        us.diet = diet;
+        us.notEating = notEating;
+
+        localStorage.setItem("userSettings", JSON.stringify(us));
+
+    }, [hungryHippos, cookTime, cuisine, diet, notEating, cuisineOptions, userPreferences]);
 
     // Used to style react-select UI controls
     const customStyles = {
