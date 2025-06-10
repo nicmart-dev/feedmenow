@@ -11,7 +11,11 @@ const LanguageProvider = ({ children }) => {
   const [locale, setLocale] = useState("en");
 
   useEffect(() => {
-    setLocale(getLocale());
+      try {
+          setLocale(JSON.parse(localStorage.getItem('userSettings'))["lang"]);
+      } catch (error) {
+          setLocale(getLocale());
+      }
   }, []);
 
   const intl = createIntl(
@@ -22,9 +26,18 @@ const LanguageProvider = ({ children }) => {
     cache
   );
 
+
+
   const switchLanguage = (lang) => {
-      console.log("Switch Language function");
-    setLocale(lang);
+      try {
+          const localJSON = JSON.parse(localStorage.getItem('userSettings'));
+          localJSON["lang"] = lang;
+          localStorage.setItem('userSettings', JSON.stringify(localJSON));
+      } catch (error) {
+          console.error(error);
+      }
+
+      setLocale(lang);
   };
 
   return (

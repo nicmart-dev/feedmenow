@@ -14,6 +14,7 @@ export default function Header() {
                 <h1 className="text-2xl w-5/6">
                     <FormattedMessage id="appName" />
                 </h1>
+                {/*This feature is temporary disabled until generated content will be translated*/}
                 <div className="flex flex-row gap-4 w-1/6 justify-end">
                     <img
                         src={LanguageIcon}

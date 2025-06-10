@@ -2,7 +2,7 @@ import timeIcon from '../../assets/icons/time.svg'
 import worldIcon from '../../assets/icons/world.svg'
 
 import React, { useState, useEffect, useContext } from 'react'
-import axios from 'axios'
+import axios, { options } from 'axios'
 import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 
@@ -95,28 +95,45 @@ const UserPreferences = () => {
 
     useEffect(() => {
         if(userPreferences) {
+            //change locale of selectable options
             setCookTimeOptions(userPreferences.cookingTime.map(item => ({value: item.value, label: item[locale]})));
             setDietOptions(userPreferences.diet.map(item => ({value: item.value, label: item[locale]})));
             setIntoleranceOptions(userPreferences.intolerance.map(item => ({value: item.value, label: item[locale]})));
 
-            console.log(cookTime);
-            setCookTime({value: cookTime.value, label: cookTime.label});
+            //change locale of selected options
+            setCookTime({value: cookTime.value, label: userPreferences.cookingTime.find(item => (item.value === cookTime.value))[locale]});
+            // setCuisine(cuisine.map((item) => (
+            //     {value: item.value, label: userPreferences.cuisine.find(item => (item.value === cookTime.value))[locale]}
+            // )));
+
+            setDiet(diet.map(selectedDiet => (
+                {value: selectedDiet.value, label: userPreferences.diet.find(item => (item.value === selectedDiet.value))[locale]}
+            )));
+
+            setNotEating(notEating.map(selectedNotEating => {
+                const label = userPreferences.intolerance.find(item => (item.value === selectedNotEating.value));
+
+                if(label) {
+                    return {value: selectedNotEating.value, label: label[locale]};
+                } else {
+                    return {value: selectedNotEating.value, label: selectedNotEating.label};
+                }
+            }
+            ));
         }
 
     }, [locale]);
 
     useEffect(() => {
-        if(userPreferences) {
-            const userSettings = {
-                people: hungryHippos,
-                cookTime: cookTime,
-                cuisine: cuisine,
-                diet: diet,
-                notEating: notEating,
-            };
+        const userSettings = JSON.parse(localStorage.getItem("userSettings"));
 
-            localStorage.setItem("userSettings", JSON.stringify(userSettings));
-        }
+        userSettings.people = hungryHippos;
+        userSettings.cookTime = cookTime;
+        userSettings.cuisine = cuisine;
+        userSettings.diet = diet;
+        userSettings.notEating = notEating;
+
+        localStorage.setItem("userSettings", JSON.stringify(userSettings));
     }, [hungryHippos, cookTime, cuisine, diet, notEating, cuisineOptions, userPreferences]);
     
 
