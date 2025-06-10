@@ -2,6 +2,7 @@ const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const { nanoid } = require("nanoid");
 const { sendFirestoreDataFeedMeNow } = require("./sendFirestoreData");
+const {getCookingTimeSettings, getDietOptions, getIntoleranceOptions, getCuisineOptions} = require("./databaseController");
 
 /* Start n8n workflow using ingredients list provided*/
 // POST /api/recipes/suggest
@@ -23,7 +24,7 @@ const suggestRecipes = async (req, res) => {
         response.data[0].dishes.map((item) => {
           item["id"] = nanoid(16);
         });
-    
+
         res.status(200).json(response.data);
       })(),
       (async () => {
@@ -31,7 +32,7 @@ const suggestRecipes = async (req, res) => {
         const geolocation = await axios.get(`http://ipwho.is/${req.ip}`);
         //console.log(geolocation); //urgent test
         const simplifySettings = settings;
-        
+
         simplifySettings['cookTime'] = settings['cookTime']['value'];
 
         const data = {
@@ -63,15 +64,8 @@ const suggestRecipes = async (req, res) => {
  */
 const popularCuisines = async (req, res) => {
     try {
-        // Fetch the list of popular cuisines from the API
-        const response = await axios.get('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
-
-        // Clean the data by extracting only the cuisine names, and filter out "Unknown" value
-        const cuisines = response.data.meals.map(meal => meal.strArea).filter(cuisine => cuisine !== "Unknown");
-
-
         // Send the list of cuisines as a JSON response
-        res.json(cuisines);
+        res.json(getCuisineOptions());
     } catch (error) {
         // If there was an error, log it and send an error response
         console.error(error);
@@ -79,7 +73,22 @@ const popularCuisines = async (req, res) => {
     }
 };
 
+const userPreferences = async (req, res) => {
+    try {
+        const userPreferences = {
+            cookingTime: getCookingTimeSettings(),
+            diet: getDietOptions(),
+            intolerance: getIntoleranceOptions(),
+        }
+        res.json(userPreferences);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch user preferences' });
+    }
+}
+
 module.exports = {
     suggestRecipes,
     popularCuisines,
+    userPreferences
 };

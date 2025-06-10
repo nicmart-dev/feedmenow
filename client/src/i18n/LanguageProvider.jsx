@@ -11,7 +11,19 @@ const LanguageProvider = ({ children }) => {
   const [locale, setLocale] = useState("en");
 
   useEffect(() => {
-    setLocale(getLocale());
+      // const lang = JSON.parse(localStorage.getItem("userSettings"))["lang"];
+      //
+      // if(lang) {
+      //     setLocale(lang);
+      // } else {
+      //     const locale = getLocale();
+      //     const ls = JSON.parse(localStorage.getItem("userSettings"));
+      //     ls["lang"] = locale;
+      //     localStorage.setItem("userSettings", JSON.stringify(ls));
+      //     setLocale(locale);
+      // }
+
+      setLocale("en");
   }, []);
 
   const intl = createIntl(
@@ -23,12 +35,19 @@ const LanguageProvider = ({ children }) => {
   );
 
   const switchLanguage = (lang) => {
-      console.log("Switch Language function");
-    setLocale(lang);
+      try {
+          const ls = JSON.parse(localStorage.getItem('userSettings'));
+          ls["lang"] = lang;
+          localStorage.setItem('userSettings', JSON.stringify(ls));
+      } catch (error) {
+          console.error(error);
+      }
+
+      setLocale(lang);
   };
 
   return (
-    <LanguageContext.Provider value={{ switchLanguage }}>
+    <LanguageContext.Provider value={{ switchLanguage, locale }}>
       <RawIntlProvider value={intl}>{children}</RawIntlProvider>
     </LanguageContext.Provider>
   );

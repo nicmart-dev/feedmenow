@@ -5,8 +5,8 @@ import { LanguageContext } from '../i18n/LanguageProvider'
 import React, { useContext, useState } from 'react'
 
 export default function Header() {
-    const { switchLanguage } = useContext(LanguageContext) // Access switchLanguage function from context
-    const [langOpen, setLangOpen] = useState(false) // track if language toggle is open or not
+    const { switchLanguage } = useContext(LanguageContext); // Access switchLanguage function from context
+    const [langOpen, setLangOpen] = useState(false); // track if language toggle is open or not
 
     return (
         <header className="flex flex-col pb-4">
@@ -14,15 +14,16 @@ export default function Header() {
                 <h1 className="text-2xl w-5/6">
                     <FormattedMessage id="appName" />
                 </h1>
-                <div className="flex flex-row gap-4 w-1/6 justify-end">
-                    <img
-                        src={LanguageIcon}
-                        className="w-1/2 max-w-5"
-                        onClick={() => setLangOpen(!langOpen)}
-                    />
+                {/*This feature is temporary disabled until generated content will be translated*/}
+                {/*<div className="flex flex-row gap-4 w-1/6 justify-end">*/}
+                {/*    <img*/}
+                {/*        src={LanguageIcon}*/}
+                {/*        className="w-1/2 max-w-5"*/}
+                {/*        onClick={() => setLangOpen(!langOpen)}*/}
+                {/*    />*/}
 
-                    {/* <img src={LogoutIcon} className="w-1/2 max-w-4" /> */}
-                </div>
+                {/*    /!* <img src={LogoutIcon} className="w-1/2 max-w-4" /> *!/*/}
+                {/*</div>*/}
             </div>
             {/* Language selection menu displayed only when clicking on language toggle button */}
             <div

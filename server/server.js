@@ -28,6 +28,7 @@ const recipesRoutes = require(path.join(__dirname, "./routes/recipesRoutes"));
 const portfolioRoutes = require(path.join(__dirname, "./routes/portfolioRoutes"));
 
 initDatabases();
+const {loadData} = require("./controllers/databaseController");
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
@@ -38,17 +39,28 @@ app.use(cors({
 app.set('trust proxy', true);
 
 
+const setupServer = async () => {
+  // Middleware
+  app.use(express.json()); // Parse JSON bodies
+  app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+  app.use(cors({
+    origin: true
+  })); // allow any client to connect
 
-// Default route
-app.get("/", (req, res) => {
-  res.send("Welcome to FeedMeNow! API server 2!");
-});
+  //load the data from the airtable base
+  //exported variables should always be defined if read
+  await loadData();
 
-// Use routes to handle user data
-//app.use("/api/users", usersRoutes);
+  // Default route
+  app.get("/", (req, res) => {
+    res.send("Welcome to FeedMeNow API server!");
+  });
 
-// Route to manage invoking n8n workflow to recommend recipes, and getting other recipe related data
-app.use("/api/recipes", recipesRoutes);
+  // Use routes to handle user data
+  //app.use("/api/users", usersRoutes);
+
+  // Route to manage invoking n8n workflow to recommend recipes, and getting other recipe related data
+  app.use("/api/recipes", recipesRoutes);
 
 app.use("/api/visit", portfolioRoutes);
 
@@ -56,3 +68,10 @@ app.use("/api/visit", portfolioRoutes);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+  // Start the server
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+setupServer();
