@@ -30,15 +30,6 @@ const portfolioRoutes = require(path.join(__dirname, "./routes/portfolioRoutes")
 initDatabases();
 const {loadData} = require("./controllers/databaseController");
 
-// Middleware
-app.use(express.json()); // Parse JSON bodies
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
-app.use(cors({
-  origin: `${process.env.CLIENT_URL}`
-})); // allow * / all to access our api. All domains, ips, ports
-app.set('trust proxy', true);
-
-
 const setupServer = async () => {
   // Middleware
   app.use(express.json()); // Parse JSON bodies
@@ -62,12 +53,8 @@ const setupServer = async () => {
   // Route to manage invoking n8n workflow to recommend recipes, and getting other recipe related data
   app.use("/api/recipes", recipesRoutes);
 
-app.use("/api/visit", portfolioRoutes);
+  app.use("/api/visit", portfolioRoutes);
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
   // Start the server
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
