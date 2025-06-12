@@ -11,19 +11,17 @@ const LanguageProvider = ({ children }) => {
   const [locale, setLocale] = useState("en");
 
   useEffect(() => {
-      // const lang = JSON.parse(localStorage.getItem("userSettings"))["lang"];
-      //
-      // if(lang) {
-      //     setLocale(lang);
-      // } else {
-      //     const locale = getLocale();
-      //     const ls = JSON.parse(localStorage.getItem("userSettings"));
-      //     ls["lang"] = locale;
-      //     localStorage.setItem("userSettings", JSON.stringify(ls));
-      //     setLocale(locale);
-      // }
+      const lang = JSON.parse(localStorage.getItem("userSettings"))["lang"];
 
-      setLocale("en");
+      if(lang) {
+          setLocale(lang);
+      } else {
+          const locale = getLocale();
+          const ls = JSON.parse(localStorage.getItem("userSettings"));
+          ls["lang"] = locale;
+          localStorage.setItem("userSettings", JSON.stringify(ls));
+          setLocale(locale);
+      }
   }, []);
 
   const intl = createIntl(

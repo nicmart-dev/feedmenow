@@ -72,7 +72,7 @@ export default function Home({setIsRecipeRequest}) {
         <>
             <div className="m-4 max-w-full py-8 bg-beige rounded-md p-2">
                 <div className="text-left text-green">
-                    <p className="mt-6 text-lg leading-8">
+                    <p className="text-lg leading-8">
                         <FormattedMessage id="home.hero"/>
                     </p>
                     <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
@@ -86,7 +86,7 @@ export default function Home({setIsRecipeRequest}) {
             >
                 <div className="space-y-12">
                     <div className="border-gray-900/10">
-                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="col-span-full">
                                 <label
                                     htmlFor="ingredientsField"
@@ -109,7 +109,7 @@ export default function Home({setIsRecipeRequest}) {
                                         className="
                                             block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset 
                                             ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset 
-                                            focus:ring-indigo-600 sm:text-sm sm:leading-6
+                                            focus:ring-green sm:text-sm sm:leading-6
                                         "
                                         placeholder={intl.formatMessage({
                                             id: 'home.placeholder',
