@@ -2,7 +2,7 @@ import timeIcon from '../../assets/icons/time.svg'
 import worldIcon from '../../assets/icons/world.svg'
 
 import React, { useState, useEffect, useContext } from 'react'
-import axios, { options } from 'axios'
+import axios from 'axios'
 import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 
@@ -12,8 +12,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan, faCarrot } from '@fortawesome/free-solid-svg-icons'
 import { FormattedMessage } from 'react-intl'
 import { LanguageContext } from '../../i18n/LanguageProvider'
+import { render } from '@testing-library/react'
 
 const UserPreferences = () => {
+
     const [cookTimeOptions, setCookTimeOptions] = useState( []);
 
     /*
@@ -141,6 +143,16 @@ const UserPreferences = () => {
                 borderColor: 'green',
             },
         }),
+        option: (provided, state) => ({
+            ...provided,
+            backgroundColor: state.isSelected
+                ? 'green' // when selected
+                : state.isFocused
+                    ? 'lightgray' // when hovered
+                    : 'primary',
+            color: state.isSelected ? 'white' : 'black',
+            cursor: 'pointer',
+        }),
         multiValue: (provided) => ({
             ...provided,
             backgroundColor: 'rgba(0, 128, 0, 0.1)', // Light green background
@@ -172,10 +184,14 @@ const UserPreferences = () => {
             ...provided,
             color: 'green',
         }),
+        singleValue: (provided) => ({
+            ...provided,
+            color: 'green'
+        }),
     }
 
     return (
-        <section className="m-4">
+        <section id="userPreferences" className="m-4">
             <div className="space-y-6">
                 {' '}
                 {/* Added space-y-6 for vertical spacing */}
@@ -193,6 +209,7 @@ const UserPreferences = () => {
                         onChange={
                             (e) => {setHungryHippos(e.target.value)}
                         }
+                        styles={customStyles}
                     >
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -213,7 +230,7 @@ const UserPreferences = () => {
                         value={cookTime}
                         onChange={setCookTime}
                         options={cookTimeOptions}
-
+                        styles={customStyles}
                     />
                 </div>
                 <div>
@@ -237,6 +254,7 @@ const UserPreferences = () => {
                         options={cuisineOptions}
                         value={cuisine}
                         onChange={setCuisine}
+                        styles={customStyles}
                     />
                 </div>
                 <div>
@@ -255,6 +273,7 @@ const UserPreferences = () => {
                         options={dietOptions}
                         value={diet}
                         onChange={setDiet}
+                        styles={customStyles}
                     />
                 </div>
                 <div>
