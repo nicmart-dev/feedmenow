@@ -90,7 +90,9 @@ const UserPreferences = () => {
     }, []);
 
     useEffect(() => {
-        if(userPreferences) {
+        //server may not be able to deliver the airtable data properly, the data must be verified
+        if(userPreferences !== null && userPreferences.cookingTime !== null &&
+            userPreferences.diet !== null && userPreferences.intolerance !== null) {
             setCookTimeOptions(userPreferences.cookingTime.map(item => ({value: item.value, label: item[locale]})));
             setDietOptions(userPreferences.diet.map(item => ({value: item.value, label: item[locale]})));
             setIntoleranceOptions(userPreferences.intolerance.map(item => ({value: item.value, label: item[locale]})));
