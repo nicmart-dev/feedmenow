@@ -141,6 +141,10 @@ const UserPreferences = () => {
                 borderColor: 'green',
             },
         }),
+        input: (provided) => ({
+            ...provided,
+            borderColor: 'pink'
+        }),
         option: (provided, state) => ({
             ...provided,
             backgroundColor: state.isSelected
@@ -229,6 +233,7 @@ const UserPreferences = () => {
                         onChange={setCookTime}
                         options={cookTimeOptions}
                         styles={customStyles}
+                        isSearchable={false}
                     />
                 </div>
                 <div>
