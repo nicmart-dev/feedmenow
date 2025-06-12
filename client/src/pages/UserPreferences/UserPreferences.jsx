@@ -137,6 +137,16 @@ const UserPreferences = () => {
                 borderColor: 'green',
             },
         }),
+        option: (provided, state) => ({
+            ...provided,
+            backgroundColor: state.isSelected
+                ? 'green' // when selected
+                : state.isFocused
+                    ? 'beige' // when hovered
+                    : 'primary',
+            color: state.isSelected ? 'white' : 'black',
+            cursor: 'pointer',
+        }),
         multiValue: (provided) => ({
             ...provided,
             backgroundColor: 'rgba(0, 128, 0, 0.1)', // Light green background
@@ -168,6 +178,10 @@ const UserPreferences = () => {
             ...provided,
             color: 'green',
         }),
+        singleValue: (provided) => ({
+            ...provided,
+            color: 'green'
+        }),
     }
 
     return (
@@ -189,6 +203,7 @@ const UserPreferences = () => {
                         onChange={
                             (e) => {setHungryHippos(e.target.value)}
                         }
+                        styles={customStyles}
                     >
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -209,7 +224,7 @@ const UserPreferences = () => {
                         value={cookTime}
                         onChange={setCookTime}
                         options={cookTimeOptions}
-
+                        styles={customStyles}
                     />
                 </div>
                 <div>
@@ -233,6 +248,7 @@ const UserPreferences = () => {
                         options={cuisineOptions}
                         value={cuisine}
                         onChange={setCuisine}
+                        styles={customStyles}
                     />
                 </div>
                 <div>
@@ -247,10 +263,12 @@ const UserPreferences = () => {
                     </div>
                     <Select
                         isMulti
+                        closeMenuOnSelect={false}
                         name="diet"
                         options={dietOptions}
                         value={diet}
                         onChange={setDiet}
+                        styles={customStyles}
                     />
                 </div>
                 <div>
