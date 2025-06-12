@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan, faCarrot } from '@fortawesome/free-solid-svg-icons'
 import { FormattedMessage } from 'react-intl'
 import { LanguageContext } from '../../i18n/LanguageProvider'
-import { render } from '@testing-library/react'
 
 const UserPreferences = () => {
 
