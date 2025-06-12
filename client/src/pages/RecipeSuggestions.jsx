@@ -51,9 +51,9 @@ export default function RecipeSuggestions() {
                     defaultMessage="Recipes"
                     values={{
                         count: totalDishes > 10 ? 'large' : totalDishes,
-                        i: (chunks) => <p className="text-lg leading-8 font-thin">{chunks}</p>,
-                        j: (chunks) => <h1 className="text-3xl font-bold tracking-tight sm:text-5xl text-green">{chunks}</h1>,
-                        k: (chunks) => <p className="text-lg leading-8 font-thin">{chunks}</p>
+                        i: (chunks) => <p className="text-lg leading-8 font-thin sm:text-xl">{chunks}</p>,
+                        j: (chunks) => <h1 className="text-3xl font-medium tracking-tight sm:text-5xl text-green">{chunks}</h1>,
+                        k: (chunks) => <p className="text-lg leading-8 font-thin sm:text-xl">{chunks}</p>
                     }}
                 />
 
@@ -89,14 +89,14 @@ export default function RecipeSuggestions() {
                                 </nav>
                             </div>
 
-                            <div className="mt-4 mb-8 px-2 grid grid-cols-1 gap-x-2 gap-y-10 md:grid-cols-4 xl:gap-x-8 w-full md:w-fit">
+                            <div className="mt-4 mb-8 grid grid-cols-2 gap-x-5 gap-y-4 md:grid-cols-4 xl:gap-x-8 w-full md:w-fit">
                                 {item.dishes.map((recipe, j) => (
                                     <>
                                         <Link to={`/recipes/${recipe.id}`}>
                                     <div
                                         key={j}
-                                        className="group relative rounded-xl border p-2 border-green max-w-[290px] md:max-w-full md:w-[clamp(190px,22vw,350px)] h-[clamp(320px,28vw,450px)]
-                                        m-auto bg-white hover:shadow-xl hover:scale-110 hover:z-10 hover:bg-red-50 duration-300 transition-all"
+                                        className="group relative rounded-xl border p-2 border-green max-w-full md:max-w-full md:w-[clamp(190px,22vw,350px)] h-[clamp(320px,28vw,450px)]
+                                        m-auto bg-white hover:shadow-xl hover:scale-[102%] md:hover:scale-110 hover:z-10 hover:bg-red-50 duration-300 transition-all"
                                     >
                                         <div className="[&>*:not(.list-heading)]:mb-3">
                                             <div className="flex flex-row justify-between gap-4">
@@ -105,7 +105,7 @@ export default function RecipeSuggestions() {
                                                     {recipe.name[30] && '...'}
                                                 </h3>
                                             </div>
-                                            <div className="grid grid-cols-[auto_1fr] gap-2 font-normal">
+                                            <div className="grid grid-cols-[auto_1fr] gap-x-1 gap-y-2 font-normal mx-[-3px] md:mx-0">
                                                 <img
                                                     src={clockIcon}
                                                     width={30}

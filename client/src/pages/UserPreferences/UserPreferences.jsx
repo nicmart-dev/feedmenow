@@ -88,9 +88,7 @@ const UserPreferences = () => {
 
         setLocalSettings();
         fetchCuisines();
-        fetchUserPreferences().then(() => {
-            console.log(userPreferences);
-        });
+        fetchUserPreferences();
     }, []);
 
     useEffect(() => {
@@ -148,7 +146,7 @@ const UserPreferences = () => {
             backgroundColor: state.isSelected
                 ? 'green' // when selected
                 : state.isFocused
-                    ? 'lightgray' // when hovered
+                    ? 'beige' // when hovered
                     : 'primary',
             color: state.isSelected ? 'white' : 'black',
             cursor: 'pointer',
@@ -191,7 +189,7 @@ const UserPreferences = () => {
     }
 
     return (
-        <section id="userPreferences" className="m-4">
+        <section className="m-4">
             <div className="space-y-6">
                 {' '}
                 {/* Added space-y-6 for vertical spacing */}
@@ -269,6 +267,7 @@ const UserPreferences = () => {
                     </div>
                     <Select
                         isMulti
+                        closeMenuOnSelect={false}
                         name="diet"
                         options={dietOptions}
                         value={diet}
