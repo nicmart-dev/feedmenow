@@ -1,7 +1,8 @@
 /**
  * this is the main configuration file of your bit workspace.
  * for full documentation, please see: https://bit.dev/reference/workspace/workspace-json
- **/{
+ **/
+{
   "$schema": "https://static.bit.dev/teambit/schemas/schema.json",
   /**
    * main configuration of the Bit workspace.
@@ -18,12 +19,12 @@
     /**
      * default directory to place a component during `bit import` and `bit create`.
      * the following placeholders are available:
-     * name - component name includes namespace, e.g. 'ui/button'.
+     * name - component name includes names²e, e.g. 'ui/button'.
      * scopeId - full scope-id includes the owner, e.g. 'teambit.compilation'.
      * scope - scope name only, e.g. 'compilation'.
      * owner - owner name in bit.dev, e.g. 'teambit'.
      **/
-    "defaultDirectory": "{scope}/{name}",
+    "defaultDirectory": "components/{name}",
     /**
      * default scope for all components in workspace.
      **/
@@ -32,19 +33,13 @@
     "resolveEnvsFromRoots": true
   },
   /**
-  * Enable generator templates by uncommenting the desired environments below.
-  * These generators scaffold components for Node, React, Vue, and Angular.
-  * After uncommenting, run `bit install` to make them available in your workspace.
-  * Explore more dev environments at: https://bit.dev/docs/getting-started/composing/dev-environments
-  **/
+   * Enable generator templates by uncommenting the desired environments below.
+   * These generators scaffold components for Node, React, Vue, and Angular.
+   * After uncommenting, run `bit install` to make them available in your workspace.
+   * Explore more dev environments at: https://bit.dev/docs/getting-started/composing/dev-environments
+   **/
   "teambit.generator/generator": {
-    "envs": [
-      // "bitdev.node/node-env",
-      // "bitdev.react/react-env",
-      // "bitdev.vue/vue-env",
-      // "bitdev.angular/angular-env"
-      // "bitdev.symphony/envs/symphony-env"
-    ]
+    "envs": ["bitdev.node/node-env", "bitdev.react/react-env"]
   },
   /**
    * main configuration for component dependency resolution.
@@ -58,5 +53,25 @@
   },
   "teambit.workspace/workspace-config-files": {
     "enableWorkspaceConfigWrite": true
+  },
+  /**
+   * Add monorepo structure for Bit Harmony
+   **/
+  "teambit.workspace/variants": {
+    "apps/backend": {
+      "teambit.envs/envs": {
+        "env": "bitdev.node/node-env"
+      }
+    },
+    "apps/frontend": {
+      "teambit.envs/envs": {
+        "env": "bitdev.react/react-env"
+      }
+    },
+    "components/*": {
+      "teambit.envs/envs": {
+        "env": "bitdev.react/react-env"
+      }
+    }
   }
 }
