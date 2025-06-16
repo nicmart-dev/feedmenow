@@ -42,6 +42,7 @@ export default function RecipeSuggestions() {
         backgroundPosition: "center",
     }
 
+
     return (
         <>
             <div className="border rounded-md p-2 m-4 border-green">

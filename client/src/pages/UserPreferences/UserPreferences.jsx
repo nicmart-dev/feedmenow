@@ -2,7 +2,7 @@ import timeIcon from '../../assets/icons/time.svg'
 import worldIcon from '../../assets/icons/world.svg'
 
 import React, { useState, useEffect, useContext } from 'react'
-import axios, { options } from 'axios'
+import axios from 'axios'
 import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 
@@ -14,6 +14,7 @@ import { FormattedMessage } from 'react-intl'
 import { LanguageContext } from '../../i18n/LanguageProvider'
 
 const UserPreferences = () => {
+
     const [cookTimeOptions, setCookTimeOptions] = useState( []);
 
     /*
@@ -139,6 +140,10 @@ const UserPreferences = () => {
                 borderColor: 'green',
             },
         }),
+        input: (provided) => ({
+            ...provided,
+            borderColor: 'pink'
+        }),
         option: (provided, state) => ({
             ...provided,
             backgroundColor: state.isSelected
@@ -227,6 +232,7 @@ const UserPreferences = () => {
                         onChange={setCookTime}
                         options={cookTimeOptions}
                         styles={customStyles}
+                        isSearchable={false}
                     />
                 </div>
                 <div>
