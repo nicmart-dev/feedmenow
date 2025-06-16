@@ -142,7 +142,7 @@ const UserPreferences = () => {
         }),
         input: (provided) => ({
             ...provided,
-            borderColor: 'pink'
+            color: 'primary',
         }),
         option: (provided, state) => ({
             ...provided,
