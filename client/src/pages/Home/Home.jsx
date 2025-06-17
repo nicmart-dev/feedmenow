@@ -30,7 +30,7 @@ export default function Home({setIsRecipeRequest}) {
                 try {   
                     setCanSubmit(false);
                     setIsRecipeRequest(true);
-                    const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/recipes/suggest`, 
+                    const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/v1/recipes/suggest`,
                         {ingredients: ingredients, settings: modSettings});
 
                     const existingRecipes = JSON.parse(localStorage.getItem('recipes'));

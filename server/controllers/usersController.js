@@ -28,7 +28,7 @@ const getAll = async (req, res) => {
 Get a single user details based on their email address, set as primary key in Airtable */
 const getOne = async (req, res) => {
     const userEmail = req.params.id;
-    /* Sample input: http://localhost:8080/api/users/john@gmail.com
+    /* Sample input: http://localhost:8080/api/v1/users/john@gmail.com
      */
     try {
         const records = await base('Users').select({
