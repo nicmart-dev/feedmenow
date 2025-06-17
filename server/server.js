@@ -29,9 +29,9 @@ import {loadData} from "./controllers/databaseController.js";
 /* Import routes */
 //import usersRoutes from './routes/usersRoutes.js';
 import recipesRoutes from './routes/recipesRoutes.js';
+import portfolioRoutes from './routes/portfolioRoutes.js';
 
 initDatabases();
-const {loadData} = require("./controllers/databaseController");
 
 const setupServer = async () => {
   app.use(express.json()); // Parse JSON bodies
