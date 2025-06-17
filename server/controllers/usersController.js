@@ -98,7 +98,7 @@ const remove = async (req, res) => {
     }
 };
 
-module.exports = {
+export {
     getAll,
     getOne,
     create,

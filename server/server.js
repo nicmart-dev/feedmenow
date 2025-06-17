@@ -6,6 +6,15 @@ const app = express();
 
 // load environment variables from a .env file into process.env
 import dotenv from 'dotenv';
+
+import { initFirebaseFeedMeNow, initFirebasePortfolioSite } from './controllers/sendFirestoreData.js';
+
+const initDatabases = async () => {
+  //Initializes Firestore Database
+  await initFirebaseFeedMeNow();
+  await initFirebasePortfolioSite();
+}
+
 const envConfig = dotenv.config();
 
 // Expand environment variables for nested variables
@@ -20,6 +29,9 @@ import {loadData} from "./controllers/databaseController.js";
 /* Import routes */
 //import usersRoutes from './routes/usersRoutes.js';
 import recipesRoutes from './routes/recipesRoutes.js';
+
+initDatabases();
+const {loadData} = require("./controllers/databaseController");
 
 const setupServer = async () => {
   app.use(express.json()); // Parse JSON bodies
@@ -42,6 +54,8 @@ const setupServer = async () => {
 
   // Route to manage invoking n8n workflow to recommend recipes, and getting other recipe related data
   app.use("/api/v1/recipes", recipesRoutes);
+
+  app.use("/api/v1/visit", portfolioRoutes);
 
   // Start the server
   app.listen(PORT, () => {
