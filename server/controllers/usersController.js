@@ -1,13 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const escape = require('escape-html');
+'use strict';
 
+import express from 'express';
+import escape from 'escape-html';
+const router = express.Router();
 
 /* Configure Airtable DB using token, created using https://airtable.com/create/tokens
 and connecting to associated base ID https://support.airtable.com/docs/finding-airtable-ids
 */
-const Airtable = require('airtable');
-var base = new Airtable({ apiKey: process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN }).base(process.env.AIRTABLE_BASE_ID);
+import Airtable from 'airtable';
+let base = new Airtable({ apiKey: process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN }).base(process.env.AIRTABLE_BASE_ID);
 
 
 /* GET /users

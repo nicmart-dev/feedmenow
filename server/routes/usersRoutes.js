@@ -1,8 +1,10 @@
-const express = require('express');
-const path = require("path");
+'use strict';
+
+import express from 'express';
+
 const router = express.Router();
 
-const usersController = require(path.join(__dirname, '../controllers/usersController'));
+import usersController from '../controllers/usersController';
 
 // Route for getting all users
 router.get('/', usersController.getAll);
@@ -19,4 +21,4 @@ router.put('/:id', usersController.update);
 // Route for deleting a user by ID
 router.delete('/:id', usersController.remove);
 
-module.exports = router;
+export default router;

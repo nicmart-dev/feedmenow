@@ -1,5 +1,7 @@
-const express = require('express');
-const { suggestRecipes, popularCuisines, userPreferences } = require('../controllers/recipesController.js');
+'use strict';
+
+import express from 'express';
+import { suggestRecipes, popularCuisines, userPreferences } from '../controllers/recipesController.js';
 
 const router = express.Router();
 
@@ -12,4 +14,4 @@ router.get('/cuisines', popularCuisines);
 // GET /api/recipes/userpreferences
 router.get('/userpreferences', userPreferences);
 
-module.exports = router;
+export default router;

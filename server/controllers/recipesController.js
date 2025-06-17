@@ -1,7 +1,9 @@
-const axios = require("axios");
-const jwt = require("jsonwebtoken");
-const { nanoid } = require("nanoid");
-const {getCookingTimeSettings, getDietOptions, getIntoleranceOptions, getCuisineOptions} = require("./databaseController");
+'use strict';
+
+import axios from 'axios';
+import jwt from 'jsonwebtoken';
+import {nanoid} from 'nanoid';
+import {getCookingTimeSettings, getDietOptions, getIntoleranceOptions, getCuisineOptions} from './databaseController.js';
 
 /* Start n8n workflow using ingredients list provided*/
 // POST /api/recipes/suggest
@@ -64,7 +66,7 @@ const userPreferences = async (req, res) => {
     }
 }
 
-module.exports = {
+export {
     suggestRecipes,
     popularCuisines,
     userPreferences
