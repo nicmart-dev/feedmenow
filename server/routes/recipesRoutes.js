@@ -5,13 +5,13 @@ import { suggestRecipes, popularCuisines, userPreferences } from '../controllers
 
 const router = express.Router();
 
-// POST /api/recipes/suggest
+// POST /api/v1/recipes/suggest
 router.post('/suggest', suggestRecipes);
 
-// GET /api/recipes/cuisines
+// GET /api/v1/recipes/cuisines
 router.get('/cuisines', popularCuisines);
 
-// GET /api/recipes/userpreferences
+// GET /api/v1/recipes/userpreferences
 router.get('/userpreferences', userPreferences);
 
 export default router;

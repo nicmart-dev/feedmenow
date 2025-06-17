@@ -33,9 +33,13 @@ const setupServer = async () => {
   await loadData();
 
   // Default route
-  app.get("/", (req, res) => {
-    res.send("Welcome to FeedMeNow API server!");
-  });
+  const homePage = (req,res) => {
+    res.send('<h1 style="text-align:center">Welcome to FeedMeNow API server!</h1>');
+  }
+
+  app.get("/", homePage);
+  app.get('/api/', homePage);
+  app.get('/api/v1/', homePage);
 
   // Use routes to handle user data
   //app.use("/api/v1/users", usersRoutes);

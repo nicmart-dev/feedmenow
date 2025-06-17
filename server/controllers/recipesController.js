@@ -6,7 +6,7 @@ import {nanoid} from 'nanoid';
 import {getCookingTimeSettings, getDietOptions, getIntoleranceOptions, getCuisineOptions} from './databaseController.js';
 
 /* Start n8n workflow using ingredients list provided*/
-// POST /api/recipes/suggest
+// POST /api/v1/recipes/suggest
 const suggestRecipes = async (req, res) => {
     const { ingredients, settings } = req.body; // Receive ingredients list from the front-end
   try {
@@ -41,6 +41,7 @@ const suggestRecipes = async (req, res) => {
  * @param {Object} res - The response object.
  * @return {Promise<void>} - A Promise that resolves when the cuisines are sent as a JSON response.
  */
+// GET /api/v1/recipes/cuisines
 const popularCuisines = async (req, res) => {
     try {
         // Send the list of cuisines as a JSON response
@@ -52,6 +53,7 @@ const popularCuisines = async (req, res) => {
     }
 };
 
+// GET /api/v1/userpreferences
 const userPreferences = async (req, res) => {
     try {
         const userPreferences = {
