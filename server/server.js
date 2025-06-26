@@ -1,11 +1,13 @@
-const express = require("express");
+'use strict';
+
+import express from 'express';
+
 const app = express();
 
 // load environment variables from a .env file into process.env
-const dotenv = require("dotenv");
-const path = require("path");
-const cors = require("cors");
-const { initFirebaseFeedMeNow, initFirebasePortfolioSite } = require("./controllers/sendFirestoreData");
+import dotenv from 'dotenv';
+
+import { initFirebaseFeedMeNow, initFirebasePortfolioSite } from './controllers/sendFirestoreData.js';
 
 const initDatabases = async () => {
   //Initializes Firestore Database
@@ -16,22 +18,22 @@ const initDatabases = async () => {
 const envConfig = dotenv.config();
 
 // Expand environment variables for nested variables
-const dotenvExpand = require("dotenv-expand");
-
+import dotenvExpand from "dotenv-expand";
 dotenvExpand.expand(envConfig);
 
 const PORT = process.env.PORT || 5000; // Define the port number, use environment variable if available
 
+import cors from 'cors';
+import {loadData} from "./controllers/databaseController.js";
+
 /* Import routes */
-//const usersRoutes = require(path.join(__dirname, "./routes/usersRoutes"));
-const recipesRoutes = require(path.join(__dirname, "./routes/recipesRoutes"));
-const portfolioRoutes = require(path.join(__dirname, "./routes/portfolioRoutes"));
+//import usersRoutes from './routes/usersRoutes.js';
+import recipesRoutes from './routes/recipesRoutes.js';
+import portfolioRoutes from './routes/portfolioRoutes.js';
 
 initDatabases();
-const {loadData} = require("./controllers/databaseController");
 
 const setupServer = async () => {
-  // Middleware
   app.use(express.json()); // Parse JSON bodies
   app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
   app.use(cors({
@@ -43,17 +45,21 @@ const setupServer = async () => {
   await loadData();
 
   // Default route
-  app.get("/", (req, res) => {
-    res.send("Welcome to FeedMeNow API server!");
-  });
+  const homePage = (req,res) => {
+    res.send('<h1 style="text-align:center">Welcome to FeedMeNow API server!</h1>');
+  }
+
+  app.get("/", homePage);
+  app.get('/api/', homePage);
+  app.get('/api/v1/', homePage);
 
   // Use routes to handle user data
-  //app.use("/api/users", usersRoutes);
+  //app.use("/api/v1/users", usersRoutes);
 
   // Route to manage invoking n8n workflow to recommend recipes, and getting other recipe related data
-  app.use("/api/recipes", recipesRoutes);
+  app.use("/api/v1/recipes", recipesRoutes);
 
-  app.use("/api/visit", portfolioRoutes);
+  app.use("/api/v1/visit", portfolioRoutes);
 
   // Start the server
   app.listen(PORT, () => {

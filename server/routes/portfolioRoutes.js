@@ -1,9 +1,9 @@
-const express = require('express');
-const { portfolioVisitCheckKey, porfolioVisit } = require("../controllers/portfolioVisitController.js");
+import express from 'express';
+import { portfolioVisitCheckKey, porfolioVisit } from "../controllers/portfolioVisitController.js";
 
 const router = express.Router();
 
-//
+//GET
 router.get('/portfolio-site-visit', portfolioVisitCheckKey, porfolioVisit);
 
-module.exports = router;
+export default router;

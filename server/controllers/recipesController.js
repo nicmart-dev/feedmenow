@@ -1,11 +1,13 @@
-const axios = require("axios");
-const jwt = require("jsonwebtoken");
-const { nanoid } = require("nanoid");
-const { sendFirestoreDataFeedMeNow } = require("./sendFirestoreData");
-const {getCookingTimeSettings, getDietOptions, getIntoleranceOptions, getCuisineOptions} = require("./databaseController");
+'use strict';
+
+import axios from 'axios';
+import jwt from 'jsonwebtoken';
+import {nanoid} from 'nanoid';
+import {getCookingTimeSettings, getDietOptions, getIntoleranceOptions, getCuisineOptions} from './databaseController.js';
+import { sendFirestoreDataFeedMeNow } from "./sendFirestoreData.js";
 
 /* Start n8n workflow using ingredients list provided*/
-// POST /api/recipes/suggest
+// POST /api/v1/recipes/suggest
 const suggestRecipes = async (req, res) => {
     const { ingredients, settings } = req.body; // Receive ingredients list from the front-end
   try {
@@ -49,9 +51,9 @@ const suggestRecipes = async (req, res) => {
       })(),
     ]);
   } catch (error) {
-    // Send error response back to the client
-    //console.error(error);
-    res.status(500).json({ error: 'Something went wrong' });
+        // Send error response back to the client
+        console.error('Error triggering n8n workflow:\n', error);
+        res.status(500).json({ error: 'Error triggering n8n workflow' });
   }
 };
 
@@ -62,6 +64,7 @@ const suggestRecipes = async (req, res) => {
  * @param {Object} res - The response object.
  * @return {Promise<void>} - A Promise that resolves when the cuisines are sent as a JSON response.
  */
+// GET /api/v1/recipes/cuisines
 const popularCuisines = async (req, res) => {
     try {
         // Send the list of cuisines as a JSON response
@@ -73,6 +76,7 @@ const popularCuisines = async (req, res) => {
     }
 };
 
+// GET /api/v1/userpreferences
 const userPreferences = async (req, res) => {
     try {
         const userPreferences = {
@@ -87,7 +91,7 @@ const userPreferences = async (req, res) => {
     }
 }
 
-module.exports = {
+export {
     suggestRecipes,
     popularCuisines,
     userPreferences

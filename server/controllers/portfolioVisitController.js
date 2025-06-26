@@ -1,5 +1,5 @@
-const {sendFirestoreDataPortfolioSite} = require("./sendFirestoreData.js");
-const axios = require("axios");
+import {sendFirestoreDataPortfolioSite} from "./sendFirestoreData.js";
+import axios from "axios";
 
 const portfolioVisitCheckKey = async (req, res, next) => {
     if(req.headers.authorization === process.env.PORTFOLIO_VISIT_TOKEN) {
@@ -19,7 +19,7 @@ const porfolioVisit = async (req, res) => {
     }
 }
 
-module.exports = {
+export {
     portfolioVisitCheckKey,
     porfolioVisit,
 }

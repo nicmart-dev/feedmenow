@@ -1,6 +1,9 @@
-const { initializeApp, cert } = require('firebase-admin/app');
-const { getFirestore, Timestamp } = require('firebase-admin/firestore');
-const admin = require('firebase-admin');
+import { initializeApp, cert } from 'firebase-admin/app';
+import { getFirestore, Timestamp } from 'firebase-admin/firestore';
+import admin from 'firebase-admin';
+
+import serviceAccountFeedMeNow from '../feedmenowkey.json' with { type: 'json' };
+import serviceAccountPortfolioSite from '../portfoliositekey.json' with { type: 'json' };
 
 let promptsCollectionFeedMeNow;
 let promptsCollectionPortfolioSite;
@@ -9,8 +12,6 @@ let samecount = 0;
 let lastCTM = 0;
 
 const initFirebaseFeedMeNow = async () => {
-    const serviceAccountFeedMeNow = require('../feedmenowkey.json');
-
     const feedmenowApp = admin.initializeApp({
         credential: cert(serviceAccountFeedMeNow)
     }, );
@@ -21,8 +22,6 @@ const initFirebaseFeedMeNow = async () => {
 }
 
 const initFirebasePortfolioSite = async () => {
-    const serviceAccountPortfolioSite = require('../portfoliositekey.json');
-
     const portfoliositeApp = initializeApp({
         credential: cert(serviceAccountPortfolioSite)
     }, "PortfolioSite");
@@ -70,7 +69,7 @@ const sendFirestoreDataPortfolioSite = (data) => {
     }
 };
 
-module.exports = {
+export {
     initFirebaseFeedMeNow,
     initFirebasePortfolioSite,
     sendFirestoreDataFeedMeNow,

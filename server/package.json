@@ -2,7 +2,8 @@
   "name": "feedmenow-api",
   "version": "0.1.0",
   "description": "",
-  "main": "server.js",
+  "exports": "./server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"

@@ -1,4 +1,6 @@
-const axios = require("axios");
+'use strict';
+
+import axios from 'axios';
 
 let cookingTimeOptions = null;
 let dietOptions = null;
@@ -61,7 +63,7 @@ const getCuisineOptions = () => {
     return structuredClone(cuisineOptions);
 }
 
-module.exports = {
+export {
     loadData,
     getCookingTimeSettings,
     getIntoleranceOptions,

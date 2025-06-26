@@ -58,7 +58,7 @@ const UserPreferences = () => {
         const fetchCuisines = async () => {
             try {
                 const response = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/api/recipes/cuisines/`
+                    `${process.env.REACT_APP_API_URL}/api/v1/recipes/cuisines/`
                 );
                 const cuisines = Object.values(response.data).map(
                     (cuisine) => ({
@@ -76,7 +76,7 @@ const UserPreferences = () => {
         const fetchUserPreferences = async () => {
             try {
                 const response = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/api/recipes/userpreferences/`
+                    `${process.env.REACT_APP_API_URL}/api/v1/recipes/userpreferences/`
                 );
                 
                 setUserPreferences(response.data);
@@ -142,7 +142,7 @@ const UserPreferences = () => {
         }),
         input: (provided) => ({
             ...provided,
-            borderColor: 'pink'
+            color: 'primary',
         }),
         option: (provided, state) => ({
             ...provided,
