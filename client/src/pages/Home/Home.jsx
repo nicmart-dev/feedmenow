@@ -11,15 +11,6 @@ export default function Home({setIsRecipeRequest}) {
 
     const [canSubmit, setCanSubmit] = useState(false);
 
-    // Take instance of settings object and flatten the arrays of objects to just be arrays of labels, to send to server.
-    const modSettings = useMemo(() => {
-        settings.cuisine = settings.cuisine.flatMap((name) => name.label);
-        settings.diet = settings.diet.flatMap((name) => name.label);
-        settings.notEating = settings.notEating.flatMap((name) => name.label);
-        settings.cookTime = settings.cookTime.label;
-        return settings;
-    }, [settings]);
-
     useEffect(() => {
         setSettings(JSON.parse(localStorage.getItem("userSettings")));
     }, []);
@@ -27,7 +18,14 @@ export default function Home({setIsRecipeRequest}) {
     useEffect(() => {
 
         const getRecipes = async () => {
-            if(modSettings) {
+            if(settings) {
+                // Take instance of settings object and flatten the arrays of objects to just be arrays of labels, to send to server.
+                const modSettings = structuredClone(settings);
+                modSettings.cuisine = settings.cuisine.flatMap((name) => name.label);
+                modSettings.diet = settings.diet.flatMap((name) => name.label);
+                modSettings.notEating = settings.notEating.flatMap((name) => name.label);
+                modSettings.cookTime = settings.cookTime.label
+
                 try {   
                     setCanSubmit(false);
                     setIsRecipeRequest(true);
