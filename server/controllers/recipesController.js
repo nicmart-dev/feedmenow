@@ -51,9 +51,9 @@ const suggestRecipes = async (req, res) => {
       })(),
     ]);
   } catch (error) {
-    // Send error response back to the client
-    //console.error(error);
-    res.status(500).json({ error: 'Something went wrong' });
+        // Send error response back to the client
+        console.error('Error triggering n8n workflow:\n', error);
+        res.status(500).json({ error: 'Error triggering n8n workflow' });
   }
 };
 
