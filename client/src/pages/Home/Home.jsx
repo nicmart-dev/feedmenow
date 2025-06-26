@@ -16,6 +16,7 @@ export default function Home({setIsRecipeRequest}) {
         settings.cuisine = settings.cuisine.flatMap((name) => name.label);
         settings.diet = settings.diet.flatMap((name) => name.label);
         settings.notEating = settings.notEating.flatMap((name) => name.label);
+        settings.cookTime = settings.cookTime.label;
         return settings;
     }, [settings]);
 
