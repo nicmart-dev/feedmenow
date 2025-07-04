@@ -42,8 +42,6 @@ const initFirebaseFeedMeNow = async () => {
     serviceAccountFeedMeNow['private_key_id'] = process.env.FEEDMENOW_KEY_ID
     serviceAccountFeedMeNow['private_key'] = process.env.FEEDMENOW_KEY
 
-    console.log(serviceAccountFeedMeNow);
-
     const feedmenowApp = admin.initializeApp({
         credential: cert(serviceAccountFeedMeNow)
     }, );
