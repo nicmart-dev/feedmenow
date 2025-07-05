@@ -12,12 +12,11 @@ import { loadData } from '../../controllers/databaseController.js';
 /* Import routes */
 //import usersRoutes from './routes/usersRoutes.js';
 import recipesRoutes from "../../routes/recipesRoutes.js";
+import cors from "cors";
 
 const envConfig = dotenv.config();
 
 dotenvExpand.expand(envConfig);
-
-const app = express();
 
 const databasesInit = async () => {
     //Initializes Firestore Database
@@ -34,6 +33,14 @@ databasesInit();
 const homePage = (req,res) => {
     res.send('<h1 style="text-align:center">Welcome to FeedMeNow API server!</h1>');
 }
+
+const app = express();
+
+app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(cors({
+    origin: true
+})); // allow any client to connect
 
 app.get("/", homePage);
 app.get('/api/', homePage);
