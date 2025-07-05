@@ -2,12 +2,6 @@ import { initializeApp, cert } from 'firebase-admin/app';
 import { getFirestore, Timestamp } from 'firebase-admin/firestore';
 import admin from 'firebase-admin';
 
-import dotenv from 'dotenv';
-import {json} from "express";
-
-//import serviceAccountFeedMeNow from '../feedmenowkey.json' with { type: 'json' };
-//import serviceAccountPortfolioSite from '../portfoliositekey.json' with { type: 'json' };
-
 const serviceAccountFeedMeNow = {
     "type": "service_account",
     "project_id": "feedmenow-data",
@@ -39,8 +33,8 @@ let samecount = 0;
 let lastCTM = 0;
 
 const initFirebaseFeedMeNow = async () => {
-    serviceAccountFeedMeNow['private_key_id'] = process.env.FEEDMENOW_KEY_ID
-    serviceAccountFeedMeNow['private_key'] = process.env.FEEDMENOW_KEY
+    serviceAccountFeedMeNow['private_key_id'] = process.env.FEEDMENOW_KEY_ID;
+    serviceAccountFeedMeNow['private_key'] = process.env.FEEDMENOW_KEY;
 
     const feedmenowApp = admin.initializeApp({
         credential: cert(serviceAccountFeedMeNow)
@@ -51,9 +45,10 @@ const initFirebaseFeedMeNow = async () => {
     console.log("feed-me-now database initialized");
 }
 
+//May be removed entirely, in the future.
 const initFirebasePortfolioSite = async () => {
-    serviceAccountPortfolioSite['private_key_id'] = process.env.PORTFOLIOSITE_KEY_ID
-    serviceAccountPortfolioSite['private_key'] = process.env.PORTFOLIOSITE_KEY
+    serviceAccountPortfolioSite['private_key_id'] = process.env.PORTFOLIOSITE_KEY_ID;
+    serviceAccountPortfolioSite['private_key'] = process.env.PORTFOLIOSITE_KEY;
 
     const portfoliositeApp = initializeApp({
         credential: cert(serviceAccountPortfolioSite)

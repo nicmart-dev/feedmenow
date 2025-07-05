@@ -2,7 +2,6 @@
 
 import express from 'express';
 import { suggestRecipes, popularCuisines, userPreferences } from '../controllers/recipesController.js';
-import { portfolioVisitCheckKey, porfolioVisit } from '../controllers/portfolioVisitController.js';
 
 const router = express.Router();
 

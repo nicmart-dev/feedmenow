@@ -1,5 +1,4 @@
 import {sendFirestoreDataPortfolioSite} from "./sendFirestoreData.js";
-import axios from "axios";
 
 const portfolioVisitCheckKey = async (req, res, next) => {
     if(req.headers.authorization === process.env.PORTFOLIO_VISIT_TOKEN) {
