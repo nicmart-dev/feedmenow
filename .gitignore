@@ -137,3 +137,6 @@ dist
 *.env*
 *key.json
 /Dockerfile
+
+# Local Netlify folder
+.netlify

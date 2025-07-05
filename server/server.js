@@ -1,37 +1,24 @@
 'use strict';
 
 import express from 'express';
-
-const app = express();
-
-// load environment variables from a .env file into process.env
-import dotenv from 'dotenv';
-
 import { initFirebaseFeedMeNow, initFirebasePortfolioSite } from './controllers/sendFirestoreData.js';
-
-const initDatabases = async () => {
-  //Initializes Firestore Database
-  await initFirebaseFeedMeNow();
-  await initFirebasePortfolioSite();
-}
-
-const envConfig = dotenv.config();
-
+import dotenv from 'dotenv';
 // Expand environment variables for nested variables
 import dotenvExpand from "dotenv-expand";
-dotenvExpand.expand(envConfig);
-
-const PORT = process.env.PORT || 5000; // Define the port number, use environment variable if available
-
 import cors from 'cors';
 import {loadData} from "./controllers/databaseController.js";
-
 /* Import routes */
 //import usersRoutes from './routes/usersRoutes.js';
 import recipesRoutes from './routes/recipesRoutes.js';
 import portfolioRoutes from './routes/portfolioRoutes.js';
 
-initDatabases();
+const envConfig = dotenv.config();
+
+dotenvExpand.expand(envConfig);
+
+const PORT = process.env.PORT || 5000; // Define the port number, use environment variable if available
+
+const app = express();
 
 const setupServer = async () => {
   app.use(express.json()); // Parse JSON bodies
@@ -39,6 +26,10 @@ const setupServer = async () => {
   app.use(cors({
     origin: true
   })); // allow any client to connect
+
+  //Initializes Firestore Database
+  await initFirebaseFeedMeNow();
+  await initFirebasePortfolioSite();
 
   //load the data from the airtable base
   //exported variables should always be defined if read
