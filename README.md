@@ -105,7 +105,10 @@ TODO
 
 ### Auth
 
-TODO
+###### example.env:
+provides access keys/tokens for the app with accurate variable names. 
+
+*You will need to setup your own N8N workflow, Airtable database, and generate your own private keys, in order to deploy the entire system.*
 
 ## Roadmap
 

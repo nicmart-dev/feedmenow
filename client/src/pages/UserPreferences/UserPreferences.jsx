@@ -1,7 +1,7 @@
 import timeIcon from '../../assets/icons/time.svg'
 import worldIcon from '../../assets/icons/world.svg'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
@@ -10,84 +10,125 @@ import CreatableSelect from 'react-select/creatable'
 Following instructions from https://docs.fontawesome.com/web/use-with/react/add-icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan, faCarrot } from '@fortawesome/free-solid-svg-icons'
+import { FormattedMessage } from 'react-intl'
+import { LanguageContext } from '../../i18n/LanguageProvider'
 
 const UserPreferences = () => {
-    const [hungryHippos, setHungryHippos] = useState('')
-    const [cookTime, setCookTime] = useState('')
-    const [cuisine, setCuisine] = useState([])
-    const [diet, setDiet] = useState([])
-    const [notEating, setNotEating] = useState([])
+
+    const [cookTimeOptions, setCookTimeOptions] = useState( []);
+
+    /*
+    Predefined list of diets supported by popular API Spoonacular
+    https://spoonacular.com/food-api/docs#Diets
+    */
+    const [dietOptions, setDietOptions] = useState( [] );
+
+    /* 
+    Predefined list of intolerances/allergens supported by popular API Spoonacular
+    https://spoonacular.com/food-api/docs#Intolerances
+    */
+    const [intoleranceOptions, setIntoleranceOptions] = useState( [] );
+
+    const [hungryHippos, setHungryHippos] = useState("1");
+    const [cookTime, setCookTime] = useState({ value: "0", label: "Any Time" });
+    const [cuisine, setCuisine] = useState([]);
+    const [diet, setDiet] = useState([]);
+    const [notEating, setNotEating] = useState([]);
 
     /* Cuisine options stored from popular web service API */
-    const [cuisineOptions, setCuisineOptions] = useState([])
+    const [cuisineOptions, setCuisineOptions] = useState([]);
+    const [userPreferences, setUserPreferences] = useState(null);
+
+    const { locale } = useContext(LanguageContext); //reads locale value
 
     useEffect(() => {
+        const setLocalSettings = async () => {
+            try {
+                const us = JSON.parse(localStorage.getItem("userSettings"));
+                setHungryHippos(us.people);
+                setCookTime(us.cookTime);
+                setCuisine(us.cuisine);
+                setDiet(us.diet);
+                setNotEating(us.notEating);
+            } catch(error) {
+                console.error(error);
+            }
+        }
+
         const fetchCuisines = async () => {
             try {
                 const response = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/api/recipes/cuisines/`
-                )
+                    `${process.env.REACT_APP_API_URL}/api/v1/recipes/cuisines/`
+                );
                 const cuisines = Object.values(response.data).map(
                     (cuisine) => ({
                         value: cuisine,
                         label: cuisine,
                     })
-                )
-                setCuisineOptions(cuisines)
+                );
+
+                setCuisineOptions(cuisines);
             } catch (error) {
                 console.error(error)
             }
         }
 
-        fetchCuisines()
-    }, [])
+        const fetchUserPreferences = async () => {
+            try {
+                const response = await axios.get(
+                    `${process.env.REACT_APP_API_URL}/api/v1/recipes/userpreferences/`
+                );
+                
+                setUserPreferences(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
 
-    /* 
-Predefined list of diets supported by popular API Spoonacular
-https://spoonacular.com/food-api/docs#Diets
-*/
-    const dietOptions = [
-        { value: 'gluten free', label: 'Gluten Free' },
-        { value: 'ketogenic', label: 'Ketogenic' },
-        { value: 'vegetarian', label: 'Vegetarian' },
-        { value: 'lacto-vegetarian', label: 'Lacto-Vegetarian' },
-        { value: 'ovo-vegetarian', label: 'Ovo-Vegetarian' },
-        { value: 'vegan', label: 'Vegan' },
-        { value: 'pescetarian', label: 'Pescetarian' },
-        { value: 'paleo', label: 'Paleo' },
-        { value: 'primal', label: 'Primal' },
-        { value: 'low fodmap', label: 'Low FODMAP' },
-        { value: 'whole30', label: 'Whole30' },
-    ]
+        setLocalSettings();
+        fetchCuisines();
+        fetchUserPreferences();
+    }, []);
 
-    /* 
-Predefined list of intolerances/allergens supported by popular API Spoonacular
-https://spoonacular.com/food-api/docs#Intolerances
-*/
-    const intoleranceOptions = [
-        { value: 'Dairy', label: 'Dairy' },
-        { value: 'Egg', label: 'Egg' },
-        { value: 'Gluten', label: 'Gluten' },
-        { value: 'Grain', label: 'Grain' },
-        { value: 'Peanut', label: 'Peanut' },
-        { value: 'Seafood', label: 'Seafood' },
-        { value: 'Sesame', label: 'Sesame' },
-        { value: 'Shellfish', label: 'Shellfish' },
-        { value: 'Soy', label: 'Soy' },
-        { value: 'Sulfite', label: 'Sulfite' },
-        { value: 'Tree Nut', label: 'Tree Nut' },
-        { value: 'Wheat', label: 'Wheat' },
-    ]
+    useEffect(() => {
+        //server may not be able to deliver the airtable data properly, the data must be verified
+        if(userPreferences !== null && userPreferences.cookingTime !== null &&
+            userPreferences.diet !== null && userPreferences.intolerance !== null) {
+            setCookTimeOptions(userPreferences.cookingTime.map(item => ({value: item.value, label: item[locale]})));
+            setDietOptions(userPreferences.diet.map(item => ({value: item.value, label: item[locale]})));
+            setIntoleranceOptions(userPreferences.intolerance.map(item => ({value: item.value, label: item[locale]})));
 
-    const cookTimeOptions = [
-        { value: '5', label: '5 minutes' },
-        { value: '15', label: '15 minutes' },
-        { value: '30', label: '30 minutes' },
-        { value: '45', label: '45 minutes' },
-        { value: '60', label: '1 hour' },
-        { value: '120', label: '1-2 hours' },
-        { value: '120+', label: '2 hours +' },
-    ]
+            //change locale of selected options
+            setCookTime({value: cookTime.value, label: userPreferences.cookingTime.find(item => (item.value === cookTime.value))[locale]});
+
+            setDiet(diet.map(selectedDiet => (
+                {value: selectedDiet.value, label: userPreferences.diet.find(item => (item.value === selectedDiet.value))[locale]}
+            )));
+
+            setNotEating(notEating.map(selectedNotEating => {
+                const label = userPreferences.intolerance.find(item => (item.value === selectedNotEating.value));
+
+                if(label) {
+                    return {value: selectedNotEating.value, label: label[locale]};
+                } else {
+                    return {value: selectedNotEating.value, label: selectedNotEating.label};
+                }
+            }));
+        }
+    }, [locale, userPreferences]);
+
+    useEffect(() => {
+        const us = JSON.parse(localStorage.getItem("userSettings"));
+
+        us.people = hungryHippos;
+        us.cookTime = cookTime;
+        us.cuisine = cuisine;
+        us.diet = diet;
+        us.notEating = notEating;
+
+        localStorage.setItem("userSettings", JSON.stringify(us));
+
+    }, [hungryHippos, cookTime, cuisine, diet, notEating, cuisineOptions, userPreferences]);
 
     // Used to style react-select UI controls
     const customStyles = {
@@ -98,6 +139,20 @@ https://spoonacular.com/food-api/docs#Intolerances
             '&:hover': {
                 borderColor: 'green',
             },
+        }),
+        input: (provided) => ({
+            ...provided,
+            color: 'primary',
+        }),
+        option: (provided, state) => ({
+            ...provided,
+            backgroundColor: state.isSelected
+                ? 'green' // when selected
+                : state.isFocused
+                    ? 'beige' // when hovered
+                    : 'primary',
+            color: state.isSelected ? 'white' : 'black',
+            cursor: 'pointer',
         }),
         multiValue: (provided) => ({
             ...provided,
@@ -130,6 +185,10 @@ https://spoonacular.com/food-api/docs#Intolerances
             ...provided,
             color: 'green',
         }),
+        singleValue: (provided) => ({
+            ...provided,
+            color: 'green'
+        }),
     }
 
     return (
@@ -142,40 +201,42 @@ https://spoonacular.com/food-api/docs#Intolerances
                         htmlFor="hungryHippos"
                         className="text-green font-bold mr-2"
                     >
-                        How many hungry hippos?
+                        <FormattedMessage id="settings.question.people" defaultMessage="How many hungry hippos?"/>
                     </label>
+                    
                     <select
                         id="hungryHippos"
                         value={hungryHippos}
-                        onChange={(e) => setHungryHippos(e.target.value)}
+                        onChange={
+                            (e) => {setHungryHippos(e.target.value)}
+                        }
+                        styles={customStyles}
                     >
-                        <option value="One">One</option>
-                        <option value="Two">Two</option>
-                        <option value="Three">Three</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
                     </select>
                 </div>
                 <div>
                     <div className="flex items-center mb-2">
-                        {' '}
-                        {/* Added mb-2 for margin bottom */}
                         <img src={timeIcon} alt="Icon" width={20} height={20} />
                         <label
                             htmlFor="cookTime"
                             className="text-green font-bold ml-2"
                         >
-                            Recipe cook time
+                            <FormattedMessage id="settings.question.cookTime" defaultMessage="Recipe cook time"/>
                         </label>
                     </div>
                     <Select
                         value={cookTime}
                         onChange={setCookTime}
                         options={cookTimeOptions}
+                        styles={customStyles}
+                        isSearchable={false}
                     />
                 </div>
                 <div>
                     <div className="flex items-center mb-2">
-                        {' '}
-                        {/* Added mb-2 for margin bottom */}
                         <img
                             src={worldIcon}
                             alt="Icon"
@@ -186,7 +247,7 @@ https://spoonacular.com/food-api/docs#Intolerances
                             htmlFor="cuisine"
                             className="text-green font-bold ml-2"
                         >
-                            What food do you like?
+                            <FormattedMessage id="settings.question.cuisine" defaultMessage="What food do you like?" />
                         </label>
                     </div>
                     <CreatableSelect
@@ -195,38 +256,37 @@ https://spoonacular.com/food-api/docs#Intolerances
                         options={cuisineOptions}
                         value={cuisine}
                         onChange={setCuisine}
+                        styles={customStyles}
                     />
                 </div>
                 <div>
                     <div className="flex items-center mb-2">
-                        {' '}
-                        {/* Added mb-2 for margin bottom */}
                         <FontAwesomeIcon icon={faCarrot} />
                         <label
                             htmlFor="diet"
                             className="text-green font-bold ml-2"
                         >
-                            I'm on a diet...
+                            <FormattedMessage id="settings.question.dietOptions" defaultMessage="I'm on a diet..."/>
                         </label>
                     </div>
                     <Select
                         isMulti
+                        closeMenuOnSelect={false}
                         name="diet"
                         options={dietOptions}
                         value={diet}
                         onChange={setDiet}
+                        styles={customStyles}
                     />
                 </div>
                 <div>
                     <div className="flex items-center mb-2">
-                        {' '}
-                        {/* Added mb-2 for margin bottom */}
                         <FontAwesomeIcon icon={faBan} />
                         <label
                             htmlFor="notEating"
                             className="text-green font-bold ml-2"
                         >
-                            and not eating.
+                            <FormattedMessage id="settings.question.notEating" defaultMessage="and not eating." />
                         </label>
                     </div>
                     <CreatableSelect
@@ -244,4 +304,4 @@ https://spoonacular.com/food-api/docs#Intolerances
     )
 }
 
-export default UserPreferences
+export default UserPreferences;
