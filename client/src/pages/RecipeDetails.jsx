@@ -1,86 +1,127 @@
-import SampleImage from '../assets/images/sample-food.jpg'
-import HeartIcon from '../assets/icons/heart.svg'
-import { useState } from 'react'
+import SampleImage from '../assets/images/sample-food.jpg';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { FormattedMessage, useIntl } from 'react-intl'
 
 const tabs = [
     {
+        labelId: 'recipe.tabs.overview',
         name: 'Overview',
         href: '#',
         current: true,
-        content: ['4 servings', '280 calories', '30 minutes', 'French'],
+        content: [],
     },
     {
+        labelId: 'recipe.tabs.ingredients',
         name: 'Ingredients',
         href: '#',
         current: false,
-        content: ['garlic', 'olive oil', 'salt', 'butter'],
+        content: [],
     },
     {
+        labelId: 'recipe.tabs.directions',
         name: 'Directions',
         href: '#',
         current: false,
-        content: ['do this', 'do that', 'do this next'],
+        content: [],
     },
-]
+];
+
+const overviewFormatIdLabels = [
+    "recipe.servingSize.label",
+    "recipe.caloriesUnits.label",
+    "recipe.cookingTime.label",
+    "recipe.cuisine.label",
+];
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function RecipeDetails() {
-    const [currentTab, setCurrentTab] = useState(tabs[0])
-    const [isHovered, setIsHovered] = useState(false)
+    const [currentTab, setCurrentTab] = useState({tab: tabs[0], index: 0});
+    const [isHovered, setIsHovered] = useState(false);
+    const [recipe, setRecipe] = useState(null);
+
+    const params = useParams();
+    const intl = useIntl();
+
+    useEffect(() => {
+        const localRecipes = JSON.parse(localStorage.getItem("recipes"));
+        const findit = localRecipes.flatMap(objset => objset.dishes).find(dish => dish.id === params.id);
+
+        if(findit) {
+            tabs[0].content = [
+                findit.size,
+                findit.calories,
+                findit.cooking_time,
+                findit.cuisine
+            ];
+            tabs[1].content = [...findit.ingredients_measure];
+            tabs[2].content = [...findit.instructions];
+
+            setRecipe(findit);
+        }
+    }, []);
 
     return (
         <>
-            {' '}
+        {recipe && (<>
             <div className="flex flex-col lg:flex-row lg:items-center">
-                <img src={SampleImage} className="w-full lg:w-1/2" />
+                <img src={SampleImage} className="w-full lg:w-1/2"/>
                 <div className="flex flex-row m-4 justify-between lg:w-1/2">
                     <h1 className="text-4xl font-bold tracking-tight sm:text-6xl w-7/8 text-green">
-                        Sample Recipe Name Lorem Ipsum
+                        {recipe.name}
                     </h1>
-                    {/* <img src={HeartIcon} className="w-1/8 w-12 cursor-pointer" /> */}
+
                 </div>
             </div>
             <div className="m-4">
                 <nav
                     aria-label="Tabs"
-                    className="-mb-px flex space-x-8 justify-between"
+                    className="-mb-px flex space-x-8 justify-between md:justify-start"
                 >
-                    {tabs.map((tab) => (
+                    {tabs.map((tab, index) => (
                         <a
-                            key={tab.name}
+                            key={tab.labelId}
                             href={tab.href}
                             onClick={(e) => {
                                 e.preventDefault()
-                                setCurrentTab(tab)
+                                setCurrentTab({tab: tab, index: index})
                             }}
                             aria-current={
-                                tab === currentTab ? 'page' : undefined
+                                tab === currentTab.tab ? 'page' : undefined
                             }
                             className={classNames(
-                                tab === currentTab
+                                tab === currentTab.tab
                                     ? 'border-green text-green font-bold'
                                     : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 font-thin',
                                 'whitespace-nowrap border-b-2 px-1 py-4 text-sm'
                             )}
                         >
-                            {tab.name}
+                            <FormattedMessage id={tab.labelId} />
                         </a>
                     ))}
                 </nav>
             </div>
-            <div className="flex flex-col gap-4 m-4 mb-32  font-thin">
-                {currentTab.content.map((item, index) => (
+            <div className="flex flex-col m-4 mb-32  font-thin">
+                {currentTab.tab.content.map((item, index) => (
                     <p
                         key={index}
-                        className={`font-thin py-4 ${index !== currentTab.content.length - 1 ? 'border-b border-lightgreen' : ''}`}
+                        className={`font-thin py-4 ${index !== currentTab.tab.content.length - 1 ? 'border-b border-lightgreen' : ''}`}
                     >
-                        {item}
+                        {currentTab.index === 0 ?
+                            (
+                                <span>
+                                    {intl.formatMessage({id: overviewFormatIdLabels[index]}, {input: item})}
+                                </span>
+                            ) : (
+                                <span>{item}</span>
+                        )}
                     </p>
                 ))}
             </div>
-        </>
+        </>)}</>
+
     )
 }

@@ -1,12 +1,17 @@
-const express = require('express');
-const { suggestRecipes, popularCuisines } = require('../controllers/recipesController.js');
+'use strict';
+
+import express from 'express';
+import { suggestRecipes, popularCuisines, userPreferences } from '../controllers/recipesController.js';
 
 const router = express.Router();
 
-// POST /api/recipes/suggest
+// POST /api/v1/recipes/suggest
 router.post('/suggest', suggestRecipes);
 
-// GET /api/recipes/cuisines
+// GET /api/v1/recipes/cuisines
 router.get('/cuisines', popularCuisines);
 
-module.exports = router;
+// GET /api/v1/recipes/userpreferences
+router.get('/userpreferences', userPreferences);
+
+export default router;

@@ -5,4 +5,6 @@ function cn(...inputs) {
     return twMerge(clsx(inputs));
 }
 
-module.exports = { cn };
+module.exports = { 
+    cn
+ };
