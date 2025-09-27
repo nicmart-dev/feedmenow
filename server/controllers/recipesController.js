@@ -3,7 +3,7 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import {nanoid} from 'nanoid';
-import {getCookingTimeSettings, getDietOptions, getIntoleranceOptions, getCuisineOptions} from './databaseController.js';
+import {getCookingTimeSettings, getDietOptions, getIntoleranceOptions, getCuisineOptions, getFeedMeNowRecipes} from './databaseController.js';
 
 /* Start n8n workflow using ingredients list provided*/
 // POST /api/v1/recipes/suggest
@@ -13,29 +13,54 @@ const suggestRecipes = async (req, res) => {
 
   try {
     // URL of N8n webhook per https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/?utm_source=n8n_app&utm_medium=node_settings_modal-credential_link&utm_campaign=n8n-nodes-base.webhook
-    const webhookUrl = `${process.env.N8N_WEBHOOK_URL}/recommend-recipes`;
+    const webhookUrl = `${process.env.N8N_WEBHOOK_URL}/recommend-recipes-v2`;
+
+    const nid = nanoid(16);
 
     //in order to preserve the safety of n8n connection, only tokenized inputs can be read by the n8n.
-    const token = jwt.sign({prompt: ingredients, settings: settings}, process.env.JWT_KEY, {
+    const token = jwt.sign({prompt: ingredients, settings: settings, promptid: nid}, process.env.JWT_KEY, {
       expiresIn: "5m",
     });
 
     // Send the response back to the client
     const response = await axios.post(webhookUrl, { token }, {headers: {apiKey: process.env.N8N_API_KEY}});
 
-    response.data[0].prompt = ingredients;
-    //adds a randomly generated id to the item, which is also used for page id of the recipe in the client.
-    response.data[0].dishes.map((item) => {
-      item["id"] = nanoid(16);
-    });
-
     res.status(200).json(response.data);
+
+    // response.data[0].prompt = ingredients;
+    // //adds a randomly generated id to the item, which is also used for page id of the recipe in the client.
+    // response.data[0].dishes.map((item) => {
+    //   item["id"] = nid;
+    // });
+    //
+    // res.status(200).json(response.data);
   } catch (error) {
         // Send error response back to the client
         console.error('Error triggering n8n workflow:\n', error);
         res.status(500).json({ error: 'Error triggering n8n workflow' });
   }
 };
+
+const getRecipes = async (req, res) => {
+    const { query } = req;
+
+    try {
+        const responseAirtable = await axios.get(`https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_GENERATED_RECIPES_ID}?filterByFormula={nanoID}="${query.nanoid}"`,
+            {headers: {Authorization: `Bearer ${process.env.AIRTABLE_READ_ACCESS_TOKEN}`}});
+
+        const firestoreID = responseAirtable.data.records[0].fields.firestoreID.slice(0, -1);
+
+        const responseFirestore = await getFeedMeNowRecipes(firestoreID);
+        if(responseFirestore['error']){
+            res.status(500).json(responseFirestore);
+        } else {
+            res.status(200).json(responseFirestore);
+        }
+    } catch(e) {
+        console.error(e);
+        res.status(500).json({ error: 'Error getting recipes' });
+    }
+}
 
 /**
  * Fetches a list of popular cuisines from the the Free Meal API TheMealDB.com API and sends it as a JSON response.
@@ -74,5 +99,6 @@ const userPreferences = async (req, res) => {
 export {
     suggestRecipes,
     popularCuisines,
-    userPreferences
+    userPreferences,
+    getRecipes
 };

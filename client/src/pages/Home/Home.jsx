@@ -32,12 +32,13 @@ export default function Home({setIsRecipeRequest}) {
                     const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/v1/recipes/suggest`,
                         {ingredients: ingredients, settings: modSettings});
 
-                    const existingRecipes = JSON.parse(localStorage.getItem('recipes'));
-                    existingRecipes.unshift(...response.data);
-                    localStorage.setItem("recipes", JSON.stringify(existingRecipes));
-                    setDisplayRecipes(existingRecipes.sort(() => 0.5 - Math.random()).splice(0, 4));
 
-                    navigate("/recipes");
+                    // const existingRecipes = JSON.parse(localStorage.getItem('recipes'));
+                    // existingRecipes.unshift(...response.data);
+                    // localStorage.setItem("recipes", JSON.stringify(existingRecipes));
+                    // setDisplayRecipes(existingRecipes.sort(() => 0.5 - Math.random()).splice(0, 4));
+
+                    //navigate("/recipes");
                 
                 } catch (error) {
                     console.error(error);
