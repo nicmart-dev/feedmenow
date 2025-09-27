@@ -26,14 +26,6 @@ const suggestRecipes = async (req, res) => {
     const response = await axios.post(webhookUrl, { token }, {headers: {apiKey: process.env.N8N_API_KEY}});
 
     res.status(200).json(response.data);
-
-    // response.data[0].prompt = ingredients;
-    // //adds a randomly generated id to the item, which is also used for page id of the recipe in the client.
-    // response.data[0].dishes.map((item) => {
-    //   item["id"] = nid;
-    // });
-    //
-    // res.status(200).json(response.data);
   } catch (error) {
         // Send error response back to the client
         console.error('Error triggering n8n workflow:\n', error);
@@ -41,6 +33,7 @@ const suggestRecipes = async (req, res) => {
   }
 };
 
+//TODO: Add nanoID to every single recipe, here, so that client could open all the pages.
 const getRecipes = async (req, res) => {
     const { query } = req;
 
@@ -48,17 +41,23 @@ const getRecipes = async (req, res) => {
         const responseAirtable = await axios.get(`https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_GENERATED_RECIPES_ID}?filterByFormula={nanoID}="${query.nanoid}"`,
             {headers: {Authorization: `Bearer ${process.env.AIRTABLE_READ_ACCESS_TOKEN}`}});
 
-        const firestoreID = responseAirtable.data.records[0].fields.firestoreID.slice(0, -1);
+        if(responseAirtable.data.records[0].fields.status == "Success") {
+            const firestoreID = responseAirtable.data.records[0].fields.firestoreID.slice(0, -1);
 
-        const responseFirestore = await getFeedMeNowRecipes(firestoreID);
-        if(responseFirestore['error']){
-            res.status(500).json(responseFirestore);
+            const responseFirestore = await getFeedMeNowRecipes(firestoreID);
+            if (responseFirestore['error']) {
+                res.status(500).json(responseFirestore);
+            } else {
+                res.status(200).json(responseFirestore);
+            }
+        } else if(responseAirtable.data.records[0].fields.status == "Generating"){
+            res.status(200).json({status: "The recipes are being generated."});
         } else {
-            res.status(200).json(responseFirestore);
+            throw new Error('n8n workflow failed to generate recipes.');
         }
     } catch(e) {
         console.error(e);
-        res.status(500).json({ error: 'Error getting recipes' });
+        res.status(500).json({ error: 'Error getting recipes.' });
     }
 }
 

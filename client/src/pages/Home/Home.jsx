@@ -26,23 +26,57 @@ export default function Home({setIsRecipeRequest}) {
                 modSettings.notEating = settings.notEating.flatMap((name) => name.label);
                 modSettings.cookTime = settings.cookTime.label
 
+                let intervalId;
+
                 try {   
                     setCanSubmit(false);
                     setIsRecipeRequest(true);
-                    const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/v1/recipes/suggest`,
+                    const responseRecipe = await axios.post(`${process.env.REACT_APP_API_URL}/api/v1/recipes/suggest`,
                         {ingredients: ingredients, settings: modSettings});
 
+                    const promptid = responseRecipe.data.promptID;
 
-                    // const existingRecipes = JSON.parse(localStorage.getItem('recipes'));
-                    // existingRecipes.unshift(...response.data);
-                    // localStorage.setItem("recipes", JSON.stringify(existingRecipes));
-                    // setDisplayRecipes(existingRecipes.sort(() => 0.5 - Math.random()).splice(0, 4));
+                    // let dishes = null;
 
-                    //navigate("/recipes");
-                
+                    let iterations = 12;
+
+                    intervalId = setInterval(async () => {
+                        const responseReady = await axios.get(`${process.env.REACT_APP_API_URL}/api/v1/recipes/suggest/result?nanoid=${promptid}`,
+                            { ingredients: ingredients, settings: modSettings });
+
+                        console.log(responseReady.data);
+
+                        if(iterations === 0){
+                            clearInterval(intervalId);
+                            setIsRecipeRequest(false);
+                            setCanSubmit(true);
+                            setIngredients("");
+                        }
+
+                        if(responseReady.status === 200 && !responseReady.data.error && !responseReady.data.status) {
+                            const existingRecipes = JSON.parse(localStorage.getItem('recipes'));
+                            existingRecipes.unshift({prompt: responseReady.data.prompt, dishes: responseReady.data.dishes});
+                            localStorage.setItem("recipes", JSON.stringify(existingRecipes));
+                            setDisplayRecipes(existingRecipes.sort(() => 0.5 - Math.random()).splice(0, 4));
+
+                            navigate("/recipes");
+
+                            clearInterval(intervalId);
+                            setIsRecipeRequest(false);
+                            setCanSubmit(true);
+                            setIngredients("");
+                        } else if(responseReady.status === 500) {
+                            clearInterval(intervalId);
+                            setIsRecipeRequest(false);
+                            setCanSubmit(true);
+                            setIngredients("");
+                        }
+
+                        iterations--;
+                    }, 10000);
                 } catch (error) {
                     console.error(error);
-                } finally {
+                    clearInterval(intervalId);
                     setIsRecipeRequest(false);
                     setCanSubmit(true);
                     setIngredients("");
@@ -100,7 +134,7 @@ export default function Home({setIsRecipeRequest}) {
                                         name="ingredientsField"
                                         rows="3"
                                         onChange={(event) => {
-                                            if(event.target.value.trim().length === 0 || event.target.value.trim() == ingredients) {
+                                            if(event.target.value.trim().length === 0 || event.target.value.trim() === ingredients) {
                                                 setCanSubmit(false);
                                             } else {
                                                 setCanSubmit(true);
