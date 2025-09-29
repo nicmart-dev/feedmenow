@@ -4,6 +4,7 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import {nanoid} from 'nanoid';
 import {getCookingTimeSettings, getDietOptions, getIntoleranceOptions, getCuisineOptions, getFeedMeNowRecipes} from './databaseController.js';
+import {response} from "express";
 
 /* Start n8n workflow using ingredients list provided*/
 // POST /api/v1/recipes/suggest
@@ -43,11 +44,16 @@ const getRecipes = async (req, res) => {
 
         if(responseAirtable.data.records[0].fields.status == "Success") {
             const firestoreID = responseAirtable.data.records[0].fields.firestoreID.slice(0, -1);
+            const promptID = responseAirtable.data.records[0].fields.nanoID;
 
             const responseFirestore = await getFeedMeNowRecipes(firestoreID);
             if (responseFirestore['error']) {
                 res.status(500).json(responseFirestore);
             } else {
+                for (let i = 0; i < responseFirestore.dishes.length; i++) {
+                    responseFirestore.dishes[i]['id'] = promptID + '-' + String(i);
+                }
+
                 res.status(200).json(responseFirestore);
             }
         } else if(responseAirtable.data.records[0].fields.status == "Generating"){
