@@ -2,21 +2,24 @@
 
 import express from 'express';
 
-// load environment variables from a .env file into process.env
-import dotenv from 'dotenv';
-const envConfig = dotenv.config();
 
+// load environment variables from a .env file into process.env
+
+import dotenv from 'dotenv';
 // Expand environment variables for nested variables
 import dotenvExpand from "dotenv-expand";
+
 dotenvExpand.expand(envConfig);
+
 
 import cors from 'cors';
 import {loadData} from "./controllers/databaseController.js";
-
 /* Import routes */
 //import usersRoutes from './routes/usersRoutes.js';
 import recipesRoutes from './routes/recipesRoutes.js';
+
 import ServerlessHttp from "serverless-http";
+
 
 const app = express();
 app.use(express.json()); // Parse JSON bodies
@@ -25,9 +28,11 @@ app.use(cors({
     origin: true
 })); // allow any client to connect
 
+
 //load the data from the airtable base
 //exported variables should always be defined if read
 await loadData();
+
 
 // Default route
 const homePage = (req,res) => {
@@ -41,7 +46,9 @@ app.get('/api/v1/', homePage);
 // Use routes to handle user data
 //app.use("/api/v1/users", usersRoutes);
 
+
 // Route to manage invoking n8n workflow to recommend recipes, and getting other recipe related data
 app.use("/api/v1/recipes", recipesRoutes);
+
 
 export const handler = ServerlessHttp(app);
