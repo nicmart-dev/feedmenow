@@ -4,10 +4,10 @@
 import express from 'express';
 import ServerlessHttp from "serverless-http";
 import dotenv from 'dotenv';
+
 // Expand environment variables for nested variables
 import dotenvExpand from "dotenv-expand";
 
-import { initFirebaseFeedMeNow } from '../../controllers/sendFirestoreData.js';
 import { loadData } from '../../controllers/databaseController.js';
 /* Import routes */
 //import usersRoutes from './routes/usersRoutes.js';
@@ -19,9 +19,6 @@ const envConfig = dotenv.config();
 dotenvExpand.expand(envConfig);
 
 const databasesInit = async () => {
-    //Initializes Firestore Database
-    await initFirebaseFeedMeNow();
-
     //load the data from the airtable base
     //exported variables should always be defined if read
     await loadData();
