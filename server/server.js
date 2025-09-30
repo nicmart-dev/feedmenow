@@ -6,9 +6,9 @@ import express from 'express';
 // load environment variables from a .env file into process.env
 
 import dotenv from 'dotenv';
+const envConfig = dotenv.config();
 // Expand environment variables for nested variables
 import dotenvExpand from "dotenv-expand";
-
 dotenvExpand.expand(envConfig);
 
 
@@ -45,7 +45,6 @@ app.get('/api/v1/', homePage);
 
 // Use routes to handle user data
 //app.use("/api/v1/users", usersRoutes);
-
 
 // Route to manage invoking n8n workflow to recommend recipes, and getting other recipe related data
 app.use("/api/v1/recipes", recipesRoutes);

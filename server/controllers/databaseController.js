@@ -66,8 +66,8 @@ const loadData = async () => {
 
     try {
         const response = await Promise.all([
-            loadCookingTimeOptions(),
             loadDietOptions(),
+            loadCookingTimeOptions(),
             loadIntoleranceOptions(),
             loadCuisineOptions(),
             loadFirestore()

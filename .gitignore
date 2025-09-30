@@ -132,8 +132,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 *.env*
-*key.json
 /Dockerfile
-
-# Local Netlify folder
-.netlify
