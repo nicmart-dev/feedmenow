@@ -24,7 +24,7 @@ const suggestRecipes = async (req, res) => {
     });
 
     // Send the response back to the client
-    const response = await axios.post(webhookUrl, { token }, {headers: {apiKey: process.env.N8N_API_KEY}});
+    const response = await axios.post(webhookUrl, { token }, {headers: {n8n_api_key: process.env.N8N_API_KEY}});
 
     res.status(200).json(response.data);
   } catch (error) {
