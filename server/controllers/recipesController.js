@@ -4,7 +4,6 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import {nanoid} from 'nanoid';
 import {getCookingTimeSettings, getDietOptions, getIntoleranceOptions, getCuisineOptions, getFeedMeNowRecipes} from './databaseController.js';
-import {response} from "express";
 
 /* Start n8n workflow using ingredients list provided*/
 // POST /api/v1/recipes/suggest
