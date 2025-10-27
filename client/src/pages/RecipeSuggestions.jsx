@@ -11,7 +11,9 @@ import { Link } from 'react-router-dom'
 export default function RecipeSuggestions() {
     const [userRecipes, setUserRecipes] = useState([]);
     const [showPromptMenu, setShowPromptMenu] = useState(-1);
-    const totalDishes = useMemo(() => {return userRecipes.reduce((dishes, entry) => dishes + entry.dishes.length, 0)});
+
+    const totalDishes = useMemo(() => {return userRecipes.reduce((dishes, entry) => dishes + entry.dishes?.length, 0)});
+
     const intl = useIntl();
 
     const mouseClickFunction = (promptitem) => {

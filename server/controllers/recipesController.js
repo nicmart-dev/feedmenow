@@ -3,15 +3,16 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import {nanoid} from 'nanoid';
+
 import {getCookingTimeSettings, getDietOptions, getIntoleranceOptions, getCuisineOptions, getFeedMeNowRecipes} from './databaseController.js';
+
 
 /* Start n8n workflow using ingredients list provided*/
 // POST /api/v1/recipes/suggest
 const suggestRecipes = async (req, res) => {
-
     const { ingredients, settings } = req.body; // Receive ingredients list from the front-end
-
   try {
+
     // URL of N8n webhook per https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/?utm_source=n8n_app&utm_medium=node_settings_modal-credential_link&utm_campaign=n8n-nodes-base.webhook
     const webhookUrl = `${process.env.N8N_WEBHOOK_URL}/recommend-recipes-v2`;
 
@@ -26,6 +27,7 @@ const suggestRecipes = async (req, res) => {
     const response = await axios.post(webhookUrl, { token }, {headers: {n8n_api_key: process.env.N8N_API_KEY}});
 
     res.status(200).json(response.data);
+
   } catch (error) {
         // Send error response back to the client
         console.error('Error triggering n8n workflow:\n', error);
