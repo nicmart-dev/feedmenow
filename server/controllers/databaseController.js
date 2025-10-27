@@ -10,7 +10,7 @@ const feedmenowAccount = {
     "type": "service_account",
     "project_id": "feedmenow-recipes",
     "client_email": "firebase-adminsdk-fbsvc@feedmenow-recipes.iam.gserviceaccount.com",
-    "client_id": "113821790857724277115",
+    "client_id": "102345094658195957785",
     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
     "token_uri": "https://oauth2.googleapis.com/token",
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
