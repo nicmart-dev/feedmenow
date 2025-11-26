@@ -22,7 +22,7 @@ const App = () => {
             
             {isRecipesRequest && <LoadingModal />}
 
-            <BrowserRouter>
+            <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
                 <Header />
                 <Routes>
                     {/* TODO: example private route: Ask user to log in when landing on site, then if role
