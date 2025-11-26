@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders recipe CTA button', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const ctaButton = screen.getByRole('button', { name: /show me what i can cook/i });
+  expect(ctaButton).toBeInTheDocument();
 });
