@@ -58,16 +58,22 @@
         ]
     },
     "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
         "assert": "^2.1.0",
         "autoprefixer": "^10.4.19",
         "https-browserify": "^1.0.0",
-        "postcss": "^8.4.42",
+        "postcss": "^8.4.49",
         "prettier": "^3.3.1",
         "prettier-plugin-tailwindcss": "^0.6.2",
         "stream-browserify": "^3.0.0",
         "tailwindcss": "^3.4.13",
         "url": "^0.11.3",
         "util": "^0.12.5"
+    },
+    "overrides": {
+        "nth-check": "^2.1.1",
+        "postcss": "^8.4.49",
+        "webpack-dev-server": "^5.2.1"
     },
     "prettier": {
         "trailingComma": "es5",
